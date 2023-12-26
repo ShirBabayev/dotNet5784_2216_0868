@@ -37,5 +37,3 @@ ex: Stage0
     Shir, welcome to my first console application
     press any key to continue
     ***************************/
-
-}
