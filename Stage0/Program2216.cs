@@ -30,8 +30,9 @@ partial class Program
     static partial void welcome0868();
 }
 /**********OUTPUT**********
- Enter your name:
+Enter your name:
 Shir
 Shir, welcome to my first console application
+I am also here!
 press any key to continue
 ***************************/
