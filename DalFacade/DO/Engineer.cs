@@ -2,6 +2,7 @@
 using System.Reflection.Emit;
 using System.Xml.Linq;
 
+
 namespace DO;
 /// <summary>
 /// Engineer Entity represents an engineer with all its props
@@ -11,17 +12,24 @@ namespace DO;
 /// <param name="email"></param>
 /// <param name="level"></param>
 /// <param name="cost"></param>
-
+public enum DifficultyLevel
+{
+    Easy,
+    Medium,
+    Hard,
+    Expert,
+    Master
+}
 public record Engineer
 (
     int Id,
-    int level,
+    DifficultyLevel level,
     double cost,
     string? name = null,
     string? email = null
 )
 {
-    public Engineer(int id, string name, string email, int level, double cost) : this()
+    public Engineer(int id, string name, string email, DifficultyLevel level, double cost) : this()
     {
         this.Id = id;
         this.name = name;
