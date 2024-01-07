@@ -21,7 +21,7 @@ public record Engineer
     string? email = null
 )
 {
-    public Engineer(int id, string name, string email, int level, double cost) : this
+    public Engineer(int id, string name, string email, int level, double cost) : this()
     {
         this.Id = id;
         this.name = name;
