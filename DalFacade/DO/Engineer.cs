@@ -13,13 +13,8 @@ namespace DO;
 /// <param name="level"></param>
 /// <param name="cost"></param>
 public enum DifficultyLevel
-{
-    Easy,
-    Medium,
-    Hard,
-    Expert,
-    Master
-}
+{ Beginner, AdvancedBeginner, Intermediate, Advanced, Expert }
+
 public record Engineer
 (
     int Id,
@@ -29,14 +24,14 @@ public record Engineer
     string? email = null
 )
 {
-    public Engineer(int id, string name, string email, DifficultyLevel level, double cost) : this()
-    {
-        this.Id = id;
-        this.name = name;
-        this.email = email;
-        this.level = level;
-        this.cost = cost;
-    }
+    //public Engineer(int id, string name, string email, DifficultyLevel level, double cost) : this()
+    //{
+    //    this.Id = id;
+    //    this.name = name;
+    //    this.email = email;
+    //    this.level = level;
+    //    this.cost = cost;
+    //}
 
     public Engineer() : this(0,0,0) { } //empty ctor for stage 3
 
