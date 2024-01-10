@@ -6,22 +6,18 @@ using System.Security.Cryptography;
 
 static class Initialization
 {
-    private static IEngineer? s_dalEngineer; //stage 1
-    private static ITask? s_dalTask; //stage 1
-    private static IDependency? s_dalDependency; //stage 1
-    private static readonly Random s_rand = new/*Random*/();
-
-
+    private static IEngineer? s_dalEngineer;
+    private static ITask? s_dalTask;
+    private static IDependency? s_dalDependency;
+    private static readonly Random s_rand = new();
 
     static public void Do(IEngineer? s_dalEngineer, ITask? s_dalTask, IDependency? s_dalDependency)
     {
         createEngineer();
-        createTask();
-        createDependency();
-        //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
-        //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        createTask(s_dalEngineer!.ReadAll());
+        createDependency(s_dalTask!.ReadAll());
     }
+   
     private static void createEngineer()
     {
         string[] engineerNames =
@@ -36,9 +32,9 @@ static class Initialization
             int _id;
             do
                 _id = s_rand.Next(100000000, 399999999);
-            while (s_dalEngineer!.Read(_id) != null);
+            while (s_dalEngineer!.Read(_id) != null);//as long the Id exists in the list, meaning that the object already exists
 
-            DifficultyLevel _level = DifficultyLevel.Beginner + s_rand.Next(0, 4);
+            EngineerExperience _level = EngineerExperience.Beginner + s_rand.Next(0, 4);
             double _cost = 250 + s_rand.Next(0, 400);
             string? _email = (_id % 2) == 0 ? _name + "@gmail.com" : _name + "@walla.co.il";
 
@@ -49,39 +45,83 @@ static class Initialization
 
     }
 
-    private static void createTask()
+    private static void createTask(List<Engineer> Engineers)
     {
-        List<Engineer?> engineers = s_dalEngineer!.ReadAll();
         string[] taskNicknames =
         {
-        "distuction", "lakes", "big_baby",
-        "houses", "car4U", "zero232","programs"
+         "ProjectX", "DataMigration", "CodeRefactoring",
+    "ClientMeeting", "BugFixing", "FeatureImplementation",
+    "TestingAutomation", "DatabaseOptimization", "UIEnhancements",
+    "SecurityAudit", "DocumentationUpdate", "ServerMaintenance",
+    "UserTraining", "MobileAppIntegration", "CloudMigration",
+    "NetworkConfiguration", "PerformanceAnalysis", "CodeReview",
+    "SystemIntegration", "ReleaseManagement"
         };
         string[] taskDescriptions =
         {
-        "do that", "bring theme to the right place", "open a center",
-        "build 3 houses", "finish instruction", "throw everything","program the main advertizing program"
-        };
-        int i = 1;
+        "Implement new features for ProjectX",
+    "Migrate data to the new database",
+    "Refactor and optimize existing codebase",
+    "Conduct a meeting with the client to gather requirements",
+    "Fix reported bugs in the application",
+    "Implement a new feature requested by the client",
+    "Automate testing for improved efficiency",
+    "Optimize the database for better performance",
+    "Enhance the user interface of the application",
+    "Perform a security audit on the system",
+    "Update documentation for recent changes",
+    "Perform maintenance on the server infrastructure",
+    "Conduct training sessions for end-users",
+    "Integrate the mobile app with existing systems",
+    "Migrate the application to the cloud",
+    "Configure network settings for improved connectivity",
+    "Analyze and optimize system performance",
+    "Review code changes submitted by team members",
+    "Integrate multiple systems for seamless operation",
+    "Manage the release process for a new version"
 
+        };
+        string[] Remarks =
+            {
+            "Incomplete - Needs additional work",
+    "Requires expertise - Assign to a pro",
+    "Critical - Consider deleting existing code",
+    "No specific remark at the moment",
+    "Good enough for current requirements",
+    "Revert to the previous program version",
+    "Requires immediate attention - Terrible state",
+    "Underestimated complexity - Needs more resources",
+    "Unexpected issues - Investigate thoroughly",
+    "Ready for deployment - Verify one last time",
+    "Unexpected challenges - Seek assistance",
+    "High priority - Address as soon as possible",
+    "Revision needed - Check for logical errors",
+    "Satisfactory - No major issues observed",
+    "Pending review - Await feedback from team",
+    "Advanced skill required - Assign to senior developer",
+    "Potential for optimization - Evaluate for improvements",
+    "On hold - Wait for further instructions",
+    "User acceptance testing pending - Confirm with client",
+    "Stable - No immediate action required"
+        };
+
+        int i = 0;
         foreach (var _nickName in taskNicknames)
         {
-            int _id;
-
-            _id = s_rand.Next(10000, 99999);
-            bool _mileStone = (_id % 2) == 0 ? true : false;
             DateTime _dateOfCreation = new DateTime(1999, 9, 9);
             int range = (DateTime.Today - _dateOfCreation).Days;
+            string _remarks = Remarks[i];
             DateTime _PlanedDateOfstratJob = _dateOfCreation.AddDays(s_rand.Next(range) / 5);
             DateTime _dateOfstratJob = _PlanedDateOfstratJob.AddDays(s_rand.Next(10));
             DateTime _deadline = _PlanedDateOfstratJob.AddDays(s_rand.Next(10, 100));
             DateTime _dateOfFinishing = _deadline.AddDays(s_rand.Next(-10, 0));
             TimeSpan _durationOfTask = _deadline - _PlanedDateOfstratJob;
-            string _deliverables = null;
-            int _engineerId = engineers[s_rand.Next(engineers.Count)].Id;
-            DifficultyLevel _levelOfDifficulty = (DifficultyLevel)((int)(_durationOfTask.TotalDays) / 10);
-            Task newTask = new(_id, _nickName, taskDescriptions[i++], _mileStone, _deliverables, _levelOfDifficulty,
-            _engineerId, _dateOfCreation, _PlanedDateOfstratJob, _dateOfstratJob, _durationOfTask,
+            string _deliverables = " ";
+            int _engineerId = Engineers[s_rand.Next(Engineers.Count)].Id;
+            bool _mileStone = (_engineerId % 2) == 0 ? true : false;
+            EngineerExperience _levelOfDifficulty = (EngineerExperience)((int)(_durationOfTask.TotalDays) / 10);
+            Task newTask = new(Id: 0, _nickName, taskDescriptions[i++], _mileStone, _deliverables, _levelOfDifficulty,
+            _engineerId, _remarks, _dateOfCreation, _PlanedDateOfstratJob, _dateOfstratJob, _durationOfTask,
                 _deadline, _dateOfFinishing);
 
             s_dalTask!.Create(newTask);
@@ -89,41 +129,25 @@ static class Initialization
         }
 
     }
-    private static void createDependency()
+    private static void createDependency(List<Task> Tasks)
     {
-        int _id = 0;
-        for (int i = 0; i < 6; i++)
+        int? _dependentTaskId;
+        int? _depententOnTaskId;
+        s_dalDependency!.Create(new Dependency(Id: 0, Tasks[0].Id, Tasks[2].Id));
+        s_dalDependency!.Create(new Dependency(Id: 0, Tasks[1].Id, Tasks[2].Id));
+
+        int k = 40;
+        for (int i = 2; k > 0; i++)
         {
-
-            List<DO.Task?> tasks = s_dalTask!.ReadAll()!;
-            int _formerTaskId;
-            int _dependentTaskId;
-            for (int j = 0; j < 40; j++)
+            _dependentTaskId = Tasks[i].Id;
+            for (int j = i + 1; j < Math.Min(i + 4, Tasks.Count); j++)
             {
-                int index = s_rand.Next(5, 20);
-                _dependentTaskId = tasks[index]!.Id;
+                _depententOnTaskId = Tasks[j].Id;
+                k--;
+                Dependency newDependency = new(Id: 0, _dependentTaskId, _depententOnTaskId);
 
-                if (index < 11 && index > 5)
-                    _formerTaskId = tasks[s_rand.Next(0, 6)]!.Id;
-                else
-                {
-                    if (index > 10 && index < 15)
-                        _formerTaskId = tasks[s_rand.Next(6, 11)]!.Id;
-                    else
-                    {
-                        _formerTaskId = tasks[s_rand.Next(11, 16)]!.Id;
-                    }
-                }
-                s_dalDependency!.Create(new Dependency(_id, dependentTaskId: _dependentTaskId, formerTaskId: _formerTaskId));
+                s_dalDependency!.Create(newDependency);
             }
-
         }
     }
-   
-
 }
-
-    
-
-
-
