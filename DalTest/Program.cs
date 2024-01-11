@@ -19,9 +19,6 @@ internal class Program
     {
         Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
         main_menu();
-        EngineerMenu();
-
-
     }
     static void main_menu()
     {
