@@ -1,19 +1,19 @@
 ﻿namespace DO;
-
+/// <summary>
+/// Dependency Entity - represents a dependency with all its props
+/// </summary>
+/// </summary>
+/// <param name="Id"></param>
+/// <param name="DependentTaskId">< /param>
+/// <param name="DependentOnTaskId">< /param>
+/// 
 public record Dependency
 (
    int Id,///running identifier add something
-   int? dependentTaskId=null,
-    int? formerTaskId=null
+   int? DependentTaskId=null,
+    int? DependentOnTaskId=null
     )
 {
-    public Dependency(int id, int dependentTaskId, int formerTaskId) : this()
-    {
-        this.Id = id;
-        this.dependentTaskId = dependentTaskId;
-        this.formerTaskId = formerTaskId;
-    }
-
     public Dependency() : this(0) { } //empty ctor for stage 3
 
 }

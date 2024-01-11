@@ -7,7 +7,8 @@ public class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
-        DataSource.Dependencies.Add(item);
+        int newDependencyId = DataSource.Config.NextDependencyId;
+        DataSource.Dependencies.Add(item with { Id= newDependencyId });
         return item.Id;
     }
 
@@ -28,7 +29,7 @@ public class DependencyImplementation : IDependency
 
     public List<Dependency> ReadAll()
     {
-        return DataSource.Dependencies.ToList();
+        return new List<Dependency>(DataSource.Dependencies);
     }
 
     public void Update(Dependency item)
@@ -36,7 +37,7 @@ public class DependencyImplementation : IDependency
         Dependency itemToUpdate = DataSource.Dependencies.Find(lk => lk.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new Exception($"Dependency with ID={item.Id} does not exists");
+            throw new Exception($"Dependency with ID= {item.Id} does not exists");
         }
         DataSource.Dependencies.Remove(itemToUpdate);
         DataSource.Dependencies.Add(item);

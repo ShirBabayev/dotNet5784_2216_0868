@@ -33,7 +33,7 @@ public class EngineerImplementation : IEngineer
 
     public List<Engineer> ReadAll()
     {
-        return DataSource.Engineers.ToList();
+        return new List<Engineer>(DataSource.Engineers);
     }
 
     public void Update(Engineer item)
@@ -41,7 +41,7 @@ public class EngineerImplementation : IEngineer
         Engineer itemToUpdate = DataSource.Engineers.Find(lk => lk.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new Exception($"Engineer with ID={item.Id} does not exists");
+            throw new Exception($"Engineer with ID= {item.Id} does not exists");
         }
         DataSource.Engineers.Remove(itemToUpdate);
         DataSource.Engineers.Add(item);

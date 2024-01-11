@@ -7,7 +7,9 @@ public class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
-        DataSource.Tasks.Add(item);
+        int newId = DataSource.Config.NextTaskId;
+        Task newItem = item with { Id = newId };
+        DataSource.Tasks.Add(newItem);
         return item.Id;
     }
 
@@ -28,7 +30,7 @@ public class TaskImplementation : ITask
 
     public List<Task> ReadAll()
     {
-        return DataSource.Tasks.ToList();
+        return new List<Task>(DataSource.Tasks);
     }
 
     public void Update(Task item)
@@ -36,7 +38,7 @@ public class TaskImplementation : ITask
         Task itemToUpdate = DataSource.Tasks.Find(lk => lk.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new Exception($"Task with ID={item.Id} does not exists");
+            throw new Exception($"Task with ID= {item.Id} does not exists");
         }
         DataSource.Tasks.Remove(itemToUpdate);
         DataSource.Tasks.Add(item);
