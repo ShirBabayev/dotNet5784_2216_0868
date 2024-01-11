@@ -2,8 +2,9 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+//using System.Linq;
 
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
@@ -28,13 +29,23 @@ public class EngineerImplementation : IEngineer
 
     public Engineer? Read(int id)
     {
-        return DataSource.Engineers.Find(lk => lk.Id == id);
+        return DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);
+        //return DataSource.Engineers.Find(lk => lk.Id == id);
     }
 
-    public List<Engineer> ReadAll()
+    //public List<Engineer> ReadAll()
+    //{
+    //    return DataSource.Engineers/*.ToList()*/;
+    //    //return new List<Engineer>(DataSource.Engineers);
+    //}
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
     {
-        return new List<Engineer>(DataSource.Engineers);
+        if (filter == null)
+            return DataSource.Engineers.Select(item => item);
+        else
+            return DataSource.Engineers.Where(filter);
     }
+
 
     public void Update(Engineer item)
     {

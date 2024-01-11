@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class TaskImplementation : ITask
+internal class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
@@ -25,13 +25,23 @@ public class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        return DataSource.Tasks.Find(lk => lk.Id == id);
+        return DataSource.Tasks.FirstOrDefault(task => task.Id == id);
+        // return DataSource.Tasks.Find(lk => lk.Id == id);
     }
 
-    public List<Task> ReadAll()
+    //public List<Task> ReadAll()
+    //{
+    //    return DataSource.Tasks/*.ToList()*/;
+    //    //return new List<Task>(DataSource.Tasks);
+    //}
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
-        return new List<Task>(DataSource.Tasks);
+        if (filter == null)
+            return DataSource.Tasks.Select(item => item);
+        else
+            return DataSource.Tasks.Where(filter);
     }
+
 
     public void Update(Task item)
     {

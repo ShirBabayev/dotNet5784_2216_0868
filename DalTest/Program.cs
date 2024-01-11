@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+
   
 
 namespace DalTest;
@@ -12,12 +13,13 @@ public enum Entities { EXIT=0, ENGINEER, TASK, DEPENDENCY};
 public enum Actions { EXIT = 0, CREATE, READ, READ_ALL, UPDATE, DELETE };
 internal class Program
 {
-    private static IEngineer? s_dalEngineer = new EngineerImplementation(); //stage 1
-    private static ITask? s_dalTask = new TaskImplementation(); //stage 1
-    private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
+    //private static IEngineer? s_dalEngineer = new EngineerImplementation(); //stage 1
+    //private static ITask? s_dalTask = new TaskImplementation(); //stage 1
+    //private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
+     static readonly IDal s_dal = new Dal.DalList();
     static void Main(string[] args)
     {
-        Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
+        Initialization.Do(s_dal);
         main_menu();
     }
     static void main_menu()
@@ -57,7 +59,7 @@ internal class Program
                 try
                 {
                     Engineer newEngineer = createNewEngineer();
-                    Console.WriteLine(s_dalEngineer!.Create(newEngineer));
+                    Console.WriteLine(s_dal!.Engineer.Create(newEngineer));
                     Console.WriteLine("created successfully");
                 }
                 catch (Exception ex)
@@ -104,7 +106,7 @@ internal class Program
             case Actions.CREATE:
                 try { 
                 DO.Task newTask=createNewTask();
-                Console.WriteLine(s_dalTask!.Create(newTask));
+                Console.WriteLine(s_dal!.Task.Create(newTask));
                 Console.WriteLine("created successfully");
                 }
                 catch (Exception ex)
@@ -150,7 +152,7 @@ internal class Program
             case Actions.CREATE:
                 try { 
                 DO.Dependency newDependency = createNewDependency();
-                Console.WriteLine(s_dalDependency!.Create(newDependency));
+                Console.WriteLine(s_dal!.Dependency.Create(newDependency));
                 Console.WriteLine("created successfully");
                 }
                 catch (Exception ex)
@@ -280,38 +282,38 @@ internal class Program
     {
         Console.WriteLine("press id of engineer");
         int _idOfEngineer = int.Parse(Console.ReadLine());
-        Console.WriteLine(s_dalEngineer!.Read(_idOfEngineer));
+        Console.WriteLine(s_dal!.Engineer.Read(_idOfEngineer));
     }
     static void readTask()
     {
         Console.WriteLine("press id of task");
         int _idOfTask = int.Parse(Console.ReadLine());
-        Console.WriteLine(s_dalTask!.Read(_idOfTask));
+        Console.WriteLine(s_dal!.Task.Read(_idOfTask));
     }
     static void readDependency()
     {
         Console.WriteLine("press id of dependency");
         int _idOfDependency = int.Parse(Console.ReadLine());
-        Console.WriteLine(s_dalDependency!.Read(_idOfDependency));
+        Console.WriteLine(s_dal!.Dependency.Read(_idOfDependency));
     }
 
     static void readAllEngineer()
     {
-        List<DO.Engineer> engineers = s_dalEngineer!.ReadAll();
+        List<DO.Engineer> engineers = s_dal!.Engineer.ReadAll();
         foreach (DO.Engineer eng in engineers)
             Console.WriteLine(eng);
     }
 
     static void readAllTask()
     {
-        List<DO.Task> tasks = s_dalTask!.ReadAll();
+        List<DO.Task> tasks = s_dal!.Task.ReadAll();
         foreach (DO.Task tsk in tasks)
             Console.WriteLine(tsk);
     }
 
     static void readAllDependency()
     {
-        List<DO.Dependency> dependency = s_dalDependency!.ReadAll();
+        List<DO.Dependency> dependency = s_dal!.Dependency.ReadAll();
         foreach (DO.Dependency dep in dependency)
             Console.WriteLine(dep);
     }
@@ -321,21 +323,21 @@ internal class Program
     {
         readEngineer();//get input of identifier and print the objct
         Engineer newEngineer = createNewEngineer();
-        s_dalEngineer!.Update(newEngineer);
+        s_dal!.Engineer.Update(newEngineer);
         Console.WriteLine("updated successfully");
     }
     static void updateAllTask()
     {
         readTask();//get input of identifier and print the objct
         DO.Task newTask = createNewTask();
-        s_dalTask!.Update(newTask);
+        s_dal!.Task.Update(newTask);
         Console.WriteLine("updated successfully");
     }
     static void updateAllDependency()
     {
         readDependency();//get input of identifier and print the objct
         Dependency newDependency = createNewDependency();
-        s_dalDependency!.Update(newDependency);
+        s_dal!.Dependency.Update(newDependency);
         Console.WriteLine("updated successfully");
     }
 
@@ -343,21 +345,21 @@ internal class Program
     {
         Console.WriteLine("press the id of the engineer you want to delete");
         int _id = int.Parse(Console.ReadLine());
-        s_dalEngineer!.Delete(_id);
+        s_dal!.Engineer.Delete(_id);
         Console.WriteLine("deleted successfully");
     }
     static void deleteTask()
     {
         Console.WriteLine("press the id of the task you want to delete");
         int _id = int.Parse(Console.ReadLine());
-        s_dalTask!.Delete(_id);
+        s_dal!.Task.Delete(_id);
         Console.WriteLine("deleted successfully");
     }
     static void deleteDependency()
     {
         Console.WriteLine("press the id of the dependency you want to delete");
         int _id = int.Parse(Console.ReadLine());
-        s_dalDependency!.Delete(_id);
+        s_dal!.Dependency.Delete(_id);
         Console.WriteLine("deleted successfully");
     }
 }

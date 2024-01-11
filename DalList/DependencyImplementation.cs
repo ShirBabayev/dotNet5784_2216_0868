@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
@@ -24,12 +24,21 @@ public class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        return DataSource.Dependencies.Find(lk => lk.Id == id );
+        return DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
+        //return DataSource.Dependencies.Find(lk => lk.Id == id );
     }
 
-    public List<Dependency> ReadAll()
+    //public List<Dependency> ReadAll()
+    //{
+    //    return DataSource.Dependencies/*.ToList()*/;
+    //    //return new List<Dependency>(DataSource.Dependencies);
+    //}
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
-        return new List<Dependency>(DataSource.Dependencies);
+        if (filter == null)
+            return DataSource.Dependencies.Select(item => item);
+        else
+            return DataSource.Dependencies.Where(filter);
     }
 
     public void Update(Dependency item)
