@@ -7,16 +7,19 @@ using System.Xml.Linq;
 
 static class Initialization
 {
-    private static IEngineer? s_dalEngineer;
-    private static ITask? s_dalTask;
-    private static IDependency? s_dalDependency;
+    //private static IEngineer? s_dalEngineer;
+    //private static ITask? s_dalTask;
+    //private static IDependency? s_dalDependency;
+    private static IDal? s_dal;
     private static readonly Random s_rand = new();
 
-    static public void Do(IEngineer? s_dalEngineer, ITask? s_dalTask, IDependency? s_dalDependency)
+
+    static public void Do( IDal dal)
     {
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
         createEngineer();
-        createTask(s_dalEngineer!.ReadAll());
-        createDependency(s_dalTask!.ReadAll());
+        createTask(s_dal.Engineer!.ReadAll());
+        createDependency(s_dal.Task!.ReadAll());
     }
 
     private static void createEngineer()
@@ -33,7 +36,7 @@ static class Initialization
             int _id;
             do
                 _id = s_rand.Next(100000000, 399999999);
-            while (s_dalEngineer!.Read(_id) != null);//as long the Id exists in the list, meaning that the object already exists
+            while (s_dal!.Engineer.Read(_id) != null);//as long the Id exists in the list, meaning that the object already exists
 
             EngineerExperience _level = EngineerExperience.Beginner + s_rand.Next(0, 4);
             double _cost = 250 + s_rand.Next(0, 400);
@@ -41,7 +44,7 @@ static class Initialization
 
             Engineer newEngineer = new(Id: _id, Level: _level, Cost: _cost, Name: _name, Email: _email);
 
-            s_dalEngineer!.Create(newEngineer);
+            s_dal.Engineer.Create(newEngineer);
         }
 
     }
@@ -124,7 +127,7 @@ static class Initialization
             EngineerId: _engineerId, Remarks: _remarks, DateOfCreation: _dateOfCreation, PlanedDateOfstratJob: _PlanedDateOfstratJob, DateOfstratJob: _dateOfstratJob, DurationOfTask: _durationOfTask,
                 Deadline: _deadline, DateOfFinishing: _dateOfFinishing);
 
-            s_dalTask!.Create(newTask);
+            s_dal!.Task.Create(newTask);
 
         }
 
@@ -133,8 +136,8 @@ static class Initialization
     {
         int? _dependentTaskId;
         int? _depententOnTaskId;
-        s_dalDependency!.Create(new Dependency(Id: 0, Tasks[0].Id, Tasks[2].Id));
-        s_dalDependency!.Create(new Dependency(Id: 0, Tasks[1].Id, Tasks[2].Id));
+        s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[0].Id, Tasks[2].Id));
+        s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[1].Id, Tasks[2].Id));
 
         int k = 40;
         for (int i = 2; k > 0; i++)
@@ -146,7 +149,7 @@ static class Initialization
                 k--;
                 Dependency newDependency = new(Id: 0, DependentTaskId: _dependentTaskId, DependentOnTaskId: _depententOnTaskId);
 
-                s_dalDependency!.Create(newDependency);
+                s_dal!.Dependency!.Create(newDependency);
             }
         }
     }
