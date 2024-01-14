@@ -62,7 +62,7 @@ internal class Program
                     Console.WriteLine(s_dal!.Engineer.Create(newEngineer));
                     Console.WriteLine("created successfully");
                 }
-                catch (Exception ex)
+                catch (DalAlreadyExistsException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -77,7 +77,7 @@ internal class Program
                 try { 
                 updateAllEngineer();
                 }
-                catch (Exception ex)
+                catch (DalDoesNotExistException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -86,7 +86,7 @@ internal class Program
                 try { 
                 deleteEngineer();
                 }
-                catch (Exception ex)
+                catch (DalDoesNotExistException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -109,7 +109,7 @@ internal class Program
                 Console.WriteLine(s_dal!.Task.Create(newTask));
                 Console.WriteLine("created successfully");
                 }
-                catch (Exception ex)
+                catch (DalAlreadyExistsException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -124,7 +124,7 @@ internal class Program
                 try { 
                 updateAllTask();
                 }
-                catch (Exception ex)
+                catch (DalDoesNotExistException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -133,7 +133,7 @@ internal class Program
                 try { 
                 deleteTask();
                 }
-                catch (Exception ex)
+                catch (DalDoesNotExistException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -155,7 +155,7 @@ internal class Program
                 Console.WriteLine(s_dal!.Dependency.Create(newDependency));
                 Console.WriteLine("created successfully");
                 }
-                catch (Exception ex)
+                catch (DalAlreadyExistsException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -170,7 +170,7 @@ internal class Program
                 try { 
                 updateAllDependency();
                 }
-                catch (Exception ex)
+                catch (DalDoesNotExistException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -179,7 +179,7 @@ internal class Program
                 try { 
                 deleteDependency();
                 }
-                catch (Exception ex)
+                catch (DalDoesNotExistException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -299,21 +299,21 @@ internal class Program
 
     static void readAllEngineer()
     {
-        List<DO.Engineer> engineers = s_dal!.Engineer.ReadAll();
+        IEnumerable<DO.Engineer> engineers = s_dal!.Engineer.ReadAll();
         foreach (DO.Engineer eng in engineers)
             Console.WriteLine(eng);
     }
 
     static void readAllTask()
     {
-        List<DO.Task> tasks = s_dal!.Task.ReadAll();
+        IEnumerable<DO.Task> tasks = s_dal!.Task.ReadAll();
         foreach (DO.Task tsk in tasks)
             Console.WriteLine(tsk);
     }
 
     static void readAllDependency()
     {
-        List<DO.Dependency> dependency = s_dal!.Dependency.ReadAll();
+        IEnumerable<DO.Dependency> dependency = s_dal!.Dependency.ReadAll();
         foreach (DO.Dependency dep in dependency)
             Console.WriteLine(dep);
     }

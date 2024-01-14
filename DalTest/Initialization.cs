@@ -3,6 +3,7 @@ using DalApi;
 using DO;
 using System.Data.Common;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 static class Initialization
@@ -49,7 +50,7 @@ static class Initialization
 
     }
 
-    private static void createTask(List<Engineer> Engineers)
+    private static void createTask(IEnumerable<Engineer?> Engineers)
     {
         string[] taskNicknames =
         {
@@ -109,6 +110,7 @@ static class Initialization
     "Stable - No immediate action required"
         };
         int i = 0;
+        List<Engineer?> engineerList = Engineers.ToList();
         foreach (var _nickName in taskNicknames)
         {
             DateTime _dateOfCreation = new DateTime(1999, 9, 9);
@@ -120,10 +122,10 @@ static class Initialization
             DateTime _dateOfFinishing = _deadline.AddDays(s_rand.Next(-10, 0));
             TimeSpan _durationOfTask = _deadline - _PlanedDateOfstratJob;
             string _deliverables = " ";
-            int _engineerId = Engineers[s_rand.Next(Engineers.Count)].Id;
+            int _engineerId = engineerList[s_rand.Next(engineerList.Count)].Id;
             bool _mileStone = (_engineerId % 2) == 0 ? true : false;
             EngineerExperience _levelOfDifficulty = (EngineerExperience)((int)(_durationOfTask.TotalDays) / 10);
-            Task newTask = new(Id: 0, NickName: _nickName, Description: taskDescriptions[i++], MileStone: _mileStone, Deliverables: _deliverables, LevelOfDifficulty: _levelOfDifficulty,
+            DO.Task newTask = new(Id: 0, NickName: _nickName, Description: taskDescriptions[i++], MileStone: _mileStone, Deliverables: _deliverables, LevelOfDifficulty: _levelOfDifficulty,
             EngineerId: _engineerId, Remarks: _remarks, DateOfCreation: _dateOfCreation, PlanedDateOfstratJob: _PlanedDateOfstratJob, DateOfstratJob: _dateOfstratJob, DurationOfTask: _durationOfTask,
                 Deadline: _deadline, DateOfFinishing: _dateOfFinishing);
 
@@ -132,20 +134,22 @@ static class Initialization
         }
 
     }
-    private static void createDependency(List<Task> Tasks)
+    private static void createDependency(IEnumerable<DO.Task?> Tasks)
     {
         int? _dependentTaskId;
         int? _depententOnTaskId;
-        s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[0].Id, Tasks[2].Id));
-        s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[1].Id, Tasks[2].Id));
+        s_dal!.Dependency.Create(new Dependency(Id: 0, DependentTaskId: Tasks.ElementAt(0)?.Id ?? 0, DependentOnTaskId: Tasks.ElementAt(2)?.Id ?? 0));
+        s_dal!.Dependency.Create(new Dependency(Id: 0, DependentTaskId: Tasks.ElementAt(1)?.Id ?? 0, DependentOnTaskId: Tasks.ElementAt(2)?.Id ?? 0));
+        //s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[0] Tasks[2].Id));
+        //s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[1].Id, Tasks[2].Id));
 
         int k = 40;
         for (int i = 2; k > 0; i++)
         {
-            _dependentTaskId = Tasks[i].Id;
-            for (int j = i + 1; j < Math.Min(i + 4, Tasks.Count); j++)
+            _dependentTaskId = Tasks.ElementAt(i)?.Id;
+            for (int j = i + 1; j < Math.Min(i + 4, Tasks.Count()); j++)
             {
-                _depententOnTaskId = Tasks[j].Id;
+                _depententOnTaskId = Tasks.ElementAt(j)?.Id;
                 k--;
                 Dependency newDependency = new(Id: 0, DependentTaskId: _dependentTaskId, DependentOnTaskId: _depententOnTaskId);
 

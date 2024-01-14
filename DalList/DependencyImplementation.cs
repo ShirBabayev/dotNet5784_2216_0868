@@ -17,7 +17,7 @@ internal class DependencyImplementation : IDependency
         Dependency item=DataSource.Dependencies.Find(lk => lk.Id == id);
         if (item == null)
         {
-            throw new Exception($"Dependency with ID={id} does not exists");
+            throw new DalDoesNotExistException($"Dependency with ID={id} does not exists");
         }
         DataSource.Dependencies.Remove(item);
     }
@@ -28,11 +28,10 @@ internal class DependencyImplementation : IDependency
         //return DataSource.Dependencies.Find(lk => lk.Id == id );
     }
 
-    //public List<Dependency> ReadAll()
-    //{
-    //    return DataSource.Dependencies/*.ToList()*/;
-    //    //return new List<Dependency>(DataSource.Dependencies);
-    //}
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+        return DataSource.Dependencies.FirstOrDefault(filter);
+    }
     public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
         if (filter == null)
@@ -46,7 +45,7 @@ internal class DependencyImplementation : IDependency
         Dependency itemToUpdate = DataSource.Dependencies.Find(lk => lk.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new Exception($"Dependency with ID= {item.Id} does not exists");
+            throw new DalDoesNotExistException($"Dependency with ID= {item.Id} does not exists");
         }
         DataSource.Dependencies.Remove(itemToUpdate);
         DataSource.Dependencies.Add(item);

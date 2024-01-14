@@ -18,7 +18,7 @@ internal class TaskImplementation : ITask
         Task item = DataSource.Tasks.Find(lk => lk.Id == id);
         if (item == null)
         {
-            throw new Exception($"Task with ID={id} does not exists");
+            throw new DalDoesNotExistException($"Task with ID={id} does not exists");
         }
         DataSource.Tasks.Remove(item);
     }
@@ -34,6 +34,11 @@ internal class TaskImplementation : ITask
     //    return DataSource.Tasks/*.ToList()*/;
     //    //return new List<Task>(DataSource.Tasks);
     //}
+
+    public Task? Read(Func<Task, bool> filter)
+    {
+            return DataSource.Tasks.FirstOrDefault(filter);
+    }
     public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
         if (filter == null)
@@ -48,7 +53,7 @@ internal class TaskImplementation : ITask
         Task itemToUpdate = DataSource.Tasks.Find(lk => lk.Id == item.Id);
         if (itemToUpdate == null)
         {
-            throw new Exception($"Task with ID= {item.Id} does not exists");
+            throw new DalDoesNotExistException($"Task with ID= {item.Id} does not exists");
         }
         DataSource.Tasks.Remove(itemToUpdate);
         DataSource.Tasks.Add(item);
