@@ -6,17 +6,13 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-  
+
 
 namespace DalTest;
-public enum Entities { EXIT=0, ENGINEER, TASK, DEPENDENCY};
-public enum Actions { EXIT = 0, CREATE, READ, READ_ALL, UPDATE, DELETE };
+
 internal class Program
 {
-    //private static IEngineer? s_dalEngineer = new EngineerImplementation(); //stage 1
-    //private static ITask? s_dalTask = new TaskImplementation(); //stage 1
-    //private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
-     static readonly IDal s_dal = new Dal.DalList();
+    static readonly IDal s_dal = new Dal.DalList();
     static void Main(string[] args)
     {
         Initialization.Do(s_dal);
@@ -29,10 +25,10 @@ internal class Program
         Console.WriteLine("for Engineer press 1");
         Console.WriteLine("for Task press 2");
         Console.WriteLine("for Dependency press 3");
-        Entities choice = (Entities)int.Parse(Console.ReadLine());
+        Entities choice = (Entities)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case Entities.EXIT : 
+            case Entities.EXIT:
                 break;
             case Entities.ENGINEER:
                 EngineerMenu();
@@ -44,14 +40,14 @@ internal class Program
                 DependencyMenu();
                 break;
             default:
-             return;
+                return;
         }
     }
 
     static void EngineerMenu()
     {
         printEngineerMenue();
-        Actions choice = (Actions)int.Parse(Console.ReadLine());
+        Actions choice = (Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
             case Actions.EXIT: break;
@@ -66,7 +62,7 @@ internal class Program
                 {
                     Console.WriteLine(ex.Message);
                 }
-                    break;
+                break;
             case Actions.READ:
                 readEngineer();
                 break;
@@ -74,8 +70,9 @@ internal class Program
                 readAllEngineer();
                 break;
             case Actions.UPDATE:
-                try { 
-                updateAllEngineer();
+                try
+                {
+                    updateAllEngineer();
                 }
                 catch (DalDoesNotExistException ex)
                 {
@@ -83,8 +80,9 @@ internal class Program
                 }
                 break;
             case Actions.DELETE:
-                try { 
-                deleteEngineer();
+                try
+                {
+                    deleteEngineer();
                 }
                 catch (DalDoesNotExistException ex)
                 {
@@ -99,20 +97,14 @@ internal class Program
     static void TaskMenu()
     {
         printTaskMenue();
-        Actions choice = (Actions)int.Parse(Console.ReadLine());
+        Actions choice = (Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
             case Actions.EXIT: break;
             case Actions.CREATE:
-                try { 
-                DO.Task newTask=createNewTask();
-                Console.WriteLine(s_dal!.Task.Create(newTask));
-                Console.WriteLine("created successfully");
-                }
-                catch (DalAlreadyExistsException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                    DO.Task newTask = createNewTask();
+                    Console.WriteLine(s_dal!.Task.Create(newTask));
+                    Console.WriteLine("created successfully");
                 break;
             case Actions.READ:
                 readTask();
@@ -121,8 +113,9 @@ internal class Program
                 readAllTask();
                 break;
             case Actions.UPDATE:
-                try { 
-                updateAllTask();
+                try
+                {
+                    updateAllTask();
                 }
                 catch (DalDoesNotExistException ex)
                 {
@@ -130,8 +123,9 @@ internal class Program
                 }
                 break;
             case Actions.DELETE:
-                try { 
-                deleteTask();
+                try
+                {
+                    deleteTask();
                 }
                 catch (DalDoesNotExistException ex)
                 {
@@ -145,20 +139,14 @@ internal class Program
     static void DependencyMenu()
     {
         printDependencyMenue();
-        Actions choice = (Actions)int.Parse(Console.ReadLine());
+        Actions choice = (Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
             case Actions.EXIT: break;
             case Actions.CREATE:
-                try { 
-                DO.Dependency newDependency = createNewDependency();
-                Console.WriteLine(s_dal!.Dependency.Create(newDependency));
-                Console.WriteLine("created successfully");
-                }
-                catch (DalAlreadyExistsException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                    DO.Dependency newDependency = createNewDependency();
+                    Console.WriteLine(s_dal!.Dependency.Create(newDependency));
+                    Console.WriteLine("created successfully");
                 break;
             case Actions.READ:
                 readDependency();
@@ -167,8 +155,9 @@ internal class Program
                 readAllDependency();
                 break;
             case Actions.UPDATE:
-                try { 
-                updateAllDependency();
+                try
+                {
+                    updateAllDependency();
                 }
                 catch (DalDoesNotExistException ex)
                 {
@@ -176,8 +165,9 @@ internal class Program
                 }
                 break;
             case Actions.DELETE:
-                try { 
-                deleteDependency();
+                try
+                {
+                    deleteDependency();
                 }
                 catch (DalDoesNotExistException ex)
                 {
@@ -223,77 +213,81 @@ internal class Program
     static Engineer createNewEngineer()
     {
         Console.WriteLine("press Id of engineer");
-        int _id = int.Parse(Console.ReadLine());
+        int _id = int.Parse(Console.ReadLine()!);
         Console.WriteLine("press level experience of engineer");
-        int _level = int.Parse(Console.ReadLine());
+        int _level = int.Parse(Console.ReadLine()!);
         Console.WriteLine("press cost of engineer per an hour");
-        double _cost = double.Parse(Console.ReadLine());
+        double _cost = double.Parse(Console.ReadLine()!);
         Console.WriteLine("press name of engineer");
         string? _name = Console.ReadLine();
         Console.WriteLine("press email of engineer");
         string? _email = Console.ReadLine();
-        DO.Engineer newEngineer = new(Id: _id, (EngineerExperience)_level, _cost, _name, _email);
+        DO.Engineer newEngineer = 
+            new(Id: _id,
+            Level:(EngineerExperience)_level,
+            Cost:_cost,
+            Name:_name,
+            Email:_email
+            );
         return newEngineer;
     }
     static DO.Task createNewTask()
     {
         Console.WriteLine("press nickName of task");
-        string _nickName = Console.ReadLine();
+        string _nickName = Console.ReadLine()!;
         Console.WriteLine("press description of task");
-        string _description = Console.ReadLine();
-        Console.WriteLine("press if there is a mileStone of task(0=false,1=true)");
-        bool _mileStone = bool.Parse(Console.ReadLine());
+        string _description = Console.ReadLine()!;
         Console.WriteLine("press deliverables of task");
-        string _deliverables = Console.ReadLine();
+        string _deliverables = Console.ReadLine()!;
         Console.WriteLine("press the level of difficulty of the task");
-        int _levelOfDifficulty = int.Parse(Console.ReadLine());
-        Console.WriteLine("press the id of an engineer for the task");
-        int _engineerId = int.Parse(Console.ReadLine());
+        int _levelOfDifficulty = int.Parse(Console.ReadLine()!);
         Console.WriteLine("press remarks of task");
-        string _remarks = Console.ReadLine();
-        Console.WriteLine("press the date of creatiing the task");
-        DateTime? _dateOfCreation = DateTime.Parse(Console.ReadLine());
-        Console.WriteLine("press the planed date of strat job");
-        DateTime? _planedDateOfstratJob = DateTime.Parse(Console.ReadLine());
-        Console.WriteLine("press the date of strat job");
-        DateTime? _dateOfstratJob = DateTime.Parse(Console.ReadLine());
-        Console.WriteLine("press the duration of task");
-        TimeSpan? _durationOfTask = TimeSpan.Parse(Console.ReadLine());
-        Console.WriteLine("press the deadline of the task");
-        DateTime? _deadline = DateTime.Parse(Console.ReadLine());
-        Console.WriteLine("press the date of finishing the task");
-        DateTime? _dateOfFinishing = DateTime.Parse(Console.ReadLine());
-        DO.Task newTask = new(Id: 0, NickName: _nickName, Description: _description, MileStone: _mileStone, Deliverables: _deliverables, LevelOfDifficulty: (EngineerExperience)_levelOfDifficulty,
-            EngineerId: _engineerId, Remarks: _remarks, DateOfCreation: _dateOfCreation, PlanedDateOfstratJob: _planedDateOfstratJob, DateOfstratJob: _dateOfstratJob,
-            DurationOfTask: _durationOfTask, Deadline: _deadline, DateOfFinishing: _dateOfFinishing);
+        string _remarks = Console.ReadLine()!;
+        TimeSpan _durationOfTask = TimeSpan.Parse(Console.ReadLine()!);
+        Console.WriteLine("press the date of creating the task");
+        DateTime? _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
+        DO.Task newTask = new(
+                                Id: 0,
+                                NickName: _nickName,
+                                Description: _description,
+                                Deliverables: _deliverables,
+                                LevelOfDifficulty: (EngineerExperience)_levelOfDifficulty,
+                                Remarks: _remarks,
+                                DurationOfTask: _durationOfTask,
+                                DateOfCreation: _dateOfCreation
+                             );
         return newTask;
     }
     static DO.Dependency createNewDependency()
     {
         Console.WriteLine("press Dependent task id of dependency");
-        int? _dependentTaskId = int.Parse(Console.ReadLine());
+        int? _dependentTaskId = int.Parse(Console.ReadLine()!);
         Console.WriteLine("press dependent on taskId");
-        int? _dependentOnTaskId = int.Parse(Console.ReadLine());
-        DO.Dependency newDependency = new(Id: 0, DependentTaskId: _dependentTaskId, DependentOnTaskId: _dependentOnTaskId);
+        int? _dependentOnTaskId = int.Parse(Console.ReadLine()!);
+        DO.Dependency newDependency = 
+            new(Id: 0,
+                DependentTaskId: _dependentTaskId,
+                DependentOnTaskId: _dependentOnTaskId
+                );
         return newDependency;
     }
 
     static void readEngineer()
     {
         Console.WriteLine("press id of engineer");
-        int _idOfEngineer = int.Parse(Console.ReadLine());
+        int _idOfEngineer = int.Parse(Console.ReadLine()!);
         Console.WriteLine(s_dal!.Engineer.Read(_idOfEngineer));
     }
     static void readTask()
     {
         Console.WriteLine("press id of task");
-        int _idOfTask = int.Parse(Console.ReadLine());
+        int _idOfTask = int.Parse(Console.ReadLine()!);
         Console.WriteLine(s_dal!.Task.Read(_idOfTask));
     }
     static void readDependency()
     {
         Console.WriteLine("press id of dependency");
-        int _idOfDependency = int.Parse(Console.ReadLine());
+        int _idOfDependency = int.Parse(Console.ReadLine()!);
         Console.WriteLine(s_dal!.Dependency.Read(_idOfDependency));
     }
 
@@ -344,21 +338,21 @@ internal class Program
     static void deleteEngineer()
     {
         Console.WriteLine("press the id of the engineer you want to delete");
-        int _id = int.Parse(Console.ReadLine());
+        int _id = int.Parse(Console.ReadLine()!);
         s_dal!.Engineer.Delete(_id);
         Console.WriteLine("deleted successfully");
     }
     static void deleteTask()
     {
         Console.WriteLine("press the id of the task you want to delete");
-        int _id = int.Parse(Console.ReadLine());
+        int _id = int.Parse(Console.ReadLine()!);
         s_dal!.Task.Delete(_id);
         Console.WriteLine("deleted successfully");
     }
     static void deleteDependency()
     {
         Console.WriteLine("press the id of the dependency you want to delete");
-        int _id = int.Parse(Console.ReadLine());
+        int _id = int.Parse(Console.ReadLine()!);
         s_dal!.Dependency.Delete(_id);
         Console.WriteLine("deleted successfully");
     }
