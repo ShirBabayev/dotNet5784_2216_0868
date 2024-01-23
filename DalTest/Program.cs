@@ -12,14 +12,19 @@ namespace DalTest;
 
 internal class Program
 {
-    static readonly IDal s_dal = new Dal.DalList();
+    static readonly IDal s_dal = new DalXml();
+    //static readonly IDal s_dal = new Dal.DalList();
     static void Main(string[] args)
     {
-        Initialization.Do(s_dal);
+        //Initialization.Do(s_dal);//stage2
         main_menu();
     }
     static void main_menu()
     {
+        Console.Write("Would you like to create Initial data? (Y/N)"); 
+        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
+        if (ans == "Y")
+            Initialization.Do(s_dal); 
         Console.WriteLine("choose an entity that you want to check:");
         Console.WriteLine("to EXIT press 0");
         Console.WriteLine("for Engineer press 1");

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+</config>
+
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <startTaskId>1000</startTaskId>
+  <startDependencyId>1000</startDependencyId>
+</config>
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <nextTaskId>1000</nextTaskId>
+  <nextDependencyId>1000</nextDependencyId>
+</config>

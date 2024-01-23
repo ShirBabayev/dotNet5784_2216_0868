@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DalApi;
 
@@ -25,4 +26,7 @@ public interface ICrud<T> where T : class
     void Update(T item); //Updates object
     void Delete(int id); //Deletes an object by its Id
 
+
+
+  
 }

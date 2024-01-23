@@ -1,4 +1,9 @@
-﻿namespace DO;
+﻿using DalApi;
+using System;
+using System.Xml;
+using System.Xml.Linq;
+
+namespace DO;
 /// <summary>
 /// Dependency Entity - represents a dependency with all its props
 /// </summary>
@@ -10,10 +15,9 @@
 public record Dependency
 (
    int Id,///running identifier add something
-   int? DependentTaskId=null,
-    int? DependentOnTaskId=null
+   int? DependentTaskId = null,
+    int? DependentOnTaskId = null
     )
 {
     public Dependency() : this(0) { } //empty ctor for stage 3
-
 }

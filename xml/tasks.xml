@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTask>
+  <Task>
+    <Id>344165165</Id>
+    <NickName>Dani Levi</NickName>
+    <Description>Task description for Dani Levi</Description>
+    <Deliverables>Deliverables for Dani Levi's task</Deliverables>
+    <LevelOfDifficulty>2</LevelOfDifficulty>
+    <Remarks>Optional remarks for Dani Levi's task</Remarks>
+    <DateOfCreation>2024-01-16T00:00:00</DateOfCreation>
+    <DurationOfTask>5</DurationOfTask>
+  </Task>
+  <Task>
+    <Id>239894668</Id>
+    <NickName>Eli Amar</NickName>
+    <Description>Task description for Eli Amar</Description>
+    <Deliverables>Deliverables for Eli Amar's task</Deliverables>
+    <LevelOfDifficulty>3</LevelOfDifficulty>
+    <Remarks>Optional remarks for Eli Amar's task</Remarks>
+    <DateOfCreation>2024-01-16T00:00:00</DateOfCreation>
+    <DurationOfTask>7</DurationOfTask>
+  </Task>
+  <Task>
+    <Id>384822544</Id>
+    <NickName>Yair Cohen</NickName>
+    <Description>Task description for Yair Cohen</Description>
+    <Deliverables>Deliverables for Yair Cohen's task</Deliverables>
+    <LevelOfDifficulty>1</LevelOfDifficulty>
+    <Remarks>Optional remarks for Yair Cohen's task</Remarks>
+    <DateOfCreation>2024-01-16T00:00:00</DateOfCreation>
+    <DurationOfTask>3</DurationOfTask>
+  </Task>
+  <Task>
+    <Id>200315134</Id>
+    <NickName>Ariela Levin</NickName>
+    <Description>Task description for Ariela Levin</Description>
+    <Deliverables>Deliverables for Ariela Levin's task</Deliverables>
+    <LevelOfDifficulty>2</LevelOfDifficulty>
+    <Remarks>Optional remarks for Ariela Levin's task</Remarks>
+    <DateOfCreation>2024-01-16T00:00:00</DateOfCreation>
+    <DurationOfTask>4</DurationOfTask>
+  </Task>
+  <Task>
+    <Id>347600644</Id>
+    <NickName>Dina Klein</NickName>
+    <Description>Task description for Dina Klein</Description>
+    <Deliverables>Deliverables for Dina Klein's task</Deliverables>
+    <LevelOfDifficulty>3</LevelOfDifficulty>
+    <Remarks>Optional remarks for Dina Klein's task</Remarks>
+    <DateOfCreation>2024-01-16T00:00:00</DateOfCreation>
+    <DurationOfTask>6</DurationOfTask>
+  </Task>
+  <Task>
+    <Id>311282916</Id>
+    <NickName>Shira Israelof</NickName>
+    <Description>Task description for Shira Israelof</Description>
+    <Deliverables>Deliverables for Shira Israelof's task</Deliverables>
+    <LevelOfDifficulty>1</LevelOfDifficulty>
+    <Remarks>Optional remarks for Shira Israelof's task</Remarks>
+    <DateOfCreation>2024-01-16T00:00:00</DateOfCreation>
+    <DurationOfTask>8</DurationOfTask>
+  </Task>
+</ArrayOfTask>
