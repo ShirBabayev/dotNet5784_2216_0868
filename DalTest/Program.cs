@@ -21,7 +21,7 @@ internal class Program
     }
     static void main_menu()
     {
-        Console.Write("Would you like to create Initial data? (Y/N)"); 
+        Console.WriteLine("Would you like to create Initial data? (Y/N)"); 
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
         if (ans == "Y")
             Initialization.Do(s_dal); 

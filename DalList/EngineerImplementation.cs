@@ -8,8 +8,8 @@ internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
-        Engineer itemForChecking = DataSource.Engineers.Find(lk => lk.Id == item.Id)
-           ?? throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
+        Engineer itemForChecking = DataSource.Engineers.Find(lk => lk.Id == item.Id)!;
+        if (itemForChecking != null) throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }

@@ -1,46 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ArrayOfEngineer>
+<ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Engineer>
     <Id>344165165</Id>
+    <Level>Intermediate</Level>
+    <Cost>50</Cost>
     <Name>Dani Levi</Name>
     <Email>dani.levi@example.com</Email>
-    <Level>Intermediate</Level>
-    <Cost>50.00</Cost>
   </Engineer>
   <Engineer>
     <Id>239894668</Id>
+    <Level>Advanced</Level>
+    <Cost>75</Cost>
     <Name>Eli Amar</Name>
     <Email>eli.amar@example.com</Email>
-    <Level>Advanced</Level>
-    <Cost>75.00</Cost>
   </Engineer>
   <Engineer>
     <Id>384822544</Id>
+    <Level>Expert</Level>
+    <Cost>100</Cost>
     <Name>Yair Cohen</Name>
     <Email>yair.cohen@example.com</Email>
-    <Level>Expert</Level>
-    <Cost>100.00</Cost>
   </Engineer>
   <Engineer>
     <Id>200315134</Id>
+    <Level>Intermediate</Level>
+    <Cost>60</Cost>
     <Name>Ariela Levin</Name>
     <Email>ariela.levin@example.com</Email>
-    <Level>Intermediate</Level>
-    <Cost>60.00</Cost>
   </Engineer>
   <Engineer>
     <Id>347600644</Id>
+    <Level>Advanced</Level>
+    <Cost>80</Cost>
     <Name>Dina Klein</Name>
     <Email>dina.klein@example.com</Email>
-    <Level>Advanced</Level>
-    <Cost>80.00</Cost>
   </Engineer>
   <Engineer>
     <Id>311282916</Id>
+    <Level>Expert</Level>
+    <Cost>120</Cost>
     <Name>Shira Israelof</Name>
     <Email>shira.israelof@example.com</Email>
-    <Level>Expert</Level>
-    <Cost>120.00</Cost>
+  </Engineer>
+  <Engineer>
+    <Id>237145821</Id>
+    <Level>Advanced</Level>
+    <Cost>399</Cost>
+    <Name>Dani_Levi</Name>
+    <Email>Dani_Levi@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>208015618</Id>
+    <Level>Beginner</Level>
+    <Cost>543</Cost>
+    <Name>Eli_Amar</Name>
+    <Email>Eli_Amar@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>290779227</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>517</Cost>
+    <Name>Yair_Cohen</Name>
+    <Email>Yair_Cohen@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>203268110</Id>
+    <Level>Advanced</Level>
+    <Cost>567</Cost>
+    <Name>Ariela_Levin</Name>
+    <Email>Ariela_Levin@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>271225016</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>334</Cost>
+    <Name>Dina_Klein</Name>
+    <Email>Dina_Klein@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>237513838</Id>
+    <Level>Beginner</Level>
+    <Cost>299</Cost>
+    <Name>Shira_Israelof</Name>
+    <Email>Shira_Israelof@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>231543535</Id>
+    <Level>Advanced</Level>
+    <Cost>396</Cost>
+    <Name>Dani_Levi</Name>
+    <Email>Dani_Levi@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>117300585</Id>
+    <Level>Advanced</Level>
+    <Cost>408</Cost>
+    <Name>Eli_Amar</Name>
+    <Email>Eli_Amar@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>220871085</Id>
+    <Level>Beginner</Level>
+    <Cost>344</Cost>
+    <Name>Yair_Cohen</Name>
+    <Email>Yair_Cohen@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>335031733</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>559</Cost>
+    <Name>Ariela_Levin</Name>
+    <Email>Ariela_Levin@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>243214986</Id>
+    <Level>Beginner</Level>
+    <Cost>529</Cost>
+    <Name>Dina_Klein</Name>
+    <Email>Dina_Klein@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>389857527</Id>
+    <Level>AdvancedBeginner</Level>
+    <Cost>343</Cost>
+    <Name>Shira_Israelof</Name>
+    <Email>Shira_Israelof@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>125149289</Id>
+    <Level>Beginner</Level>
+    <Cost>253</Cost>
+    <Name>Dani_Levi</Name>
+    <Email>Dani_Levi@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>209328175</Id>
+    <Level>Beginner</Level>
+    <Cost>419</Cost>
+    <Name>Eli_Amar</Name>
+    <Email>Eli_Amar@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>322178464</Id>
+    <Level>Intermediate</Level>
+    <Cost>329</Cost>
+    <Name>Yair_Cohen</Name>
+    <Email>Yair_Cohen@gmail.com</Email>
+  </Engineer>
+  <Engineer>
+    <Id>215764029</Id>
+    <Level>Advanced</Level>
+    <Cost>637</Cost>
+    <Name>Ariela_Levin</Name>
+    <Email>Ariela_Levin@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>146485895</Id>
+    <Level>Advanced</Level>
+    <Cost>505</Cost>
+    <Name>Dina_Klein</Name>
+    <Email>Dina_Klein@walla.co.il</Email>
+  </Engineer>
+  <Engineer>
+    <Id>352304025</Id>
+    <Level>Advanced</Level>
+    <Cost>459</Cost>
+    <Name>Shira_Israelof</Name>
+    <Email>Shira_Israelof@walla.co.il</Email>
   </Engineer>
 </ArrayOfEngineer>

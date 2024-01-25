@@ -12,12 +12,11 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
-        Engineer itemForChecking = engineers.Find(lk => lk.Id == item.Id)
-          ?? throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
+        Engineer itemForChecking = engineers.Find(lk => lk.Id == item.Id)!;
+        if(itemForChecking!=null) throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         engineers.Add(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
         return item.Id;
-        throw new NotImplementedException();
     }
 
     public void Delete(int id)
@@ -27,21 +26,18 @@ internal class EngineerImplementation : IEngineer
             ?? throw new DalDoesNotExistException($"Engineer with ID={id} does not exists");
         engineers.Remove(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
-        throw new NotImplementedException();
     }
 
     public Engineer? Read(int id)
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
         return engineers.FirstOrDefault(engineer => engineer.Id == id);
-        throw new NotImplementedException();
     }
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
         return engineers.FirstOrDefault(filter);
-        throw new NotImplementedException();
     }
 
     public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null)
@@ -60,6 +56,5 @@ internal class EngineerImplementation : IEngineer
         engineers.Remove(itemToUpdate);
         engineers.Add(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
-        throw new NotImplementedException();
     }
 }
