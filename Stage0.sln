@@ -20,12 +20,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{14DB648C-9465-4C1D-8953-20966E381743}"
 	ProjectSection(SolutionItems) = preProject
-		xml\dal-config.xml = xml\dal-config.xml
 		xml\data-config.xml = xml\data-config.xml
 		xml\dependencies.xml = xml\dependencies.xml
 		xml\engineers.xml = xml\engineers.xml
 		xml\tasks.xml = xml\tasks.xml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{45E964C3-B0B4-4701-BBA3-2B25151D8A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{B6E9E67B-689F-4BAF-A7E3-9A2209331BCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +56,14 @@ Global
 		{8938F21D-363F-460D-BDDE-ED4F4FBB3311}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8938F21D-363F-460D-BDDE-ED4F4FBB3311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8938F21D-363F-460D-BDDE-ED4F4FBB3311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45E964C3-B0B4-4701-BBA3-2B25151D8A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45E964C3-B0B4-4701-BBA3-2B25151D8A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45E964C3-B0B4-4701-BBA3-2B25151D8A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45E964C3-B0B4-4701-BBA3-2B25151D8A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E9E67B-689F-4BAF-A7E3-9A2209331BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E9E67B-689F-4BAF-A7E3-9A2209331BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E9E67B-689F-4BAF-A7E3-9A2209331BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E9E67B-689F-4BAF-A7E3-9A2209331BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

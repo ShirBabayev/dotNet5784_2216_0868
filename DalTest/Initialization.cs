@@ -120,7 +120,7 @@ static class Initialization
             string _remarks = Remarks[i];
             //DateTime _PlanedDateOfstratJob = _dateOfCreation.AddDays(s_rand.Next(range) / 5);
             //DateTime _dateOfstratJob = _PlanedDateOfstratJob.AddDays(s_rand.Next(10));
-            //DateTime _deadline = _PlanedDateOfstratJob.AddDays(s_rand.Next(10, 100));
+            ////DateTime _deadline = _PlanedDateOfstratJob.AddDays(s_rand.Next(10, 100));
             //DateTime _dateOfFinishing = _deadline.AddDays(s_rand.Next(-10, 0));
             TimeSpan _durationOfTask = TimeSpan.FromDays(s_rand.Next(1, 11));
             string _deliverables = " ";
