@@ -37,6 +37,7 @@
     public class BlDeletionImpossible : Exception
     {
         public BlDeletionImpossible(string? message) : base(message) { }
+        public BlDeletionImpossible(string? message, Exception innerEx) : base(message, innerEx) { }
     }
     //public class BlXMLFileLoadCreateException : Exception
     //{
