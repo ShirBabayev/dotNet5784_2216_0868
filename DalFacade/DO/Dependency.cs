@@ -15,9 +15,9 @@ namespace DO;
 public record Dependency
 (
    int Id,///running identifier add something
-   int? DependentTaskId = null,
-    int? DependentOnTaskId = null
+   int DependentTaskId,
+    int DependentOnTaskId
     )
 {
-    public Dependency() : this(0) { } //empty ctor for stage 3
+    public Dependency() : this(0,0,0) { } //empty ctor for stage 3
 }

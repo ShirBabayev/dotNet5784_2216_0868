@@ -8,7 +8,8 @@ public interface ITask
     public BO.Task? Read(int id);
     public IEnumerable<BO.TaskInList> ReadAll();
     public BO.Status CheckStatus(DO.Task doTask);
-    public DateTime EstimatedFinishingDate(DO.Task doTask);
+    public DateTime EstimatedFinishingDate(int id /*DO.Task doTask*/);
+    public bool CanAddOrUpdateDateOfTask(int taskId, DateTime? taskDate);
 
     public void Update(BO.Task item);
     public void Delete(int id);

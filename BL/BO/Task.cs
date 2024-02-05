@@ -10,7 +10,7 @@ public class Task
     public string? Deliverables { get; set; }
     public EngineerExperience? LevelOfDifficulty { get; set; }
     public int? EngineerId { get; set; }
-    public EngineerInTask? EngineerOfTask { get; set; }
+    public EngineerInList? EngineerOfTask { get; set; }
     public string? Remarks { get; set; }
     public DateTime? DateOfCreation { get; init; }
     public DateTime? PlanedDateOfstratJob { get; set; }
@@ -19,7 +19,7 @@ public class Task
     //public DateTime? Deadline  { get; set; }
     public DateTime? DateOfFinishing { get; set; }
     //public override string? ToString() => this.ToStringProperty();
-    public TaskInList DependncyList { get; set; }
+    public IEnumerable<TaskInList> DependncyList { get; set; }
      public DateTime EstimatedFinishingDate { get; set; }
 
 }

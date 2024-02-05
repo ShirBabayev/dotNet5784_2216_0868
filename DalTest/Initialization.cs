@@ -141,18 +141,18 @@ static class Initialization
     }
     private static void createDependency(List<DO.Task> Tasks)
     {
-        int? _dependentTaskId;
-        int? _depententOnTaskId;
+        int _dependentTaskId;
+        int _depententOnTaskId;
         s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[0].Id, Tasks[2]!.Id));
         s_dal!.Dependency.Create(new Dependency(Id: 0, Tasks[1].Id, Tasks[2]!.Id));
 
         int k = 40;
         for (int i = 2; k > 0; i++)
         {
-            _dependentTaskId = Tasks.ElementAt(i)?.Id;
+            _dependentTaskId = Tasks.ElementAt(i).Id;
             for (int j = i + 1; j < Math.Min(i + 4, Tasks.Count()); j++)
             {
-                _depententOnTaskId = Tasks.ElementAt(j)?.Id;
+                _depententOnTaskId = Tasks.ElementAt(j).Id;
                 k--;
                 Dependency newDependency = new(Id: 0,
                                                 DependentTaskId: _dependentTaskId,

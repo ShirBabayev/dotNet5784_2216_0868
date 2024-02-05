@@ -22,11 +22,22 @@
     {
         public BlWrongCategoryException(string? message) : base(message) { }
     }
-    //[Serializable]
-    //public class BlDeletionImpossible : Exception
-    //{
-    //    public BlDeletionImpossible(string? message) : base(message) { }
-    //}
+    [Serializable]
+    public class BlCantSetValue : Exception
+    {
+        public BlCantSetValue(string? message) : base(message) { }
+    }
+    [Serializable]
+    public class BlInvalidvalueException : Exception
+    {
+        public BlInvalidvalueException(string? message) : base(message) { }
+    }
+
+    [Serializable]
+    public class BlDeletionImpossible : Exception
+    {
+        public BlDeletionImpossible(string? message) : base(message) { }
+    }
     //public class BlXMLFileLoadCreateException : Exception
     //{
     //    public BlXMLFileLoadCreateException(string? message) : base(message) { }

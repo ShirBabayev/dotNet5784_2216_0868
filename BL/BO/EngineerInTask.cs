@@ -3,6 +3,6 @@
 public class EngineerInTask
 {
     public int? EngineerId {  get; init; }
-    public int TaskId { get; init; }
+    public int? TaskId { get; init; }
 
 }
