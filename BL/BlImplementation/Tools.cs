@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Reflection;
-namespace BO;
+namespace BlImplementation;
 
 internal static class Tools
 {
@@ -18,7 +18,7 @@ internal static class Tools
                 {
                     str += "\n" + "items " + ":\n";
                     foreach (var obj in objects)
-                        str+= obj.ToStringProperty(str);
+                        str += obj.ToStringProperty(str);
                 }
                 else
                     str += "\n" + item.Name + ": " + value;
@@ -26,4 +26,6 @@ internal static class Tools
         }
         return str;// Return the final string
     }
+
+
 }

@@ -1,16 +1,39 @@
 ﻿using System.Xml.Serialization;
 using BlApi;
 using BO;
+using DalApi;
 using Task = BO.Task;
 
 
 namespace BlTest;
+
 internal class Program
 {
     static readonly IBl s_bl = BlApi.Factory.Get();
     static void Main(string[] args)
     {
-        main_menu();
+        Console.WriteLine("do you want to initiate the project's Starting&finishing dates?(Y/N)");
+        char choice;
+        choice=char.Parse(Console.ReadLine()!);
+        if (choice=='Y'||choice=='y')
+        {///////////////////////////////////////////////////////////////////////////////////
+            Console.WriteLine("Enter the project's Starting date");
+            DateTime InitDate=DateTime.Parse(Console.ReadLine()!);
+            if (InitDate<DateTime.Now)
+                throw new BO.BlIncorrectDateOrder("date of starting project is incorrect");
+            else
+            StartProject(InitDate);////////////????????
+            Console.WriteLine("Enter the project's finishing date");
+            DateTime EndDate=DateTime.Parse(Console.ReadLine()!);
+            if (EndDate<DateTime.Now)
+                throw new BO.BlIncorrectDateOrder("date of finishing project is incorrect");
+            else EndProject(EndDate);///////////????????
+        }
+        
+
+
+
+            main_menu();
     }
     static void main_menu()
     {
@@ -160,7 +183,7 @@ internal class Program
         Console.WriteLine("to Update a Task's data press 4");
         Console.WriteLine("to Delete a Task from the list press 5");
     }
-    
+
     static BO.Engineer createNewEngineer()
     {
         Console.WriteLine("press Id of engineer");
@@ -197,16 +220,16 @@ internal class Program
         TimeSpan _durationOfTask = TimeSpan.Parse(Console.ReadLine()!);
         Console.WriteLine("press the date of creating the task");
         DateTime? _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
-        BO.Task newTask = new(
-                                Id: 0,
-                                NickName: _nickName,
-                                Description: _description,
-                                Deliverables: _deliverables,
-                                LevelOfDifficulty: (EngineerExperience)_levelOfDifficulty,
-                                Remarks: _remarks,
-                                DurationOfTask: _durationOfTask,
-                                DateOfCreation: _dateOfCreation
-                             );
+        BO.Task newTask = new()
+        {
+            NickName= _nickName,
+            Description= _description,
+            Deliverables= _deliverables,
+            LevelOfDifficulty=(EngineerExperience)_levelOfDifficulty,
+            Remarks= _remarks,
+            DurationOfTask= _durationOfTask,
+            DateOfCreation= _dateOfCreation
+        };
         return newTask;
     }
 

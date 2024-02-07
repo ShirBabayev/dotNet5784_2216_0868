@@ -9,9 +9,13 @@ namespace Dal;
 
 sealed internal class DalList : IDal
 {
+    public DateTime? InitDate { get; set; }
+    public DateTime? EndDate { get; set; }
+
     public static IDal Instance { get; } = new DalList();
     private DalList() { }
     public IEngineer Engineer => new EngineerImplementation();
-    public ITask Task =>  new TaskImplementation();
+    public ITask Task => new TaskImplementation();
     public IDependency Dependency => new DependencyImplementation();
+
 }
