@@ -1,10 +1,6 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 
 
