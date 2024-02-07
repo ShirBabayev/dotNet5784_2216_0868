@@ -5,6 +5,9 @@
 /// </summary>
 public interface IDal
 {
+    DateTime? InitDate { get; set; }    
+    DateTime? EndDate { get; set; }  
+
     /// <summary>
     /// 
     /// </summary>
