@@ -11,18 +11,21 @@ internal class Program
     //static readonly IDal s_dal = new DalXml();
     //static readonly IDal s_dal = new Dal.DalList();
     static readonly IDal s_dal = Factory.Get;
-    static void Main(string[] args)
-    {
-        //Initialization.Do(s_dal);//stage2
-        main_menu();
-    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    //static void Main(string[] args)
+    //{
+    //    //Initialization.Do(s_dal);//stage2
+    //    main_menu();
+    //}
+    ////////////////////////////////////////////////////////////////////////////////////////////
     static void main_menu()
     {
-        Console.WriteLine("Would you like to create Initial data? (Y/N)"); 
-        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
+        Console.WriteLine("Would you like to create Initial data? (Y/N)");
+        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
         if (ans == "Y")
             //Initialization.Do(s_dal); 
-            Initialization.Do(); 
+           Initialization.Do();
         Console.WriteLine("choose an entity that you want to check:");
         Console.WriteLine("to EXIT press 0");
         Console.WriteLine("for Engineer press 1");
@@ -105,9 +108,9 @@ internal class Program
         {
             case Actions.EXIT: break;
             case Actions.CREATE:
-                    DO.Task newTask = createNewTask();
-                    Console.WriteLine(s_dal!.Task.Create(newTask));
-                    Console.WriteLine("created successfully");
+                DO.Task newTask = createNewTask();
+                Console.WriteLine(s_dal!.Task.Create(newTask));
+                Console.WriteLine("created successfully");
                 break;
             case Actions.READ:
                 readTask();
@@ -147,9 +150,9 @@ internal class Program
         {
             case Actions.EXIT: break;
             case Actions.CREATE:
-                    DO.Dependency newDependency = createNewDependency();
-                    Console.WriteLine(s_dal!.Dependency.Create(newDependency));
-                    Console.WriteLine("created successfully");
+                DO.Dependency newDependency = createNewDependency();
+                Console.WriteLine(s_dal!.Dependency.Create(newDependency));
+                Console.WriteLine("created successfully");
                 break;
             case Actions.READ:
                 readDependency();
@@ -225,12 +228,12 @@ internal class Program
         string? _name = Console.ReadLine();
         Console.WriteLine("press email of engineer");
         string? _email = Console.ReadLine();
-        DO.Engineer newEngineer = 
+        DO.Engineer newEngineer =
             new(Id: _id,
-            Level:(EngineerExperience)_level,
-            Cost:_cost,
-            Name:_name,
-            Email:_email
+            Level: (EngineerExperience)_level,
+            Cost: _cost,
+            Name: _name,
+            Email: _email
             );
         return newEngineer;
     }
@@ -264,10 +267,10 @@ internal class Program
     static DO.Dependency createNewDependency()
     {
         Console.WriteLine("press Dependent task id of dependency");
-        int? _dependentTaskId = int.Parse(Console.ReadLine()!);
+        int _dependentTaskId = int.Parse(Console.ReadLine()!);
         Console.WriteLine("press dependent on taskId");
-        int? _dependentOnTaskId = int.Parse(Console.ReadLine()!);
-        DO.Dependency newDependency = 
+        int _dependentOnTaskId = int.Parse(Console.ReadLine()!);
+        DO.Dependency newDependency =
             new(Id: 0,
                 DependentTaskId: _dependentTaskId,
                 DependentOnTaskId: _dependentOnTaskId

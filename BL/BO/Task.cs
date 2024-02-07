@@ -19,7 +19,7 @@ public class Task
     //public DateTime? Deadline  { get; set; }
     public DateTime? DateOfFinishing { get; set; }
     //public override string? ToString() => this.ToStringProperty();
-    public IEnumerable<TaskInList> DependncyList { get; set; }
+    public IEnumerable<TaskInList>? DependncyList { get; set; }
      public DateTime EstimatedFinishingDate { get; set; }
 
 }
