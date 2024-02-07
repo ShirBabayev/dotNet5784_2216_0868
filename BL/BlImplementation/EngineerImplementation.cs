@@ -72,20 +72,6 @@ internal class EngineerImplementation : BlApi.IEngineer
         };
 
     }
-
-    //public IEnumerable<BO.EngineerInTask> ReadAll()
-    //{
-    //    return (from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
-    //            select new BO.EngineerInTask()
-    //            {
-    //                EngineerId = doEngineer.Id,
-    //                TaskId = (from task in _dal.Task.ReadAll()
-    //                          where IsCurrentTask(doEngineer.Id, task.Id)
-    //                          select task.Id).FirstOrDefault()//??throw new BO.BlDoesNotExistException($"A current task for Engineer with ID={doEngineer.Id} does Not exist")
-    //            });
-    //}
-
-
     public IEnumerable<BO.EngineerInTask> ReadAll(Func<DO.Engineer, bool>? filter = null)
     {
 

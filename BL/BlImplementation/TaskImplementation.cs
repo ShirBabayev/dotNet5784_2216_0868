@@ -58,65 +58,20 @@ internal class TaskImplementation : BlApi.ITask
         DO.Task? doTask = _dal.Task.Read(id);
         if (doTask == null)
             throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
-        return new BO.Task()
-        {
-            Id = doTask.Id,
-            NickName = doTask.NickName,
-            Description = doTask.Description,
-            Deliverables = doTask.Deliverables,
-            Status = CheckStatus(doTask),
-            LevelOfDifficulty = (BO.EngineerExperience)doTask.LevelOfDifficulty!,
-            EngineerId = doTask.EngineerId,
-            EngineerOfTask = new BO.EngineerInList()
-            {
-                Id = doTask.Id,
-                Name = _dal.Engineer.Read(id)!.Name
-            },
-            Remarks = doTask.Remarks,
-            DateOfCreation = doTask.DateOfCreation,
-            PlanedDateOfstratJob = doTask.PlanedDateOfstratJob,
-            DateOfstratJob = doTask.DateOfstratJob,
-            DateOfFinishing = doTask.DateOfFinishing,
-            DurationOfTask = doTask.DurationOfTask,
-            EstimatedFinishingDate = EstimatedFinishingDate(doTask.Id),
-            DependncyList = from DO.Dependency dep in _dal.Dependency.ReadAll()
-                            let DependentOnTask = _dal.Task.Read(dep.DependentOnTaskId)
-                            where dep.DependentTaskId == id//check if i can send it in the readAll
-                            select TaskInListCalc(DependentOnTask)
-        };
+        return ConvertTaskFromDOToBO(doTask);
     }
-    public TaskInList TaskInListCalc(DO.Task task)
-    {
-        return new BO.TaskInList()
-        {
-            Id = task.Id,
-            NickName = task.NickName,
-            Description = task.Description,
-            Status = CheckStatus(task)
-        };
-    }
-    //public IEnumerable<BO.TaskInList> ReadAll()
-    //{
-    //    return (from DO.Task doTask in _dal.Task.ReadAll()
-    //            select new BO.TaskInList
-    //            {
-    //                Id = doTask.Id,
-    //                NickName = doTask.NickName,
-    //                Description = doTask.Description,
-    //                Status=CheckStatus(doTask)
-    //            });
-    //}
     
-    public IEnumerable<BO.TaskInList> ReadAll(Func<DO.Task, bool>? filter = null)
+    public IEnumerable<BO.Task> ReadAll(Func<DO.Task, bool>? filter = null)
     {
         return (from DO.Task doTask in _dal.Task.ReadAll(filter)
-                select new BO.TaskInList
-                {
-                    Id = doTask.Id,
-                    NickName = doTask.NickName,
-                    Description = doTask.Description,
-                    Status=CheckStatus(doTask)
-                });
+                select ConvertTaskFromDOToBO(doTask));
+        //select new BO.TaskInList
+        // {
+        //     Id = doTask.Id,
+        //     NickName = doTask.NickName,
+        //     Description = doTask.Description,
+        //     Status=CheckStatus(doTask)
+        // });
     }
     public void Update(BO.Task boTask)
     {//there are more fildes to update
@@ -133,7 +88,10 @@ internal class TaskImplementation : BlApi.ITask
             DateOfCreation: boTask.DateOfCreation,
             DurationOfTask: boTask.DurationOfTask,
             DateOfFinishing: EstimatedFinishingDate(boTask.Id),
-            DateOfstratJob: CanAddOrUpdateDateOfTask(boTask.Id, boTask.DateOfstratJob) ? boTask.DateOfstratJob : throw new Exception());
+            PlanedDateOfstratJob: CanAddOrUpdateDateOfTask(boTask.Id, boTask.PlanedDateOfstratJob) ? boTask.PlanedDateOfstratJob : throw new BO.BlIncorrectDateOrder($"The planed date of start job of task with id= {boTask.Id} doesn't fit to it former tasks date"),
+            DateOfstratJob: boTask.DateOfstratJob);
+
+
         try
         {
             _dal.Task.Update(new_doTask);
@@ -143,7 +101,45 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BlAlreadyExistsException($"Task with ID={boTask.Id} does Not exist", ex);
         }
     }
-
+    public BO.Task ConvertTaskFromDOToBO(DO.Task doTask)
+    {
+        return new BO.Task()
+        {
+            Id = doTask.Id,
+            NickName = doTask.NickName,
+            Description = doTask.Description,
+            Deliverables = doTask.Deliverables,
+            Status = CheckStatus(doTask),
+            LevelOfDifficulty = (BO.EngineerExperience)doTask.LevelOfDifficulty!,
+            EngineerId = doTask.EngineerId,
+            EngineerOfTask = new BO.EngineerInList()
+            {
+                Id = doTask.Id,
+                Name = _dal.Engineer.Read(doTask.Id)!.Name
+            },
+            Remarks = doTask.Remarks,
+            DateOfCreation = doTask.DateOfCreation,
+            PlanedDateOfstratJob = doTask.PlanedDateOfstratJob,
+            DateOfstratJob = doTask.DateOfstratJob,
+            DateOfFinishing = doTask.DateOfFinishing,
+            DurationOfTask = doTask.DurationOfTask,
+            EstimatedFinishingDate = EstimatedFinishingDate(doTask.Id),
+            DependncyList = from DO.Dependency dep in _dal.Dependency.ReadAll(dep => dep.DependentTaskId == doTask.Id)
+                            let DependentOnTask = _dal.Task.Read(dep.DependentOnTaskId)
+                            // where dep.DependentTaskId == id
+                            select TaskInListConvertor(DependentOnTask)
+        };
+    }
+    public TaskInList TaskInListConvertor(DO.Task task)
+    {
+        return new BO.TaskInList()
+        {
+            Id = task.Id,
+            NickName = task.NickName,
+            Description = task.Description,
+            Status = CheckStatus(task)
+        };
+    }
     public bool CanAddOrUpdateDateOfTask(int taskId, DateTime? taskDate)
     {
         IEnumerable<DO.Dependency> depenList = from dep in _dal.Dependency.ReadAll() where dep.DependentTaskId == taskId select dep;

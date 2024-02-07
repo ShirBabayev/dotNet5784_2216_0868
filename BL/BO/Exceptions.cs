@@ -32,6 +32,10 @@
     {
         public BlInvalidvalueException(string? message) : base(message) { }
     }
+    public class BlIncorrectDateOrder : Exception
+    {
+        public BlIncorrectDateOrder(string? message) : base(message) { }
+    }
 
     [Serializable]
     public class BlDeletionImpossible : Exception
