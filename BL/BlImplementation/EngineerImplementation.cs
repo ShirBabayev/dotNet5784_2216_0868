@@ -15,9 +15,14 @@ internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = Factory.Get;
 
+    /********* CRUD functions **********/
+
     public int Create(BO.Engineer boEngineer)
     {
-        if (boEngineer.Id < 0 || boEngineer.Name != "" || boEngineer.Cost < 0|| !IsValidEmail(boEngineer.Email!))
+        if (boEngineer.Id < 0 
+            || boEngineer.Name != "" 
+            || boEngineer.Cost < 0
+            || !IsValidEmail(boEngineer.Email!))
             throw new BO.BlInvalidvalueException("one of the engineer's values is invalid");
         DO.Engineer doEngineer = new DO.Engineer
             (Id: boEngineer.Id,
@@ -94,12 +99,15 @@ internal class EngineerImplementation : BlApi.IEngineer
              Email: boEngineer.Email,
              Level: (DO.EngineerExperience)boEngineer.Level,
              Cost: boEngineer.Cost);
+        if (_dal.Task.ReadAll(tsk => tsk.EngineerId == boEngineer.Id).FirstOrDefault() != null)
+                throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task");//TODO: check if the task is a current task
         DO.Task task = (from DO.Task doTask in _dal.Task.ReadAll()
                         let IsGoodForEng = CheckTaskForEngineer(boEngineer.Id, doTask.Id)
                         where IsGoodForEng != null
-                        select doTask).FirstOrDefault()!;
+                        select doTask).FirstOrDefault()!;//returns a task that matches to the engineer
         if (task != null)
-            _dal.Task.Update(task with { EngineerId = boEngineer.Id });
+            if (task.EngineerId==0)//cheke that the task does'nt belong to another engineer
+                _dal.Task.Update(task with { EngineerId = boEngineer.Id });
         try
         {
             _dal.Engineer.Update(new_doEngineer);
@@ -110,6 +118,8 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
 
     }
+
+    /************* Tools  *************/
     public bool IsCurrentTask(int engId, int taskId)
     {
         DO.Task task = _dal.Task.Read(taskId)!;

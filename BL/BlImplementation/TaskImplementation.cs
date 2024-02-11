@@ -5,6 +5,7 @@ using DO;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BlImplementation;
 
@@ -12,15 +13,15 @@ internal class TaskImplementation : BlApi.ITask
 {
     private DalApi.IDal _dal = Factory.Get;
 
-    public void StartProject(DateTime dateTime) => _dal.InitDate = dateTime;
+    public void StartProject(DateTime InitDate) => _dal.InitDate = InitDate;
 
-    public void EndProject(DateTime dateTime) => _dal.EndDate = dateTime;
+    public void EndProject(DateTime EndDate) => _dal.EndDate = EndDate;
 
 
-    /***** CRUD function ****/
+    /************* CRUD functions ************/
     public int Create(BO.Task boTask)
     {
-        if (boTask.Id<=0||boTask.NickName=="")
+        if (boTask.Id <= 0 || boTask.NickName == "")
             throw new BO.BlInvalidvalueException("one of the task's values is invalid");
         DO.Task doTask = new DO.Task
            (Id: boTask.Id,
@@ -31,9 +32,13 @@ internal class TaskImplementation : BlApi.ITask
             Remarks: boTask.Remarks,
             DurationOfTask: boTask.DurationOfTask,
             DateOfCreation: boTask.DateOfCreation);
+
         try
         {
             int taskId = _dal.Task.Create(doTask);
+            foreach (BO.TaskInList task in boTask.DependncyList!)
+                _dal.Dependency.Create(new Dependency()
+                { DependentTaskId = doTask.Id, DependentOnTaskId = task.Id });
             return taskId;
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -50,7 +55,7 @@ internal class TaskImplementation : BlApi.ITask
              where depOnTaskId == id
              select dep).FirstOrDefault() != null)
             throw new BO.BlDeletionImpossible($"There are dependent tasks on Task with ID={id}");
-        if (_dal.Task.Read(id)!=null)//task exists
+        if (_dal.Task.Read(id) != null)//task exists
             try
             {
                 _dal.Task.Delete(id);
@@ -73,52 +78,50 @@ internal class TaskImplementation : BlApi.ITask
     {
         return (from DO.Task doTask in _dal.Task.ReadAll(filter)
                 select ConvertTaskFromDOToBO(doTask));
-        //select new BO.TaskInList
-        // {
-        //     Id = doTask.Id,
-        //     NickName = doTask.NickName,
-        //     Description = doTask.Description,
-        //     Status=CheckStatus(doTask)
-        // });
     }
 
     public void Update(BO.Task boTask)
     {//there are more fildes to update
-        if (boTask.Id<=0||boTask.NickName=="")
+        if (_dal.InitDate != null)
+            throw new BlIncorrectDateOrder("can't update task after starting project");
+        if (boTask.Id <= 0 || boTask.NickName == "")
             throw new BO.BlInvalidvalueException("one of the task's values is invalid");
 
-        DO.Task new_doTask = _dal.Task.Read(boTask.Id) ?? throw new BO.BlDoesNotExistException("ff");// TODO
-
-        new_doTask =new_doTask with
+        DO.Task new_doTask = _dal.Task.Read(boTask.Id) ?? throw new BO.BlDoesNotExistException($"task with id= {boTask.Id} does not exist");
+        if (new_doTask.EngineerId != null && boTask.EngineerId != new_doTask.EngineerId)//cheke that the task does'nt belong to another engineer
+            throw new BO.BlCantSetValue($"task with id {boTask.Id} already has engineer");
+        new_doTask = new_doTask with
         {
-            NickName= boTask.NickName,
-            Description= boTask.Description,
-            Deliverables= boTask.Deliverables,
-            LevelOfDifficulty= (DO.EngineerExperience)boTask.LevelOfDifficulty!,
-            EngineerId= boTask.EngineerId,
-            Remarks= boTask.Remarks,
-            DurationOfTask= boTask.DurationOfTask,
-            DateOfFinishing= EstimatedFinishingDate(boTask.Id),
-            PlanedDateOfstratJob= CanAddOrUpdateDateOfTask(boTask.Id, boTask.PlanedDateOfstratJob) ? boTask.PlanedDateOfstratJob : throw new BO.BlIncorrectDateOrder($"The planed date of start job of task with id= {boTask.Id} doesn't fit to it former tasks date"),
-            DateOfstratJob= boTask.DateOfstratJob
+            NickName = boTask.NickName,
+            Description = boTask.Description,
+            Deliverables = boTask.Deliverables,
+            LevelOfDifficulty = (DO.EngineerExperience)boTask.LevelOfDifficulty!,
+            EngineerId = boTask.EngineerId,
+            Remarks = boTask.Remarks,
+            DurationOfTask = boTask.DurationOfTask,
+            DateOfFinishing = EstimatedFinishingDate(boTask.Id),
+            PlanedDateOfstratJob = CanAddOrUpdateDateOfTask(boTask.Id, boTask.PlanedDateOfstratJob)
+                                ? boTask.PlanedDateOfstratJob
+                                : throw new BO.BlIncorrectDateOrder($"The planed date of start job of task with id= {boTask.Id} is not valid"),
+            DateOfstratJob = boTask.DateOfstratJob
         };
 
 
         try
         {
             _dal.Task.Update(new_doTask);
-            IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(x => x.DependentTaskId==boTask.Id);
+            IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(x => x.DependentTaskId == boTask.Id);
             if (boTask.DependncyList is null)
                 boTask.DependncyList = new List<TaskInList>();
 
-            boTask.DependncyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId== _new.Id))
+            boTask.DependncyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id))
                 .ToList().ForEach(dep => _dal.Dependency.Create(new DO.Dependency()
                 {
                     DependentTaskId = boTask.Id,
                     DependentOnTaskId = dep.Id
                 }));
 
-            dependencies.Where(old => !boTask.DependncyList.Any(_new => _new.Id== old.DependentOnTaskId))
+            dependencies.Where(old => !boTask.DependncyList.Any(_new => _new.Id == old.DependentOnTaskId))
                .ToList().ForEach(dep => _dal.Dependency.Delete(dep.DependentOnTaskId));
 
         }
@@ -129,7 +132,7 @@ internal class TaskImplementation : BlApi.ITask
     }
 
 
-    /******* tools  *******/
+    /************ Tools  ************/
 
     private BO.Task ConvertTaskFromDOToBO(DO.Task doTask)
     {
@@ -174,6 +177,8 @@ internal class TaskImplementation : BlApi.ITask
 
     private bool CanAddOrUpdateDateOfTask(int taskId, DateTime? taskDate)
     {
+        if (taskDate < _dal.InitDate)//if the date is sooner then the projects starting date
+            return false;
         IEnumerable<DO.Dependency> depenList = from dep in _dal.Dependency.ReadAll() where dep.DependentTaskId == taskId select dep;
         var v = (from DO.Dependency dep in depenList
                  let depTask = _dal.Task.Read(dep.DependentOnTaskId)!
@@ -183,35 +188,35 @@ internal class TaskImplementation : BlApi.ITask
             return false;
         v = (from DO.Dependency dep in depenList
              let depTask = _dal.Task.Read(dep.DependentOnTaskId)!
-             where depTask.DateOfFinishing+depTask.DurationOfTask > taskDate
+             where depTask.DateOfFinishing + depTask.DurationOfTask > taskDate
              select dep).FirstOrDefault();
         if (v != null)
             return false;
         return true;
     }
 
-    private DateTime EstimatedFinishingDate(int id /*DO.Task doTask*/)
+    private DateTime EstimatedFinishingDate(int id)
     {
         DO.Task doTask = _dal.Task.Read(id)!;
         DateTime? starting = doTask.PlanedDateOfstratJob > doTask.DateOfstratJob
         ? doTask.PlanedDateOfstratJob : doTask.DateOfstratJob;
-        return starting!.Value +(TimeSpan)(doTask.DurationOfTask!);
+        return starting!.Value + (TimeSpan)(doTask.DurationOfTask!);
     }
 
     private BO.Status CheckStatus(DO.Task doTask)
     {
-        if (doTask.PlanedDateOfstratJob!=null&&doTask.DateOfstratJob==null)
+        if (doTask.PlanedDateOfstratJob != null && doTask.DateOfstratJob == null)
             return BO.Status.Schedueled;
-        if (doTask.DateOfstratJob!=null&&doTask.DateOfFinishing==null)//started to work and didn't finish
+        if (doTask.DateOfstratJob != null && doTask.DateOfFinishing == null)//started to work and didn't finish
             return BO.Status.OnTrack;
-        if (doTask.DateOfFinishing<DateTime.Now)
+        if (doTask.DateOfFinishing < DateTime.Now)
             return BO.Status.Done;
         //doTask.PlanedDateOfstratJob==null
         return BO.Status.Unschedueled;
     }
 
-    private BO.TaskInEngineer GetDetailedEngineerForTask(int EngineerId, int TaskId)
-    {
-        throw new Exception();
-    }
+    //private BO.TaskInEngineer GetDetailedEngineerForTask(int EngineerId, int TaskId)
+    //{
+    //    throw new Exception();
+    //}
 }

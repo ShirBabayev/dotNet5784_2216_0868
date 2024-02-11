@@ -7,15 +7,15 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-static class Initialization
+public static class Initialization
 {
     private static IDal? s_dal;
     private static readonly Random s_rand = new();
 
 
-    static public void Do(/*IDal dal*/)
+    static public void Do()
     {
-        s_dal =/* DalApi.*/Factory.Get;/////???????????????????????????????????????????????????????????
+        s_dal =Factory.Get;
         //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
         createEngineer();
         createTask();

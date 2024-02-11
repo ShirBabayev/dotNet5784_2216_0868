@@ -4,12 +4,38 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Xml.Linq;
 
 internal class TaskImplementation: ITask
 {
     readonly string s_task_xml = "tasks";
     readonly string s_data_config_xml = "data-config";
-
+    //public DateTime? getInitDate() 
+    //{
+    //    XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml).Element("InitDate");
+    //        if (root.Value == "")
+    //            return null;
+    //        return DateTime.Parse(root.Value); 
+    //}
+    //public DateTime? getEndDate()
+    //{
+    //    XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml).Element("EndDate");
+    //    if (root.Value == "")
+    //        return null;
+    //    return DateTime.Parse(root.Value);
+    //} 
+    //public void setInitDate(DateTime InitDate) 
+    //{
+    //XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml);
+    //    root.Element("InitDate")!.Value = InitDate.ToString();
+    //XMLTools.SaveListToXMLElement(root, s_data_config_xml);
+    //}
+    //public void setEndDate(DateTime EndDate)
+    //{
+    //    XElement root = XMLTools.LoadListFromXMLElement(s_data_config_xml);
+    //    root.Element("EndDate")!.Value = EndDate.ToString();
+    //    XMLTools.SaveListToXMLElement(root, s_data_config_xml);
+    //}
     public int Create(Task item)
     {
         List<DO.Task> tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task_xml);//Deserialize

@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel;
+using System.Xml.Serialization;
 using BlApi;
 using BO;
 using DalApi;
@@ -12,35 +13,30 @@ internal class Program
     static readonly IBl s_bl = BlApi.Factory.Get();
     static void Main(string[] args)
     {
-        Console.WriteLine("do you want to initiate the project's Starting&finishing dates?(Y/N)");
+        Console.WriteLine("do you want to initiate the project's Starting & finishing dates?(Y/N)");
         char choice;
-        choice=char.Parse(Console.ReadLine()!);
-        if (choice=='Y'||choice=='y')
-        {///////////////////////////////////////////////////////////////////////////////////
+        choice = char.Parse(Console.ReadLine()!);
+        if (choice == 'Y' || choice == 'y')
+        {
             Console.WriteLine("Enter the project's Starting date");
-            DateTime InitDate=DateTime.Parse(Console.ReadLine()!);
-            if (InitDate<DateTime.Now)
+            DateTime InitDate = DateTime.Parse(Console.ReadLine()!);
+            if (InitDate < DateTime.Now)
                 throw new BO.BlIncorrectDateOrder("date of starting project is incorrect");
-            else
-            StartProject(InitDate);////////////????????
+            s_bl.Task.StartProject(InitDate);
             Console.WriteLine("Enter the project's finishing date");
-            DateTime EndDate=DateTime.Parse(Console.ReadLine()!);
-            if (EndDate<DateTime.Now)
+            DateTime EndDate = DateTime.Parse(Console.ReadLine()!);
+            if (EndDate < DateTime.Now && EndDate <= InitDate)
                 throw new BO.BlIncorrectDateOrder("date of finishing project is incorrect");
-            else EndProject(EndDate);///////////????????
+            s_bl.Task.EndProject(EndDate);
         }
-        
-
-
-
-            main_menu();
+        main_menu();
     }
     static void main_menu()
     {
-        //Console.WriteLine("Would you like to create Initial data? (Y/N)");
-        //string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        //if (ans == "Y") 
-        //   DalTest.Initialization.Do();
+        Console.WriteLine("Would you like to create Initial data? (Y/N)");
+        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        if (ans == "Y")
+            DalTest.Initialization.Do();
         LogicEntities choice;
         do
         {
@@ -63,7 +59,7 @@ internal class Program
                     return;
             }
         }
-        while (choice!=LogicEntities.EXIT);
+        while (choice != LogicEntities.EXIT);
     }
 
 
@@ -97,7 +93,7 @@ internal class Program
             case Actions.UPDATE:
                 try
                 {
-                    updateAllEngineer();
+                    updateEngineer();
                 }
                 catch (BlDoesNotExistException ex)
                 {
@@ -140,7 +136,7 @@ internal class Program
             case Actions.UPDATE:
                 try
                 {
-                    updateAllTask();
+                    updateTask();
                 }
                 catch (BlDoesNotExistException ex)
                 {
@@ -196,13 +192,14 @@ internal class Program
         string? _name = Console.ReadLine();
         Console.WriteLine("press email of engineer");
         string? _email = Console.ReadLine();
-        BO.Engineer newEngineer =
-            new(Id: _id,
-            Level: (BO.EngineerExperience)_level,
-            Cost: _cost,
-            Name: _name,
-            Email: _email
-            );
+        BO.Engineer newEngineer = 
+            new(){
+                    Id = _id,
+                    Level = (BO.EngineerExperience)_level,
+                    Cost = _cost,
+                    Name = _name,
+                    Email = _email
+                    };
         return newEngineer;
     }
     static BO.Task createNewTask()
@@ -222,13 +219,13 @@ internal class Program
         DateTime? _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
         BO.Task newTask = new()
         {
-            NickName= _nickName,
-            Description= _description,
-            Deliverables= _deliverables,
-            LevelOfDifficulty=(EngineerExperience)_levelOfDifficulty,
-            Remarks= _remarks,
-            DurationOfTask= _durationOfTask,
-            DateOfCreation= _dateOfCreation
+            NickName = _nickName,
+            Description = _description,
+            Deliverables = _deliverables,
+            LevelOfDifficulty = (EngineerExperience)_levelOfDifficulty,
+            Remarks = _remarks,
+            DurationOfTask = _durationOfTask,
+            DateOfCreation = _dateOfCreation
         };
         return newTask;
     }
@@ -261,14 +258,14 @@ internal class Program
     }
 
 
-    static void updateAllEngineer()
+    static void updateEngineer()
     {
         readEngineer();//get input of identifier and print the objct
         Engineer newEngineer = createNewEngineer();
         s_bl.Engineer.Update(newEngineer);
         Console.WriteLine("updated successfully");
     }
-    static void updateAllTask()
+    static void updateTask()
     {
         readTask();//get input of identifier and print the objct
         BO.Task newTask = createNewTask();

@@ -95,5 +95,37 @@ static class XMLTools
             throw new DalXMLFileLoadCreateException($"fail to load xml file: {filePath}, {ex.Message}");
         }
     }
+    /// <summary>
+    /// A function to set a start/end date to an XML file
+    /// </summary>
+    /// <param name="date"></param>
+    /// <param name="filePath">A pipe for connecting the XML file</param>
+    /// <param name="elementName">StartProject/EndProject</param>
+    internal static void SetDate(DateTime? date, string filePath, string elementName)
+    {
+        XElement root = LoadListFromXMLElement(filePath);
+        XElement newDate = new XElement(elementName, date.ToString());
+        root.Element(elementName).ReplaceWith(newDate);
+        SaveListToXMLElement(root, filePath);
+    }
+    /// <summary>
+    /// A function to get a start/end date to an XML file
+    /// </summary>
+    /// <param name="filePath">A pipe for connecting the XML file</param>
+    /// <param name="elementName">StartProject/EndProject</param>
+    /// <returns></returns>
+
+    internal static DateTime? GetDate(string filePath, string elementName)
+    {
+        XElement root = LoadListFromXMLElement(filePath);
+        string dateString = root.Element(elementName)!.Value.ToString();
+
+        if (dateString is null or "")
+            return null;
+        DateTime.TryParse(dateString, out DateTime date);
+
+        return date;
+    }
+
     #endregion
 }
