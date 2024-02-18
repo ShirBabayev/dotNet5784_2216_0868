@@ -8,12 +8,15 @@
         Title="MainWindow" Height="450" Width="800">
     <!--Extrnal Grid-->
     <Grid>
-<Grid.RowDefinitions>
-        <RowDefinition Height="40*"/>
-        <RowDefinition Height="500*"/>
-        <RowDefinition Height="Auto"/>
-	</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid/>
-
+        <!-- when clicking this button you will move to the engineer list window-->
+        <Button Content="Hendle Engineers" HorizontalAlignment="Left" Margin="69,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineers_Click" Height="50" Width="200" FontSize="25"/>
+        <Button Content="Initiate Database" HorizontalAlignment="Center" Margin="0,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="InitializeDatabase_Click" Height="50" Width="200" FontSize="25"/>
+        <Button Content="Reset" HorizontalAlignment="Right" Margin="0,322,63,0" Grid.Row="1" VerticalAlignment="Top" Click="ResetDatabase_Click" Height="50" Width="200" FontSize="25"/>
     </Grid>
 </Window>

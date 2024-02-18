@@ -86,6 +86,8 @@ internal class EngineerImplementation : BlApi.IEngineer
                 select new BO.EngineerInTask()
                 {
                     EngineerId = doEngineer.Id,
+                    Name= doEngineer.Name,  
+                    Level= (BO.EngineerExperience) doEngineer.Level,
                     TaskId =(from task in _dal.Task.ReadAll()
                              where IsCurrentTask(doEngineer.Id, task.Id)
                              select task.Id).FirstOrDefault()

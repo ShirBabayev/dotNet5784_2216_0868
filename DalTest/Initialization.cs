@@ -12,7 +12,10 @@ public static class Initialization
     private static IDal? s_dal;
     private static readonly Random s_rand = new();
 
-
+    public static void Reset()
+    {
+        /////TODO
+    }
     static public void Do()
     {
         s_dal =Factory.Get;

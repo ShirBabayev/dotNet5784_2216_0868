@@ -252,7 +252,14 @@ internal class Program
     static void printEng(int EngineerId)
     {
         BO.Engineer engineer = s_bl.Engineer.Read(EngineerId)!;
-        Console.WriteLine("Engineer id= " + engineer.Id + "Engineer name= " + engineer.Name + "Engineer's level= " + engineer.Level);
+        Console.WriteLine("Engineer id= " + engineer.Id +
+                            "Engineer name= " + engineer.Name + 
+                            "Engineer's level= " + engineer.Level);
+        if (engineer.Task != null) 
+        {
+            Console.WriteLine("Engineer's current task id= " +engineer.Task.Id);
+        }
+        else { Console.WriteLine("no current task"); }
     }
     /****************************************************************************/
     static void readAllEngineer()
