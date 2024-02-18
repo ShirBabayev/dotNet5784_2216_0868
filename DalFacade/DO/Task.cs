@@ -23,11 +23,11 @@ public record Task
     string NickName,
     string Description,
     //bool MileStone = false,
+    DateTime DateOfCreation,
     string? Deliverables = null,//products
     EngineerExperience? LevelOfDifficulty = null,
     int? EngineerId = null,
     string? Remarks = null,
-    DateTime? DateOfCreation = null,
     DateTime? PlanedDateOfstratJob = null,
     DateTime? DateOfstratJob = null,
     TimeSpan? DurationOfTask = null,
@@ -35,5 +35,5 @@ public record Task
     DateTime? DateOfFinishing = null
 )
 {
-    public Task() : this(0, "", "") { } //empty ctor for stage 3
+    public Task() : this(0, "", "", DateTime.MinValue) { } //empty ctor for stage 3
 }

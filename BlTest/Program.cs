@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using BlApi;
 using BO;
 using DalApi;
+using DO;
 using Task = BO.Task;
 
 
@@ -68,11 +69,11 @@ internal class Program
     static void EngineerMenu()
     {
         printEngineerMenue();
-        Actions choice = (Actions)int.Parse(Console.ReadLine()!);
+        BO.Actions choice = (BO.Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case Actions.BACK_TO_MAIN: break;
-            case Actions.CREATE://create
+            case BO.Actions.BACK_TO_MAIN: break;
+            case BO.Actions.CREATE://create
                 try
                 {
                     BO.Engineer newEngineer = createNewEngineer();
@@ -84,13 +85,13 @@ internal class Program
                     Console.WriteLine(ex.Message);
                 }
                 break;
-            case Actions.READ:
+            case BO.Actions.READ:
                 readEngineer();
                 break;
-            case Actions.READ_ALL:
+            case BO.Actions.READ_ALL:
                 readAllEngineer();
                 break;
-            case Actions.UPDATE:
+            case BO.Actions.UPDATE:
                 try
                 {
                     updateEngineer();
@@ -100,7 +101,7 @@ internal class Program
                     Console.WriteLine(ex.Message);
                 }
                 break;
-            case Actions.DELETE:
+            case BO.Actions.DELETE:
                 try
                 {
                     deleteEngineer();
@@ -118,22 +119,22 @@ internal class Program
     static void TaskMenu()
     {
         printTaskMenue();
-        Actions choice = (Actions)int.Parse(Console.ReadLine()!);
+        BO.Actions choice = (BO.Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case Actions.BACK_TO_MAIN: break;
-            case Actions.CREATE:
+            case BO.Actions.BACK_TO_MAIN: break;
+            case BO.Actions.CREATE:
                 BO.Task newTask = createNewTask();
                 Console.WriteLine(s_bl.Task.Create(newTask));
                 Console.WriteLine("created successfully");
                 break;
-            case Actions.READ:
+            case BO.Actions.READ:
                 readTask();
                 break;
-            case Actions.READ_ALL:
+            case BO.Actions.READ_ALL:
                 readAllTask();
                 break;
-            case Actions.UPDATE:
+            case BO.Actions.UPDATE:
                 try
                 {
                     updateTask();
@@ -143,7 +144,7 @@ internal class Program
                     Console.WriteLine(ex.Message);
                 }
                 break;
-            case Actions.DELETE:
+            case BO.Actions.DELETE:
                 try
                 {
                     deleteTask();
@@ -216,13 +217,13 @@ internal class Program
         string _remarks = Console.ReadLine()!;
         TimeSpan _durationOfTask = TimeSpan.Parse(Console.ReadLine()!);
         Console.WriteLine("press the date of creating the task");
-        DateTime? _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
+        DateTime _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
         BO.Task newTask = new()
         {
             NickName = _nickName,
             Description = _description,
             Deliverables = _deliverables,
-            LevelOfDifficulty = (EngineerExperience)_levelOfDifficulty,
+            LevelOfDifficulty = (BO.EngineerExperience)_levelOfDifficulty,
             Remarks = _remarks,
             DurationOfTask = _durationOfTask,
             DateOfCreation = _dateOfCreation
@@ -234,34 +235,45 @@ internal class Program
     {
         Console.WriteLine("press id of engineer");
         int _idOfEngineer = int.Parse(Console.ReadLine()!);
-        Console.WriteLine(s_bl.Engineer.Read(_idOfEngineer));
+        printEng( _idOfEngineer);
     }
     static void readTask()
     {
         Console.WriteLine("press id of task");
-        int _idOfTask = int.Parse(Console.ReadLine()!);
-        Console.WriteLine(s_bl.Task.Read(_idOfTask));
+        int taskId = int.Parse(Console.ReadLine()!);
+        printTask(taskId);
     }
-
+    /*****************************************************************************/
+    static void printTask(int taskId)
+    {
+        BO.Task task = s_bl.Task.Read(taskId)!;
+        Console.WriteLine("task id= " + task.Id + "task Nick name= "+ task.NickName);
+    }
+    static void printEng(int EngineerId)
+    {
+        BO.Engineer engineer = s_bl.Engineer.Read(EngineerId)!;
+        Console.WriteLine("Engineer id= " + engineer.Id + "Engineer name= " + engineer.Name + "Engineer's level= " + engineer.Level);
+    }
+    /****************************************************************************/
     static void readAllEngineer()
     {
         IEnumerable<BO.EngineerInTask> engineers = s_bl.Engineer.ReadAll();
         foreach (BO.EngineerInTask eng in engineers)
-            Console.WriteLine(eng);
+            printEng(eng.EngineerId);
     }
 
     static void readAllTask()
     {
         IEnumerable<BO.Task> tasks = s_bl.Task.ReadAll();
         foreach (BO.Task tsk in tasks)
-            Console.WriteLine(tsk);
+            printTask(tsk.Id);
     }
 
 
     static void updateEngineer()
     {
         readEngineer();//get input of identifier and print the objct
-        Engineer newEngineer = createNewEngineer();
+        BO.Engineer newEngineer = createNewEngineer();
         s_bl.Engineer.Update(newEngineer);
         Console.WriteLine("updated successfully");
     }

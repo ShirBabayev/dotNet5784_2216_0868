@@ -6,11 +6,13 @@ using DalApi;
 using DO;
 using System.Data.Common;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 namespace BlImplementation;
+
 internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = Factory.Get;
@@ -20,7 +22,8 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer boEngineer)
     {
         if (boEngineer.Id < 0 
-            || boEngineer.Name != "" 
+            || boEngineer.Name == "" 
+            || boEngineer.Name is null
             || boEngineer.Cost < 0
             || !IsValidEmail(boEngineer.Email!))
             throw new BO.BlInvalidvalueException("one of the engineer's values is invalid");
@@ -63,9 +66,9 @@ internal class EngineerImplementation : BlApi.IEngineer
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
-        DO.Task task = (from t in _dal.Task.ReadAll()
+        var task = (from t in _dal.Task.ReadAll()
                         where IsCurrentTask(id, t.Id)
-                        select t).FirstOrDefault()!;
+                        select t).FirstOrDefault();
         return new BO.Engineer()
         {
             Id= id,
@@ -73,13 +76,12 @@ internal class EngineerImplementation : BlApi.IEngineer
             Email= doEngineer.Email,
             Level= (BO.EngineerExperience)doEngineer.Level,
             Cost= doEngineer.Cost,
-            Task = new BO.TaskInEngineer() { Id=task.Id, NickName=task.NickName }
+            Task = task is null ? null: toTaskInEngineer(task)
         };
-
     }
+
     public IEnumerable<BO.EngineerInTask> ReadAll(Func<DO.Engineer, bool>? filter = null)
     {
-
         return (from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
                 select new BO.EngineerInTask()
                 {
@@ -91,7 +93,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     }
     public void Update(BO.Engineer boEngineer)
     {
-        if (boEngineer.Id < 0 || boEngineer.Name != "" || boEngineer.Cost < 0|| !IsValidEmail(boEngineer.Email!))
+        if (boEngineer.Id < 0 || boEngineer.Name == "" || boEngineer.Cost < 0|| !IsValidEmail(boEngineer.Email!))
             throw new BO.BlInvalidvalueException("one of the engineer's values is invalid");
         DO.Engineer? new_doEngineer = new DO.Engineer
              (Id: boEngineer.Id,
@@ -101,6 +103,7 @@ internal class EngineerImplementation : BlApi.IEngineer
              Cost: boEngineer.Cost);
         if (_dal.Task.ReadAll(tsk => tsk.EngineerId == boEngineer.Id).FirstOrDefault() != null)
                 throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task");//TODO: check if the task is a current task
+        
         DO.Task task = (from DO.Task doTask in _dal.Task.ReadAll()
                         let IsGoodForEng = CheckTaskForEngineer(boEngineer.Id, doTask.Id)
                         where IsGoodForEng != null
@@ -119,7 +122,10 @@ internal class EngineerImplementation : BlApi.IEngineer
 
     }
 
+
     /************* Tools  *************/
+    public TaskInEngineer toTaskInEngineer(DO.Task task) => 
+                   new BO.TaskInEngineer() { Id = task.Id, NickName = task.NickName };
     public bool IsCurrentTask(int engId, int taskId)
     {
         DO.Task task = _dal.Task.Read(taskId)!;
@@ -143,11 +149,13 @@ internal class EngineerImplementation : BlApi.IEngineer
         Regex regex = new Regex(pattern);
         return regex.IsMatch(email);
     }
-    public BO.TaskInEngineer CheckTaskForEngineer(int engineerId, int taskId)
+    public BO.TaskInEngineer? CheckTaskForEngineer(int engineerId, int taskId)
     {
         DO.Task doTask = _dal.Task.Read(taskId)!;
-        DO.Engineer doEngineer = _dal.Engineer.Read(engineerId)!;
-        if (doTask.EngineerId == null
+        DO.Engineer doEngineer = _dal.Engineer.Read(engineerId) ??
+                                            throw new BO.BlAlreadyExistsException($"Engineer with ID={engineerId} does Not exist"); 
+
+        if (doTask.EngineerId is null//the task does not belong to another engineer
             //&& doTask.DateOfFinishing < DateTime.Now
             && doTask.LevelOfDifficulty <= doEngineer.Level
         &&((from dep in _dal.Dependency.ReadAll()
@@ -156,7 +164,7 @@ internal class EngineerImplementation : BlApi.IEngineer
             && _dal.Task.Read(depOnTaskId)!.DateOfFinishing ==null
             select dep).FirstOrDefault() == null))
             return new BO.TaskInEngineer() { Id = taskId, NickName = doTask.NickName };
-        return null!;
+        return null;
     }
 
 }

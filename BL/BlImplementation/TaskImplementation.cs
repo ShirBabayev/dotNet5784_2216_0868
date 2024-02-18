@@ -21,12 +21,12 @@ internal class TaskImplementation : BlApi.ITask
     /************* CRUD functions ************/
     public int Create(BO.Task boTask)
     {
-        if (boTask.Id <= 0 || boTask.NickName == "")
+        if (boTask.Id <= 0 || boTask.NickName == null || boTask.NickName == "")
             throw new BO.BlInvalidvalueException("one of the task's values is invalid");
         DO.Task doTask = new DO.Task
            (Id: boTask.Id,
             NickName: boTask.NickName,
-            Description: boTask.Description,
+            Description: boTask.Description ?? "",
             Deliverables: boTask.Deliverables,
             LevelOfDifficulty: (DO.EngineerExperience)boTask.LevelOfDifficulty!,
             Remarks: boTask.Remarks,
@@ -36,7 +36,7 @@ internal class TaskImplementation : BlApi.ITask
         try
         {
             int taskId = _dal.Task.Create(doTask);
-            foreach (BO.TaskInList task in boTask.DependncyList!)
+            foreach (BO.TaskInList task in boTask.DependencyList!)
                 _dal.Dependency.Create(new Dependency()
                 { DependentTaskId = doTask.Id, DependentOnTaskId = task.Id });
             return taskId;
@@ -84,7 +84,7 @@ internal class TaskImplementation : BlApi.ITask
     {//there are more fildes to update
         if (_dal.InitDate != null)
             throw new BlIncorrectDateOrder("can't update task after starting project");
-        if (boTask.Id <= 0 || boTask.NickName == "")
+        if (boTask.Id <= 0 || boTask.NickName == "" || boTask.NickName is null)
             throw new BO.BlInvalidvalueException("one of the task's values is invalid");
 
         DO.Task new_doTask = _dal.Task.Read(boTask.Id) ?? throw new BO.BlDoesNotExistException($"task with id= {boTask.Id} does not exist");
@@ -93,7 +93,7 @@ internal class TaskImplementation : BlApi.ITask
         new_doTask = new_doTask with
         {
             NickName = boTask.NickName,
-            Description = boTask.Description,
+            Description = boTask.Description ?? "",
             Deliverables = boTask.Deliverables,
             LevelOfDifficulty = (DO.EngineerExperience)boTask.LevelOfDifficulty!,
             EngineerId = boTask.EngineerId,
@@ -111,17 +111,17 @@ internal class TaskImplementation : BlApi.ITask
         {
             _dal.Task.Update(new_doTask);
             IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(x => x.DependentTaskId == boTask.Id);
-            if (boTask.DependncyList is null)
-                boTask.DependncyList = new List<TaskInList>();
+            if (boTask.DependencyList is null)
+                boTask.DependencyList = new List<TaskInList>();
 
-            boTask.DependncyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id))
+            boTask.DependencyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id))
                 .ToList().ForEach(dep => _dal.Dependency.Create(new DO.Dependency()
                 {
                     DependentTaskId = boTask.Id,
                     DependentOnTaskId = dep.Id
                 }));
 
-            dependencies.Where(old => !boTask.DependncyList.Any(_new => _new.Id == old.DependentOnTaskId))
+            dependencies.Where(old => !boTask.DependencyList.Any(_new => _new.Id == old.DependentOnTaskId))
                .ToList().ForEach(dep => _dal.Dependency.Delete(dep.DependentOnTaskId));
 
         }
@@ -134,8 +134,19 @@ internal class TaskImplementation : BlApi.ITask
 
     /************ Tools  ************/
 
-    private BO.Task ConvertTaskFromDOToBO(DO.Task doTask)
+    public BO.Task ConvertTaskFromDOToBO(DO.Task doTask)
     {
+        BO.EngineerInList? engOfTask = null;
+        if (doTask.EngineerId is not null)
+        {
+            DO.Engineer doEngineer = _dal.Engineer.Read((int)doTask.EngineerId!)
+                       ?? throw new BlDoesNotExistException($"engineer with id= {doTask.EngineerId} does not exist");
+            engOfTask = new BO.EngineerInList()
+            {
+                Id = doEngineer.Id,
+                Name = doEngineer.Name
+            };
+        }
         return new BO.Task()
         {
             Id = doTask.Id,
@@ -145,11 +156,7 @@ internal class TaskImplementation : BlApi.ITask
             Status = CheckStatus(doTask),
             LevelOfDifficulty = (BO.EngineerExperience)doTask.LevelOfDifficulty!,
             EngineerId = doTask.EngineerId,
-            EngineerOfTask = new BO.EngineerInList()
-            {
-                Id = doTask.Id,
-                Name = _dal.Engineer.Read(doTask.Id)!.Name
-            },
+            EngineerOfTask = engOfTask,
             Remarks = doTask.Remarks,
             DateOfCreation = doTask.DateOfCreation,
             PlanedDateOfstratJob = doTask.PlanedDateOfstratJob,
@@ -157,14 +164,12 @@ internal class TaskImplementation : BlApi.ITask
             DateOfFinishing = doTask.DateOfFinishing,
             DurationOfTask = doTask.DurationOfTask,
             EstimatedFinishingDate = EstimatedFinishingDate(doTask.Id),
-            DependncyList = from DO.Dependency dep in _dal.Dependency.ReadAll(dep => dep.DependentTaskId == doTask.Id)
-                            let DependentOnTask = _dal.Task.Read(dep.DependentOnTaskId)
-                            // where dep.DependentTaskId == id
-                            select TaskInListConvertor(DependentOnTask)
+            DependencyList = from DO.Dependency dep in _dal.Dependency.ReadAll(dep => dep.DependentTaskId == doTask.Id)
+                             select TaskInListConvertor(_dal.Task.Read(dep.DependentOnTaskId)!)
         };
     }
 
-    private TaskInList TaskInListConvertor(DO.Task task)
+    TaskInList TaskInListConvertor(DO.Task task)
     {
         return new BO.TaskInList()
         {
@@ -195,12 +200,15 @@ internal class TaskImplementation : BlApi.ITask
         return true;
     }
 
-    private DateTime EstimatedFinishingDate(int id)
+    private DateTime? EstimatedFinishingDate(int id)
     {
         DO.Task doTask = _dal.Task.Read(id)!;
+        if (doTask.PlanedDateOfstratJob is null) return null;
+        if (doTask.DateOfstratJob is null) return doTask.PlanedDateOfstratJob + doTask.DurationOfTask;
+
         DateTime? starting = doTask.PlanedDateOfstratJob > doTask.DateOfstratJob
-        ? doTask.PlanedDateOfstratJob : doTask.DateOfstratJob;
-        return starting!.Value + (TimeSpan)(doTask.DurationOfTask!);
+                                ? doTask.PlanedDateOfstratJob : doTask.DateOfstratJob;
+        return starting.Value + doTask.DurationOfTask;
     }
 
     private BO.Status CheckStatus(DO.Task doTask)

@@ -142,34 +142,30 @@ internal class DependencyImplementation : IDependency
     {
         XElement dependencyItem = XMLTools.LoadListFromXMLElement(s_dependency_xml).Elements().FirstOrDefault(dependency => (int?)dependency.Element("Id") == id)!;
         return dependencyItem is null ? null : getDependency(dependencyItem);
+        ///return XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependency_xml).FirstOrDefault(x => x.Id == id)!;
 
-        //List<DO.Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<DO.Dependency>(s_dependency_xml);//Deserialize
-        //return dependencies.FirstOrDefault(dependency => dependency.Id == id);//
-        // return dependencies.Find(lk => lk.Id == id);
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        //XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependency_xml);
         return XMLTools.LoadListFromXMLElement(s_dependency_xml).Elements().Select(Dependency => getDependency(Dependency)).FirstOrDefault(filter);
-        //List<DO.Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<DO.Dependency>(s_dependency_xml);//Deserialize
-        //return dependencies.FirstOrDefault(filter);
+        //return  XMLTools.LoadListFromXMLSerializer<DO.Dependency>(s_dependency_xml).FirstOrDefault(filter);;//Deserialize/////////////////
     }
-    
+
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null)
     {
         //List<DO.Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<DO.Dependency>(s_dependency_xml);//Deserialize
         return filter == null ? XMLTools.LoadListFromXMLElement(s_dependency_xml).Elements().Select(Dependency => getDependency(Dependency))
                               : XMLTools.LoadListFromXMLElement(s_dependency_xml).Elements().Select(Dependency => getDependency(Dependency)).Where(filter);
-                              //return filter == null ? dependencies.Select(item => item)
-                              //: dependencies.Where(filter);
+        //return filter == null ? dependencies.Select(item => item)
+        //: dependencies.Where(filter);
     }
     public void Update(Dependency item)
     {
         XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependency_xml);
         XElement dependencyItem = dependencies.Elements().FirstOrDefault(dependency => (int?)dependency.Element("Id") == item.Id)!;
         //Dependency itemToUpdate = getDependency(dependencyItem);
-        if (dependencyItem != null) 
+        if (dependencyItem != null)
         {
             dependencyItem.Remove();
             dependencies.Add(item);
@@ -177,16 +173,16 @@ internal class DependencyImplementation : IDependency
         else
             throw new DalDoesNotExistException($"Dependency with ID= {item.Id} does not exists");
         XMLTools.SaveListToXMLElement(dependencies, s_dependency_xml);
-       // //XmlSample xml = new XmlSample();
-       // //List<DO.Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<DO.Dependency>(s_dependency_xml);//Deserialize
-       // //Dependency itemToUpdate = dependencies.Find(lk => lk.Id == item.Id);
-       // Dependency itemToUpdate = getDependency(dependencyItem)
-       //     ?? throw new DalDoesNotExistException($"Dependency with ID= {item.Id} does not exists");
-       // //dependencies.Remove(itemToUpdate);
-       // xml.RemoveDependency(item.Id);
-       // dependencies.Add(item);
-       //XMLTools.SaveListToXMLElement(dependencies, s_dependency_xml);
-       ////XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);//Serialize
+        // //XmlSample xml = new XmlSample();
+        // //List<DO.Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<DO.Dependency>(s_dependency_xml);//Deserialize
+        // //Dependency itemToUpdate = dependencies.Find(lk => lk.Id == item.Id);
+        // Dependency itemToUpdate = getDependency(dependencyItem)
+        //     ?? throw new DalDoesNotExistException($"Dependency with ID= {item.Id} does not exists");
+        // //dependencies.Remove(itemToUpdate);
+        // xml.RemoveDependency(item.Id);
+        // dependencies.Add(item);
+        //XMLTools.SaveListToXMLElement(dependencies, s_dependency_xml);
+        ////XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);//Serialize
     }
-  
+
 }

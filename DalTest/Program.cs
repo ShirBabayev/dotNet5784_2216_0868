@@ -13,17 +13,17 @@ internal class Program
     static readonly IDal s_dal = Factory.Get;
 
     ////////////////////////////////////////////////////////////////////////////////////////////
-    //static void Main(string[] args)
-    //{
-    //    //Initialization.Do(s_dal);//stage2
-    //    main_menu();
-    //}
+    static void Main(string[] args)
+    {
+        //Initialization.Do(s_dal);//stage2
+        main_menu();
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////
     static void main_menu()
     {
         Console.WriteLine("Would you like to create Initial data? (Y/N)");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        if (ans == "Y")
+        if (ans == "Y"|| ans == "y")
             //Initialization.Do(s_dal); 
            Initialization.Do();
         Console.WriteLine("choose an entity that you want to check:");
@@ -145,22 +145,22 @@ internal class Program
     static void DependencyMenu()
     {
         printDependencyMenue();
-        Actions choice = (Actions)int.Parse(Console.ReadLine()!);
+        DO.Actions choice = (DO.Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case Actions.EXIT: break;
-            case Actions.CREATE:
+            case DO.Actions.EXIT: break;
+            case DO.Actions.CREATE:
                 DO.Dependency newDependency = createNewDependency();
                 Console.WriteLine(s_dal!.Dependency.Create(newDependency));
                 Console.WriteLine("created successfully");
                 break;
-            case Actions.READ:
+            case DO.Actions.READ:
                 readDependency();
                 break;
-            case Actions.READ_ALL:
+            case DO.Actions.READ_ALL:
                 readAllDependency();
                 break;
-            case Actions.UPDATE:
+            case DO.Actions.UPDATE:
                 try
                 {
                     updateAllDependency();
@@ -170,7 +170,7 @@ internal class Program
                     Console.WriteLine(ex.Message);
                 }
                 break;
-            case Actions.DELETE:
+            case DO.Actions.DELETE:
                 try
                 {
                     deleteDependency();
@@ -251,7 +251,7 @@ internal class Program
         string _remarks = Console.ReadLine()!;
         TimeSpan _durationOfTask = TimeSpan.Parse(Console.ReadLine()!);
         Console.WriteLine("press the date of creating the task");
-        DateTime? _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
+        DateTime _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
         DO.Task newTask = new(
                                 Id: 0,
                                 NickName: _nickName,
