@@ -24,8 +24,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="67,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
-            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="1"/>
+            <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="108,0,0,0" VerticalAlignment="Center" Grid.Column="0" FontSize="15" FontWeight="Bold"/>
+            <ComboBox SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+                        ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="SelectionChange" />
         </Grid>
 
         <ListView Grid.Row="1" Margin="5"  ItemsSource="{Binding Path=EngineerList}">
@@ -35,6 +36,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" FontSize="20"/>
     </Grid>
 </Window>

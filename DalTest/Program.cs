@@ -23,40 +23,44 @@ internal class Program
     {
         Console.WriteLine("Would you like to create Initial data? (Y/N)");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        if (ans == "Y"|| ans == "y")
+        if (ans == "Y" || ans == "y")
             //Initialization.Do(s_dal); 
-           Initialization.Do();
-        Console.WriteLine("choose an entity that you want to check:");
-        Console.WriteLine("to EXIT press 0");
-        Console.WriteLine("for Engineer press 1");
-        Console.WriteLine("for Task press 2");
-        Console.WriteLine("for Dependency press 3");
-        Entities choice = (Entities)int.Parse(Console.ReadLine()!);
-        switch (choice)
+            Initialization.Do();
+        Entities choice;
+        do
         {
-            case Entities.EXIT:
-                break;
-            case Entities.ENGINEER:
-                EngineerMenu();
-                break;
-            case Entities.TASK:
-                TaskMenu();
-                break;
-            case Entities.DEPENDENCY:
-                DependencyMenu();
-                break;
-            default:
-                return;
+            Console.WriteLine("choose an entity that you want to check:");
+            Console.WriteLine("to EXIT press 0");
+            Console.WriteLine("for Engineer press 1");
+            Console.WriteLine("for Task press 2");
+            Console.WriteLine("for Dependency press 3");
+            choice = (Entities)int.Parse(Console.ReadLine()!);
+            switch (choice)
+            {
+                case Entities.EXIT:
+                    break;
+                case Entities.ENGINEER:
+                    EngineerMenu();
+                    break;
+                case Entities.TASK:
+                    TaskMenu();
+                    break;
+                case Entities.DEPENDENCY:
+                    DependencyMenu();
+                    break;
+                default:
+                    return;
+            }
         }
+        while (choice != Entities.EXIT);
     }
-
-    static void EngineerMenu()
+        static void EngineerMenu()
     {
         printEngineerMenue();
         Actions choice = (Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case Actions.EXIT: break;
+            case Actions.BACK_TO_MAIN: break;
             case Actions.CREATE://create
                 try
                 {
@@ -106,7 +110,7 @@ internal class Program
         Actions choice = (Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case Actions.EXIT: break;
+            case Actions.BACK_TO_MAIN: break;
             case Actions.CREATE:
                 DO.Task newTask = createNewTask();
                 Console.WriteLine(s_dal!.Task.Create(newTask));
@@ -148,7 +152,7 @@ internal class Program
         DO.Actions choice = (DO.Actions)int.Parse(Console.ReadLine()!);
         switch (choice)
         {
-            case DO.Actions.EXIT: break;
+            case DO.Actions.BACK_TO_MAIN: break;
             case DO.Actions.CREATE:
                 DO.Dependency newDependency = createNewDependency();
                 Console.WriteLine(s_dal!.Dependency.Create(newDependency));

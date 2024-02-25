@@ -1,4 +1,6 @@
 ﻿namespace DalTest;
+
+using Dal;
 using DalApi;
 using DO;
 using System;
@@ -12,9 +14,19 @@ public static class Initialization
     private static IDal? s_dal;
     private static readonly Random s_rand = new();
 
-    public static void Reset()
+    public static void Reset()//TODO
     {
-        /////TODO
+        s_dal = Factory.Get;
+        XElement newIds = new XElement("config", 
+                                        new XElement("startTaskId", 1000), 
+                                        new XElement("startDependencyId", 1000), 
+                                        new XElement("nextDependencyId", 1001),
+                                        new XElement("nextTaskId",1001));
+        XMLTools.SaveListToXMLElement(newIds, "data-config");
+        s_dal.Engineer.Reset();
+        s_dal.Task.Reset();
+        s_dal.Dependency.Reset(); 
+
     }
     static public void Do()
     {

@@ -25,4 +25,5 @@ public interface ICrud<T> where T : class
     IEnumerable<T> ReadAll(Func<T, bool>? filter = null);  //stage 1 only, Reads all objects
     void Update(T item); //Updates object
     void Delete(int id); //Deletes an object by its Id 
+    void Reset();
 }

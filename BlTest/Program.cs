@@ -36,8 +36,14 @@ internal class Program
     {
         Console.WriteLine("Would you like to create Initial data? (Y/N)");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        if (ans == "Y")
+        if (ans == "Y"|| ans == "y")
             DalTest.Initialization.Do();
+
+        Console.WriteLine("Would you like to Reset Initial data? (Y/N)");
+        ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        if (ans == "Y" || ans == "y")
+            DalTest.Initialization.Reset();
+
         LogicEntities choice;
         do
         {
@@ -215,6 +221,7 @@ internal class Program
         int _levelOfDifficulty = int.Parse(Console.ReadLine()!);
         Console.WriteLine("press remarks of task");
         string _remarks = Console.ReadLine()!;
+        Console.WriteLine("press the duration of the task");
         TimeSpan _durationOfTask = TimeSpan.Parse(Console.ReadLine()!);
         Console.WriteLine("press the date of creating the task");
         DateTime _dateOfCreation = DateTime.Parse(Console.ReadLine()!);
@@ -247,19 +254,12 @@ internal class Program
     static void printTask(int taskId)
     {
         BO.Task task = s_bl.Task.Read(taskId)!;
-        Console.WriteLine("task id= " + task.Id + "task Nick name= "+ task.NickName);
+        Console.WriteLine(task);
     }
     static void printEng(int EngineerId)
     {
         BO.Engineer engineer = s_bl.Engineer.Read(EngineerId)!;
-        Console.WriteLine("Engineer id= " + engineer.Id +
-                            "Engineer name= " + engineer.Name + 
-                            "Engineer's level= " + engineer.Level);
-        if (engineer.Task != null) 
-        {
-            Console.WriteLine("Engineer's current task id= " +engineer.Task.Id);
-        }
-        else { Console.WriteLine("no current task"); }
+        Console.WriteLine(engineer);
     }
     /****************************************************************************/
     static void readAllEngineer()

@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PL.Engineer
 {
     /// <summary>
     /// Interaction logic for EngineerListWindow.xaml
     /// </summary>
+   
     public partial class EngineerListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.All;
 
         public static readonly DependencyProperty EngineerListProperty =
                 DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.EngineerInTask>), typeof(EngineerListWindow), new PropertyMetadata(null));
@@ -34,7 +39,12 @@ namespace PL.Engineer
             InitializeComponent();
             EngineerList = s_bl?.Engineer.ReadAll()!;
         }
-        
+        public BO.EngineerExperience Levels { get; set; } = BO.EngineerExperience.All;
 
+        private void SelectionChange(object sender, SelectionChangedEventArgs e)
+        {
+            EngineerList = (Level == BO.EngineerExperience.All) ?
+            s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == (DO.EngineerExperience)Level)!;
+        }
     }
 }

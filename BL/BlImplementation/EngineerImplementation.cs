@@ -82,17 +82,10 @@ internal class EngineerImplementation : BlApi.IEngineer
 
     public IEnumerable<BO.EngineerInTask> ReadAll(Func<DO.Engineer, bool>? filter = null)
     {
-        return (from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
-                select new BO.EngineerInTask()
-                {
-                    EngineerId = doEngineer.Id,
-                    Name= doEngineer.Name,  
-                    Level= (BO.EngineerExperience) doEngineer.Level,
-                    TaskId =(from task in _dal.Task.ReadAll()
-                             where IsCurrentTask(doEngineer.Id, task.Id)
-                             select task.Id).FirstOrDefault()
-                }); ;
+        return from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
+               select ToEngineerInTask(doEngineer);
     }
+   
     public void Update(BO.Engineer boEngineer)
     {
         if (boEngineer.Id < 0 || boEngineer.Name == "" || boEngineer.Cost < 0|| !IsValidEmail(boEngineer.Email!))
@@ -126,6 +119,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 
 
     /************* Tools  *************/
+
     public TaskInEngineer toTaskInEngineer(DO.Task task) => 
                    new BO.TaskInEngineer() { Id = task.Id, NickName = task.NickName };
     public bool IsCurrentTask(int engId, int taskId)
@@ -168,5 +162,16 @@ internal class EngineerImplementation : BlApi.IEngineer
             return new BO.TaskInEngineer() { Id = taskId, NickName = doTask.NickName };
         return null;
     }
-
+     public EngineerInTask ToEngineerInTask(DO.Engineer  doEngineer)
+    {
+        return new BO.EngineerInTask()
+        {
+            EngineerId = doEngineer.Id,
+            Name = doEngineer.Name,
+            Level = (BO.EngineerExperience)doEngineer.Level,
+            TaskId = (from task in _dal.Task.ReadAll()
+                      where IsCurrentTask(doEngineer.Id, task.Id)
+                      select task.Id).FirstOrDefault()
+        };
+    }
 }

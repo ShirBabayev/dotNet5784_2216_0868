@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -13,7 +14,7 @@ internal class EngineerImplementation : IEngineer
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
         Engineer itemForChecking = engineers.Find(lk => lk.Id == item.Id)!;
-        if(itemForChecking!=null) throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
+        if (itemForChecking != null) throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         engineers.Add(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
         return item.Id;
@@ -46,7 +47,7 @@ internal class EngineerImplementation : IEngineer
         return filter == null ? engineers.Select(item => item)
                               : engineers.Where(filter);
     }
-    
+
 
     public void Update(Engineer item)
     {
@@ -57,4 +58,12 @@ internal class EngineerImplementation : IEngineer
         engineers.Add(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
     }
+    public void Reset()
+    {
+        List<DO.Engineer> emptyList = new List<DO.Engineer>();
+        XMLTools.SaveListToXMLSerializer(emptyList, s_engineer_xml);
+        //XElement root = new XElement("ArrayOfEngineers");
+        //XMLTools.SaveListToXMLElement(root, s_engineer_xml);
+    }
+
 }

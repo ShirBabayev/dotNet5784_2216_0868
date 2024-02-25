@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-static class XMLTools
+public static class XMLTools
 {
     const string s_xml_dir = @"..\xml\";
     static XMLTools()
@@ -105,7 +105,7 @@ static class XMLTools
     {
         XElement root = LoadListFromXMLElement(filePath);
         XElement newDate = new XElement(elementName, date.ToString());
-        root.Element(elementName).ReplaceWith(newDate);
+        root.Element(elementName)!.ReplaceWith(newDate);
         SaveListToXMLElement(root, filePath);
     }
     /// <summary>

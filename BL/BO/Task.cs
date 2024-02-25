@@ -20,6 +20,9 @@ public class Task
     public DateTime? DateOfFinishing { get; set; }
     //public override string? ToString() => this.ToStringProperty();
     public IEnumerable<TaskInList>? DependencyList { get; set; }
-     public DateTime? EstimatedFinishingDate { get; set; }
-
+    public DateTime? EstimatedFinishingDate { get; set; }
+    public override string ToString()
+    {
+        return "task id= " + Id + " task Nick name= " + NickName;
+    }
 }
