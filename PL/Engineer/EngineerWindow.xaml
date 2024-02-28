@@ -9,16 +9,30 @@
     <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="204*"/>
+            <RowDefinition Height="85*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid Height="auto" Grid.Row="0" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
+        <Label Content="Engineer's details:" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="57" Width="356" FontSize="36" FontWeight="Bold"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="141,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" FontSize="24"/>
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="141,120,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Email account:" HorizontalAlignment="Left" Margin="141,160,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Lavel:" HorizontalAlignment="Left" Margin="141,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Cost:" HorizontalAlignment="Left" Margin="141,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Task:" HorizontalAlignment="Left" Margin="141,280,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox HorizontalAlignment="Left" Margin="232,90,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="190,130,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox HorizontalAlignment="Left" Margin="320,170,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_2"/>
+        <TextBox HorizontalAlignment="Left" Margin="210,210,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30" FontSize="24"/>
+        <TextBox HorizontalAlignment="Left" Margin="210,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_3" />
+        <TextBox HorizontalAlignment="Left" Margin="210,290,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_4"/>
     </Grid>
 </Window>
