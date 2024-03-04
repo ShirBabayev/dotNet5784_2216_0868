@@ -14,11 +14,12 @@ public class EngineerInTask
         if (TaskId != null)
         {
             tskString = " Engineer's current task id= " + TaskId;
+            if (TaskId == 0) { tskString = "No current task"; }
         }
-        else { Console.WriteLine(" no current task"); }
         return "Engineer id= " + EngineerId +
-                            " Engineer name= " + Name +
-                            " Engineer's level= " + Level +
-                            tskString;
+                            "\nEngineer name= " + Name +
+                            "\nEngineer's level= " + Level +
+                            "\n" + tskString +
+                            "\n------------------------------";
     }
 }

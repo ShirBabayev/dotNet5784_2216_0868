@@ -1,4 +1,5 @@
 ﻿using DO;
+using System.Threading.Tasks;
 
 namespace BO;
 public class Engineer
@@ -15,12 +16,14 @@ public class Engineer
         if (Task != null)
         {
             tskString = " Engineer's current task id= " + Task.Id;
+            if (Task.Id == 0) { tskString = "No current task"; }
         }
-        else { Console.WriteLine(" no current task"); }
+        
         return "Engineer id= " + Id +
-                            " Engineer name= " + Name +
-                            " Engineer's level= " + Level +
-                            " Cost for engineer per an hour= " + Cost +
-                            tskString;
+                            "\nEngineer name= " + Name +
+                            "\nEngineer's level= " + Level +
+                            "\nCost for engineer per an hour= " + Cost +
+                            "\n" + tskString +
+                            "\n------------------------------";
     }
 }

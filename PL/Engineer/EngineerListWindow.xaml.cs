@@ -2,6 +2,7 @@
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,6 @@ namespace PL.Engineer
     public partial class EngineerListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
         public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.All;
 
         public static readonly DependencyProperty EngineerListProperty =
@@ -45,6 +45,22 @@ namespace PL.Engineer
         {
             EngineerList = (Level == BO.EngineerExperience.All) ?
             s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == (DO.EngineerExperience)Level)!;
+        }
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            new EngineerWindow().ShowDialog();
+            EngineerList = new ObservableCollection<BO.EngineerInTask>(s_bl?.Engineer.ReadAll()!);//in order to show the updated list
+        }
+        private void ListView_DoubleClick(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if ((sender as ListView)?.SelectedItem is BO.EngineerInTask eng)
+            {
+              //  MessageBox.Show(eng.EngineerId.ToString());
+                new EngineerWindow(eng.EngineerId).ShowDialog();
+                EngineerList = new ObservableCollection<BO.EngineerInTask>(s_bl?.Engineer.ReadAll()!);//in order to show the updated list
+            }
+                //new EngineerWindow().Show();
         }
     }
 }

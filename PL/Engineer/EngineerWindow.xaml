@@ -5,9 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="640" Width="800">
+        Title="EngineerWindow" Height="640" Width="800"
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <!--Extrnal Grid-->
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="White" Offset="0.651"/>
+                <GradientStop Color="#FF4FE8AF"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="23*"/>
             <RowDefinition Height="204*"/>
@@ -21,18 +29,21 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <Label Content="Engineer's details:" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="57" Width="356" FontSize="36" FontWeight="Bold"/>
-        <Label Content="Name:" HorizontalAlignment="Left" Margin="141,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" FontSize="24"/>
-        <Label Content="Id:" HorizontalAlignment="Left" Margin="141,120,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Email account:" HorizontalAlignment="Left" Margin="141,160,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Lavel:" HorizontalAlignment="Left" Margin="141,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Cost:" HorizontalAlignment="Left" Margin="141,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Task:" HorizontalAlignment="Left" Margin="141,280,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox HorizontalAlignment="Left" Margin="232,90,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Left" Margin="190,130,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_1"/>
-        <TextBox HorizontalAlignment="Left" Margin="320,170,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_2"/>
-        <TextBox HorizontalAlignment="Left" Margin="210,210,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30" FontSize="24"/>
-        <TextBox HorizontalAlignment="Left" Margin="210,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_3" />
-        <TextBox HorizontalAlignment="Left" Margin="210,290,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_4"/>
+        <Label Content="Engineer's details:" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="57" Width="356" FontSize="36" FontWeight="Bold" FontFamily="Book Antiqua"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="141,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="141,120,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="141,160,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Lavel:" HorizontalAlignment="Left" Margin="141,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Cost:" HorizontalAlignment="Left" Margin="141,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <!--Label Content="Task:" HorizontalAlignment="Left" Margin="141,280,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/-->
+        <TextBox Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment = "Left" Margin="220,90,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="220,130,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3" />
+        <TextBox Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="220,170,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
+                                ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="220,210,0,0" Grid.Row="1" VerticalAlignment="Top" Width="260" Height="30" FontFamily="Book Antiqua" FontSize="20" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <TextBox Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="220,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3" />
+        <!--TextBox Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="220,290,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="24" TextChanged="TextBox_TextChanged_3" /-->
+        <Button Content= "{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" HorizontalAlignment="Left" Margin="640,340,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="100" FontSize="24" Click="btnAddUpdate_Click" FontFamily="Book Antiqua" Background="#FFB2FBC0" BorderBrush="#FF36AA8C" BorderThickness="2,2,2,2"/>
+        <!--Button Content="Update" HorizontalAlignment="Left" Margin="520,340,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="100" FontSize="24"/-->
     </Grid>
 </Window>

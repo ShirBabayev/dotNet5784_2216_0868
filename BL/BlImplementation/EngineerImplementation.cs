@@ -97,7 +97,7 @@ internal class EngineerImplementation : BlApi.IEngineer
              Level: (DO.EngineerExperience)boEngineer.Level,
              Cost: boEngineer.Cost);
         if (_dal.Task.ReadAll(tsk => tsk.EngineerId == boEngineer.Id).FirstOrDefault() != null)
-                throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task");//TODO: check if the task is a current task
+                throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task, can't update");//TODO: check if the task is a current task
         
         DO.Task task = (from DO.Task doTask in _dal.Task.ReadAll()
                         let IsGoodForEng = CheckTaskForEngineer(boEngineer.Id, doTask.Id)
@@ -112,7 +112,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Engineer with ID={boEngineer.Id} does Not exist", ex);
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer.Id} does Not exist", ex);
         }
 
     }
