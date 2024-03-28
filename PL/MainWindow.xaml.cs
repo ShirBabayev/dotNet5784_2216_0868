@@ -1,4 +1,5 @@
-﻿using PL.Engineer;
+﻿using PL;
+using PL.Engineer;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,30 +22,15 @@ namespace PL
         {
             InitializeComponent();
         }
-
-        private void BtnEngineers_Click(object sender, RoutedEventArgs e)
+        private void BtnManagerWindow_Click(object sender, RoutedEventArgs e)
         {
-            new EngineerListWindow().Show();
-
+            new ManagerWindow().Show();
         }
 
-        private void InitializeDatabase_Click(object sender, RoutedEventArgs e)
+        private void BtnEngineerDetailesWindow_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult choice = MessageBox.Show("Are you sure you want to Initiate the Database?","Datasource Initialization", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (choice==MessageBoxResult.Yes)
-                BlApi.Factory.Get().InitializeDB();
-            else
-               MessageBox.Show("Initiation of the Database was not allowed", "Did Not Initiate", MessageBoxButton.OK , MessageBoxImage.Information);
-
-        }
-        private void ResetDatabase_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult choice = MessageBox.Show("Are you sure you want to Reset the Database?", "Worning! Reset Action", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            if (choice==MessageBoxResult.Yes)
-                BlApi.Factory.Get().ResetDB();
-            else
-                MessageBox.Show("Reset of the Database was not allowed","Did Not Reset", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            new EngineerDetailesWindow().Show();
         }
     }
 }
+

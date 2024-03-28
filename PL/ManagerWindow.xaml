@@ -1,11 +1,11 @@
-﻿<Window x:Class="PL.MainWindow"
+﻿<Window x:Class="PL.ManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ManagerWindow" Height="450" Width="800">
     <!--Extrnal Grid-->
     <Grid x:Name="___No_Name_">
         <Grid.Background>
@@ -21,9 +21,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid/>
-        <!-- when clicking this button you will move to the Manager window-->
-        <Button Content="MANAGER" HorizontalAlignment="Left" Margin="150,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnManagerWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
-        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineerDetailesWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
+        <!-- when clicking this button you will move to the engineer list window-->
+        <Button Content="Hendle Engineers" HorizontalAlignment="Left" Margin="47,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineers_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
+        <Button Content="Initialize" HorizontalAlignment="Left" Margin="294,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="InitializeDatabase_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
+        <Button Content="Reset" HorizontalAlignment="Right" Margin="0,322,41,0" Grid.Row="1" VerticalAlignment="Top" Click="ResetDatabase_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderThickness="3,3,3,3" BorderBrush="#FF36AA8C"/>
         <Label Content="Hello, let's start working on our project! &#xD;&#xA;     Choose the action you want to do" HorizontalAlignment="Center" Margin="0,66,0,0" Grid.Row="1" VerticalAlignment="Top" Height="149" Width="582" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
     </Grid>
 </Window>

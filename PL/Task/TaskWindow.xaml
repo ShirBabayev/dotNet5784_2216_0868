@@ -1,0 +1,56 @@
+﻿<Window x:Class="PL.TaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="TaskWindow" Height="450" Width="800">
+    <!--Extrnal Grid-->
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="White" Offset="0.651"/>
+                <GradientStop Color="#FF4FE8AF"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="204*"/>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--Internal, Upper Grid-->
+        <Grid Height="auto" Grid.Row="0" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <Label Content="Task's details:" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="57" Width="356" FontSize="36" FontWeight="Bold" FontFamily="Book Antiqua"/>
+        <Label Content="Nick Name:" HorizontalAlignment="Left" Margin="50,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="140" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="50,120,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Date of creation:" HorizontalAlignment="Left" Margin="50,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Level of difficulty:" HorizontalAlignment="Left" Margin="50,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Remarks:" HorizontalAlignment="Left" Margin="400,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Planed Date Of strat Job:" HorizontalAlignment="Left" Margin="400,120,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Date Of strat Job:" HorizontalAlignment="Left" Margin="400,160,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="DurationOfTask:" HorizontalAlignment="Left" Margin="400,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="DateOfFinishing:" HorizontalAlignment="Left" Margin="400,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <TextBox Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment = "Left" Margin="200,90,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="140,130,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3" />
+        <TextBox Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="140,170,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
+                                ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="140,210,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="30" FontFamily="Book Antiqua" FontSize="20" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <TextBox Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="140,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3" />
+               <TextBox Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment = "Left" Margin="490,90,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="490,130,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3" />
+        <TextBox Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="490,170,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
+                                ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="490,210,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="30" FontFamily="Book Antiqua" FontSize="20" BorderBrush="#FF14A770" BorderThickness="3,3,3,3"/>
+        <TextBox Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="490,250,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="3,3,3,3" />
+        <Button Content= "{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" HorizontalAlignment="Left" Margin="490,340,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="100" FontSize="24" Click="btnChoose_Click" FontFamily="Book Antiqua" Background="#FFB2FBC0" BorderBrush="#FF36AA8C" BorderThickness="2,2,2,2"/>
+    </Grid>
+</Window>
