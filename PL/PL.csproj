@@ -10,8 +10,12 @@
 	  <OutputPath>$(SolutionDir)\bin\</OutputPath>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+	  <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.8.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />

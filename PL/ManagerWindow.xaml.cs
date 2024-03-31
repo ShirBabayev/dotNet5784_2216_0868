@@ -1,4 +1,5 @@
 ﻿using PL.Engineer;
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,9 @@ namespace PL
                 MessageBox.Show("Reset of the Database was not allowed", "Did Not Reset", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
+
+        private void BtnTaskClick(object sender, RoutedEventArgs e)=>new TaskListWindow(true).Show();
+
     }
 }
 

@@ -50,7 +50,7 @@ namespace PL.Engineer
 
         private void TaskList_Click(object sender, RoutedEventArgs e)
         {
-            new TaskListWindow().Show();
+            new TaskListWindow(false).Show();
         }
     }
 }

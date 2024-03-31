@@ -22,8 +22,8 @@
         </Grid.RowDefinitions>
         <Grid/>
         <!-- when clicking this button you will move to the Manager window-->
-        <Button Content="MANAGER" HorizontalAlignment="Left" Margin="150,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnManagerWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
-        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineerDetailesWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
+        <Button Content="MANAGER" HorizontalAlignment="Left" Margin="150,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnManagerWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineerDetailesWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
         <Label Content="Hello, let's start working on our project! &#xD;&#xA;     Choose the action you want to do" HorizontalAlignment="Center" Margin="0,66,0,0" Grid.Row="1" VerticalAlignment="Top" Height="149" Width="582" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
     </Grid>
 </Window>

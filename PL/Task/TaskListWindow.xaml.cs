@@ -32,8 +32,11 @@ namespace PL.Task
             get { return (IEnumerable<BO.Task>)GetValue(TaskListProperty); }
             set { SetValue(TaskListProperty, value); }
         }
-        public TaskListWindow()
+
+        private bool _isManager {  get; set; }   
+        public TaskListWindow(bool isManager)
         {
+            _isManager = isManager;
             InitializeComponent();
             TaskList = s_bl?.Task.ReadAll()!;
         }
@@ -43,16 +46,13 @@ namespace PL.Task
             if ((sender as ListView)?.SelectedItem is BO.Task tsk)
             {
                 //  MessageBox.Show(eng.EngineerId.ToString());
-                new TaskWindow(tsk.Id).ShowDialog();
+                new TaskWindow(_isManager, tsk.Id).ShowDialog();
                 TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll()!);//in order to show the updated list
             }
 
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void btnAdd_Click(object sender, RoutedEventArgs e) { new TaskWindow(_isManager).Show(); }
 
         private void SelectionChange(object sender, SelectionChangedEventArgs e)
         {

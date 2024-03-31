@@ -50,19 +50,19 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add"
+        <Button Content="Add Engineer"
                 Grid.Row="1" 
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Center" 
                 Height="50" 
-                Width="100" 
+                Width="164" 
                 FontSize="20" 
                 VerticalAlignment="Top" 
                 Click="btnAdd_Click" 
                 FontFamily="Book Antiqua" 
-                Margin="150,340,0,0" 
+                Margin="0,342,0,0" 
                 Background="#FFFCFFC5" 
                 BorderBrush="#FFFF9A23" 
-                BorderThickness="2,2,2,2"
+                BorderThickness="2,2,2,2" Foreground="#DD000000"
                 />
     </Grid>
 </Window>

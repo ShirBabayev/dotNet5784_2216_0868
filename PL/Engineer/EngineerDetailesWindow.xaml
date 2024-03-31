@@ -29,12 +29,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <Label Content="ENGINEER:" HorizontalAlignment="Left" Margin="276,46,0,0" VerticalAlignment="Top" Height="57" Width="356" FontSize="36" FontWeight="Bold" FontFamily="Book Antiqua" Grid.RowSpan="2"/>
+        <Label Content="ENGINEER'S DETAILS:" HorizontalAlignment="Left" Margin="172,46,0,0" VerticalAlignment="Top" Height="57" Width="460" FontSize="36" FontWeight="Bold" FontFamily="Book Antiqua" Grid.RowSpan="2"/>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="141,80,0,0" Grid.Row="1" VerticalAlignment="Top" Width="81" FontSize="24" FontFamily="Book Antiqua"/>
         <Label Content="Id:" HorizontalAlignment="Left" Margin="141,120,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
         <Label Content="Email:" HorizontalAlignment="Left" Margin="141,160,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
-        <Label Content="Lavel:" HorizontalAlignment="Left" Margin="141,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
+        <Label Content="Level:" HorizontalAlignment="Left" Margin="141,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
         <Label Content="Cost:" HorizontalAlignment="Left" Margin="141,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua"/>
-        <Button Content= "List Of Tasks" HorizontalAlignment="Left" Margin="581,340,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="159" FontSize="24" Click="TaskList_Click" FontFamily="Book Antiqua" Background="#FFB2FBC0" BorderBrush="#FF36AA8C" BorderThickness="2,2,2,2"/>
+        <Button Content= "List Of Tasks" HorizontalAlignment="Left" Margin="141,283,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="177" FontSize="24" Click="TaskList_Click" FontFamily="Book Antiqua" Background="#FFB2FBC0" BorderBrush="#FF36AA8C" BorderThickness="2,2,2,2" Foreground="#DD000000"/>
     </Grid>
 </Window>
