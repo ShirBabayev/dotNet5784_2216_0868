@@ -43,7 +43,7 @@ internal class TaskImplementation: ITask
         Task newItem = item with { Id = newId };
         tasks.Add(newItem);
         XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);//Serialize
-        return item.Id;
+        return newItem.Id;
     }
 
     public void Delete(int id)

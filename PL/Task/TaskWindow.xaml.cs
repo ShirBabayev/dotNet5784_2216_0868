@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 namespace PL;
 
 /// <summary>
@@ -23,16 +24,19 @@ public partial class TaskWindow : Window
     }
 
 
+    public bool _isManager { get; set; }
+    public bool _isEngineer { get; set; }
 
-    public bool IsManager
-    {
-        get { return (bool)GetValue(IsmanagerProp); }
-        set { SetValue(IsmanagerProp, value); }
-    }
+    //public bool _isManager
+    //{
+    //    get { return (bool)GetValue(IsmanagerProp); }
+    //    set { SetValue(IsmanagerProp, value); }
+    //}
+
 
     // Using a DependencyProperty as the backing store for IsManager.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty IsmanagerProp =
-        DependencyProperty.Register("IsManager", typeof(bool), typeof(TaskWindow));
+    //public static readonly DependencyProperty IsmanagerProp =
+    //    DependencyProperty.Register("_isManager", typeof(bool), typeof(TaskWindow));
 
 
     public bool AddMode
@@ -56,14 +60,24 @@ public partial class TaskWindow : Window
     public static readonly DependencyProperty EnableDialogProp =
         DependencyProperty.Register("EnableDialog", typeof(bool), typeof(TaskWindow));
 
+    public IEnumerable<TaskInList> TasksList { set;get; }
 
-    ObservableCollection<TaskInList> selectedTasks = new ObservableCollection<TaskInList>();
+    public ObservableCollection<TaskInList> DependencyTask = new ObservableCollection<TaskInList>();
 
     public TaskWindow(bool isManager, int TaskId = 0)
     {
+        TasksList = s_bl.Task.ReadAll().ToList().Select(t => new TaskInList()
+        {
+            Id = t.Id,
+            Description = t.Description,
+            NickName = t.NickName,
+            Status = t.Status,
+        });
+
         EnableDialog = false;
         AddMode = TaskId == 0;
-        IsManager = isManager;
+        _isManager = isManager;
+        _isEngineer = !isManager;
         try
         {
             if (AddMode)
@@ -73,7 +87,7 @@ public partial class TaskWindow : Window
         }
         catch (BO.BlDoesNotExistException)
         {
-            MessageBox.Show($"There is no Task with the id: {TaskId}", "Engineer Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"There is no Task with the id: {TaskId}", "Task Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         if (CurrentTask.DependencyList is null)
@@ -81,6 +95,8 @@ public partial class TaskWindow : Window
 
         if (CurrentTask.EngineerOfTask is null)
             CurrentTask.EngineerOfTask = new();
+
+        DependencyTask = new(CurrentTask.DependencyList);
 
         InitializeComponent();
 
@@ -112,17 +128,17 @@ public partial class TaskWindow : Window
         {
             try
             {
-                s_bl.Task.Create(CurrentTask);
-                MessageBox.Show($"New Task with Id: {CurrentTask.Id} Created Successfully!", "Creation:");
+                 int _id=s_bl.Task.Create(CurrentTask);
+                MessageBox.Show($"New Task with Id: {_id} Created Successfully!", "Creation:");
                 Close();
             }
             catch (BO.BlInvalidvalueException)
             {
-                MessageBox.Show("One Of The New-Task's Values Is Invalid,this Engineer is not in the system", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("One Of The New-Task's Values Is Invalid,this Task is not in the system", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlAlreadyExistsException)
             {
-                MessageBox.Show("Ho no! There is already an Task with the same Id, can not add this one again ", "Task Exists", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ho no! There is already a Task with the same Id, can not add this one again ", "Task Exists", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         else
@@ -152,15 +168,34 @@ public partial class TaskWindow : Window
     private void EditDep_Click(object sender, RoutedEventArgs e)
     {
         EnableDialog = true;
-        //new MakeDependeciesWindow(CurrentTask.Id).Show();
+
     }
 
     private void ChangeDependencyCollection(object sender, MouseButtonEventArgs e)
     {
         // Add selected tasks to the task list
-        if ((sender as ListView)?.SelectedItem is BO.TaskInList selectedTask)
+        if (sender is Label label)
         {
-            selectedTasks.Add(selectedTask);
+            if (label.Background == Brushes.LightGreen)
+            {
+                TaskInList t = (TaskInList)label.Content;
+                CurrentTask.DependencyList!.ToList().Remove(t);
+                DependencyTask.Remove(t);
+                label.Background = Brushes.Transparent;
+            }
+            else
+            {
+                TaskInList t = (TaskInList)label.Content;
+                CurrentTask.DependencyList!.ToList().Add(t);
+                DependencyTask.Add(t);
+                label.Background = Brushes.LightGreen;
+            }
         }
+    }
+
+    private void Choose_Click(object sender, RoutedEventArgs e)
+    {
+        //we don't need to do a double check if the mission is not occupide or fit because we already filtered it in the list
+
     }
 }

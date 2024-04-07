@@ -1,6 +1,7 @@
 ﻿using PL.Task;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace PL.Engineer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         bool IsAddClick;
         public static readonly DependencyProperty EngineerProperty =
-        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerDetailesWindow), new PropertyMetadata(null));
         public BO.Engineer CurrentEngineer
         {
             get { return (BO.Engineer)GetValue(EngineerProperty); }
@@ -36,9 +37,11 @@ namespace PL.Engineer
             InitializeComponent();
             try
             {
+               // MessageBox.Show(EngineerId.ToString());
                 CurrentEngineer = IsAddClick ?
                                     new BO.Engineer()
                                     : s_bl?.Engineer.Read(EngineerId)!;
+               // MessageBox.Show(CurrentEngineer.Email);
             }
             catch (BO.BlDoesNotExistException)
             {
@@ -50,7 +53,32 @@ namespace PL.Engineer
 
         private void TaskList_Click(object sender, RoutedEventArgs e)
         {
-            new TaskListWindow(false).Show();
+  
+            new TaskListWindow(false, CurrentEngineer.Level).Show();
+        }
+
+        private void Task_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentEngineer.Task!=null)
+            {
+                new TaskWindow(false, CurrentEngineer.Task.Id).Show();
+            }
+            else
+            {
+                MessageBox.Show($"No current task", "No Current Task", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void Confirmation_Click(object sender, RoutedEventArgs e)
+        {
+            if (s_bl.Engineer.Read(CurrentEngineer.Id)!=null)
+            {
+                if(Button.ContentProperty.Name  == "Enter")
+                    MessageBox.Show($"No current task", "No Current Task", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                //confirmationButton.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

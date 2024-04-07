@@ -35,5 +35,5 @@ public record Task
     DateTime? DateOfFinishing = null
 )
 {
-    public Task() : this(0, "", "", DateTime.MinValue) { } //empty ctor for stage 3
+    public Task() : this(0, "", "", DateTime.Now) { } //empty ctor for stage 3
 }

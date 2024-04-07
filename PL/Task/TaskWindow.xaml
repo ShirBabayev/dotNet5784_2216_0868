@@ -6,12 +6,16 @@
         xmlns:local="clr-namespace:PL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="TaskWindow" Height="542" Width="800" Background="#FF4FE8AF">
+        DataContext="{Binding RelativeSource={RelativeSource Mode = Self}}"
+        Title="TaskWindow" Height="550" Width="800" Background="#FF4FE8AF">
+
+    <Window.Resources>
+        <local:ConvertDependencyToColor x:Key="ConvertDependencyToColorKey"/>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF4FE8AF"/>
+                <GradientStop Color="#FFC5FFEA" Offset="0"/>
                 <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
@@ -29,15 +33,14 @@
             <StackPanel Grid.Column="0">
                 <!-- NickName -->
                 <Label Content="Nickname:" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <TextBox Grid.Column="1" Margin="0" Text="{Binding NickName, Mode=OneWay}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
-
+                <TextBox Grid.Column="1" Margin="0" Text="{Binding NickName}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
                 <!-- Description -->
                 <Label Content="Description:" Grid.Row="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="1" TextWrapping="Wrap" Text="{Binding Description}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="1" TextWrapping="Wrap" Text="{Binding Description}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
 
                 <!-- Date Of Creation -->
-                <Label Content="Date of creation:" Grid.Row="2" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <DatePicker Grid.Row="2" Grid.Column="1" Margin="1" SelectedDate="{Binding DateOfCreation}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <Label Content="Creation date:" Grid.Row="2" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
+                <DatePicker Grid.Row="2" Grid.Column="1" Margin="1" SelectedDate="{Binding DateOfCreation}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="False"/>
 
                 <!-- Required Effort Time -->
                 <!--
@@ -46,25 +49,25 @@
 
                 <!-- Level Of Difficulty -->
                 <Label Content="Level of difficulty:" Grid.Row="4" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <ComboBox Grid.Row="4" Grid.Column="1" Margin="1" SelectedItem="{Binding LevelOfDifficulty}" ItemsSource="{StaticResource LevelsCollectionKey }" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <ComboBox Grid.Row="4" Grid.Column="1" Margin="1" SelectedItem="{Binding LevelOfDifficulty}" ItemsSource="{StaticResource LevelsCollectionKey }" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
 
                 <!-- Deliverables -->
                 <Label Content="Deliverables:" Grid.Row="5" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Margin="1" TextWrapping="Wrap" Text="{Binding Deliverables}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="1" TextWrapping="Wrap" Text="{Binding Deliverables}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
 
                 <!-- Remarks -->
                 <Label Content="Remarks:" Grid.Row="6" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <TextBox Grid.Row="6" Grid.Column="1" Margin="1" TextWrapping="Wrap" Text="{Binding Remarks}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="1" TextWrapping="Wrap" Text="{Binding Remarks}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
 
                 <!-- Date Of strat Job -->
                 <Label Content="Date of starting:" Grid.Row="7" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <DatePicker Grid.Row="7" Grid.Column="1" Margin="1" SelectedDate="{Binding DateOfstratJob}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <DatePicker Grid.Row="7" Grid.Column="1" Margin="1" SelectedDate="{Binding DateOfstratJob}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1">
                 <!-- Planed Date Of strat Job -->
-                <Label Content="Planed date of strat job:" Grid.Row="8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <DatePicker Grid.Row="8" Grid.Column="1" Margin="1" SelectedDate="{Binding PlanedDateOfstratJob}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <Label Content="Planned strat date:" Grid.Row="8" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
+                <DatePicker Grid.Row="8" Grid.Column="1" Margin="1" SelectedDate="{Binding PlanedDateOfstratJob}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
                 <!--DisplayDateStart="{Binding Dependencies, Converter={StaticResource PossibleStartDate}}"/>-->
 
                 <!-- Deadline Date -->
@@ -73,7 +76,7 @@
                 <DatePicker Grid.Row="9" Grid.Column="1" Margin="1" SelectedDate="{Binding DeadlineDate}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>-->
 
                 <!-- Date Of Finishing -->
-                <Label Content="Date of finishing:" Grid.Row="10" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
+                <Label Content="Finishing date:" Grid.Row="10" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
                 <DatePicker Grid.Row="10" Grid.Column="1" Margin="1" SelectedDate="{Binding DateOfFinishing}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
 
                 <!-- Forecast Date -->
@@ -83,24 +86,34 @@
 
                 <!-- Engineer of task -->
                 <Label Content="Engineer:" Grid.Row="12" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
-                <TextBox Grid.Row="12" Grid.Column="1" Margin="1" Text="{Binding EngineerOfTask.Name}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2"/>
+                <TextBox Grid.Row="12" Grid.Column="1" Margin="1" Text="{Binding EngineerOfTask.Name}" Height="25" HorizontalAlignment = "Left" Width="350" FontSize="14" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,2" IsEnabled="{Binding _isManager}"/>
 
                 <!-- Dependencies -->
                 <Label Content="Dependencies:" Grid.Row="13" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
                 <!-- Assuming Dependencies is a collection of TaskInList -->
+                <!--<ListBox Grid.Row="13" Grid.Column="1" Margin="1" ItemsSource="{Binding DependencyList, RelativeSource={RelativeSource AncestorType={x:Type local:TaskWindow}}}" HorizontalAlignment = "Left" Width="350" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua" BorderBrush="#FF14A770"/>-->
                 <ListBox Grid.Row="13" Grid.Column="1" Margin="1" ItemsSource="{Binding DependencyList}" HorizontalAlignment = "Left" Width="350" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua" BorderBrush="#FF14A770"/>
+
             </StackPanel>
 
         </Grid>
 
-        <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,434,0,0" Grid.RowSpan="2" Width="385">
             <Button Margin="10" Content="Save" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua" Click="Save_Click" Background="#FF90FFA5" Foreground="#DD000000" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
-            <Button Margin="10" Content="Edit Dependencies" HorizontalAlignment="Center" Click="EditDep_Click" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua" Background="#FF90FFA5" Foreground="#DD000000" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3"/>
+            <Button Margin="10" Content="Edit Dependencies" HorizontalAlignment="Center" Click="EditDep_Click" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua" Background="#FF90FFA5" Foreground="#DD000000" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" IsEnabled="{Binding _isManager}"/>
+            <Button Margin="10" Content="Choose task" HorizontalAlignment="Center" Click="Choose_Click" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua" Background="#FF90FFA5" Foreground="#DD000000" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" IsEnabled="{Binding _isEngineer}"/>
         </StackPanel>
 
         <materialDesign:DialogHost Background="Black" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:TaskWindow}}}"  IsOpen="{Binding EnableDialog}"  CloseOnClickAway="True" Margin="0,10,0,-10" >
             <materialDesign:DialogHost.DialogContent >
                 <Grid  Width="800" Height="400">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFCE7FF" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label Content="Choose depending tasks" Height="1" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Book Antiqua"/>
                     <ScrollViewer Grid.Column="0"
                       PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
                       HorizontalScrollBarVisibility="Auto">
@@ -113,13 +126,13 @@
                                                 <GridViewColumn>
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Label Margin="0,0,-1500,0" x:Name="TextBlock" Tag="{Binding}" Content="{Binding }"  MouseDoubleClick="ChangeDependencyCollection" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="1500">
-                                                                <!--<Label.Background>
-                                                                    <MultiBinding Converter="{StaticResource DepToColor}" >
-                                                                        <Binding  ElementName="TextBlock" Path="Tag" />
-                                                                        <Binding Path="Task.Dependencies" RelativeSource="{RelativeSource AncestorType={x:Type Window}}"/>
+                                                            <Label Margin="0,0,-1500,0" x:Name="TextBlock" Content="{Binding}"  MouseDoubleClick="ChangeDependencyCollection" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="1500">
+                                                                <Label.Background>
+                                                                    <MultiBinding Converter="{StaticResource ConvertDependencyToColorKey}" >
+                                                                        <Binding  ElementName="TextBlock" Path="Content" />
+                                                                        <Binding Path="CurrentTask.DependencyList" RelativeSource="{RelativeSource AncestorType={x:Type Window}}"/>
                                                                     </MultiBinding>
-                                                                </Label.Background>-->
+                                                                </Label.Background>
                                                             </Label>
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>

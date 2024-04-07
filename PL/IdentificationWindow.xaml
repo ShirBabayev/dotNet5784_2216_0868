@@ -1,0 +1,29 @@
+﻿<Window x:Class="PL.IdentificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="IdentificationWindow" Height="410" Width="600">
+    <!--Extrnal Grid-->
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FFC5FFEA" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="413*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="147,124,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua" Height="38" Width="37"/>
+        <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" KeyDown="InputTextBox_KeyDown" HorizontalAlignment="Left" Margin="189,128,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,3" />
+        <Label Content="Enter your Id:" HorizontalAlignment="Left" Margin="140,57,0,0" VerticalAlignment="Top" Height="58" Width="460" FontSize="36" FontWeight="Bold" FontFamily="Book Antiqua" Grid.Row="1"/>
+        <Button Content= "OK" HorizontalAlignment="Center" Margin="0,246,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="88" FontSize="24" Click="Confirmation_Click" FontFamily="Book Antiqua" Background="#FFB2FBC0" BorderBrush="#FF36AA8C" BorderThickness="2,2,2,2" Foreground="#DD000000"/>
+    </Grid>
+</Window>

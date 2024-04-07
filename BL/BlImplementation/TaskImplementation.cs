@@ -21,7 +21,7 @@ internal class TaskImplementation : BlApi.ITask
     /************* CRUD functions ************/
     public int Create(BO.Task boTask)
     {
-        if (boTask.Id <= 0 || boTask.NickName == null || boTask.NickName == "")
+        if (boTask.Id < 0 || boTask.NickName == null || boTask.NickName == "")
             throw new BO.BlInvalidvalueException("one of the task's values is invalid");
         DO.Task doTask = new DO.Task
            (Id: boTask.Id,
@@ -31,7 +31,7 @@ internal class TaskImplementation : BlApi.ITask
             LevelOfDifficulty: (DO.EngineerExperience)boTask.LevelOfDifficulty!,
             Remarks: boTask.Remarks,
             DurationOfTask: boTask.DurationOfTask,
-            DateOfCreation: boTask.DateOfCreation);
+            DateOfCreation: DateTime.Now);
 
         try
         {
@@ -110,15 +110,15 @@ internal class TaskImplementation : BlApi.ITask
         try
         {
             _dal.Task.Update(new_doTask);
-            IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(x => x.DependentTaskId == boTask.Id);
+            IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(x => x.DependentTaskId == boTask.Id);//all the depending tasks
             if (boTask.DependencyList is null)
-                boTask.DependencyList = new List<TaskInList>();
+                boTask.DependencyList = new List<TaskInList>();//initialize as an empty list
 
             boTask.DependencyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id))
                 .ToList().ForEach(dep => _dal.Dependency.Create(new DO.Dependency()
                 {
                     DependentTaskId = boTask.Id,
-                    DependentOnTaskId = dep.Id
+                    DependentOnTaskId = dep.Id//the dapending task
                 }));
 
             dependencies.Where(old => !boTask.DependencyList.Any(_new => _new.Id == old.DependentOnTaskId))
@@ -182,6 +182,7 @@ internal class TaskImplementation : BlApi.ITask
 
     private bool CanAddOrUpdateDateOfTask(int taskId, DateTime? taskDate)
     {
+        if (taskDate == null) { return true; }
         if (taskDate < _dal.InitDate)//if the date is sooner then the projects starting date
             return false;
         IEnumerable<DO.Dependency> depenList = from dep in _dal.Dependency.ReadAll() where dep.DependentTaskId == taskId select dep;

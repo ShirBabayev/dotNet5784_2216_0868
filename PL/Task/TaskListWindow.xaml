@@ -4,45 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="450" Width="800"
+        Title="TaskListWindow" Height="510" Width="800"
            	 DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--Extrnal Grid-->
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White"/>
-                <GradientStop Color="#FFEEFFA8" Offset="0.742"/>
+                <GradientStop Color="#FFF5E4FF" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="377*"/>
-            <ColumnDefinition Width="23*"/>
-            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="791*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="223*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="3" Background="#FFFCFFCA">
+        <Grid Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="3" Background="#FFF7E2FF" Margin="0,0,0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Select Task" HorizontalAlignment="Left" Margin="108,0,0,0" VerticalAlignment="Center" Grid.Column="0" FontSize="15" FontWeight="Bold" FontFamily="Book Antiqua"/>
-            <ComboBox SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+            <ComboBox SelectedValue="{Binding Path=Level, Mode=TwoWay}" IsEnabled="{Binding _isManager}"
                         ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="SelectionChange" FontFamily="Book Antiqua" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" >
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FF84FCC2" Offset="1"/>
+                        <GradientStop Color="#FFF8EDFF"/>
+                        <GradientStop Color="#FFEAB5FF" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
         </Grid>
 
-        <ListView  Grid.Row="1" Margin="5,5,5,5"  ItemsSource="{Binding Path=TaskList}" SelectionChanged="ListView_DoubleClick" FontSize="16" Background="#FFEEFFA8" Grid.ColumnSpan="2" FontWeight="Bold" FontFamily="Book Antiqua" >
+        <ListView  Grid.Row="1" Margin="5,5,1,5"  ItemsSource="{Binding Path=TaskList}" SelectionChanged="ListView_DoubleClick" FontSize="16" Background="#FFEEFFA8" FontWeight="Bold" FontFamily="Book Antiqua" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -53,14 +53,15 @@
                 Grid.Row="1" 
                 HorizontalAlignment="Center" 
                 Height="50" 
-                Width="121" 
+                Width="122" 
                 FontSize="20" 
                 VerticalAlignment="Top" 
                 Click="btnAdd_Click" 
                 FontFamily="Book Antiqua" 
                 Margin="0,342,0,0" 
-                Background="#FFFCFFC5" 
-                BorderBrush="#FFFF9A23" 
+                IsEnabled="{Binding _isManager}"
+                Background="#FFF8EDFF" 
+                BorderBrush="#FFED7AFF" 
                 BorderThickness="2,2,2,2" Foreground="#DD000000" FontWeight="Bold"
                 />
     </Grid>

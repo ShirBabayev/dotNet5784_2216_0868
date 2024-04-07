@@ -5,25 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="530" Width="800">
     <!--Extrnal Grid-->
     <Grid x:Name="___No_Name_">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
-                <GradientStop Color="#FF4FE8AF" Offset="0"/>
-                <GradientStop Color="White" Offset="0.681"/>
+                <GradientStop Color="#FFC5FFEA" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="400"/>
         </Grid.RowDefinitions>
-        <Grid/>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button Content="Add Hour" Click="ChangeClock" Height="30" Width="130" Margin="10" FontSize="20" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+            <Button Content="Add Day" Click="ChangeClock" Height="30" Width="130" Margin="10" FontSize="20" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+            <Button Content="Add Month" Click="ChangeClock" Height="30" Width="140" Margin="10" FontSize="20" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+            <Button Content="Reset" Click="ChangeClock" Height="30" Width="100" Margin="10" FontSize="20" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+            <TextBlock Text="{Binding Clock}" Margin="10" FontSize="20" FontFamily="Book Antiqua"/>
+        </StackPanel>
         <!-- when clicking this button you will move to the Manager window-->
-        <Button Content="MANAGER" HorizontalAlignment="Left" Margin="150,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnManagerWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
-        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineerDetailesWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
-        <Label Content="Hello, let's start working on our project! &#xD;&#xA;     Choose the action you want to do" HorizontalAlignment="Center" Margin="0,66,0,0" Grid.Row="1" VerticalAlignment="Top" Height="149" Width="582" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
+        <Button Content="MANAGER" HorizontalAlignment="Left" Margin="150,280,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnManagerWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,280,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineerDetailesWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+        <Label Content="Please select your role: " HorizontalAlignment="Center" Margin="0,66,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="324" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
     </Grid>
 </Window>

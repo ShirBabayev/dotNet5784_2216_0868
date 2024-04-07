@@ -33,12 +33,16 @@ namespace PL.Task
             set { SetValue(TaskListProperty, value); }
         }
 
-        private bool _isManager {  get; set; }   
-        public TaskListWindow(bool isManager)
+        public bool _isManager {  get; set; }   
+        public TaskListWindow(bool isManager, BO.EngineerExperience engLevel=0)
         {
             _isManager = isManager;
             InitializeComponent();
-            TaskList = s_bl?.Task.ReadAll()!;
+            if (_isManager)
+                TaskList = s_bl?.Task.ReadAll()!;
+            else
+                TaskList = s_bl?.Task.ReadAll(tsk=>(BO.EngineerExperience)tsk.LevelOfDifficulty! <= engLevel)!;
+
         }
         public BO.EngineerExperience Levels { get; set; } = BO.EngineerExperience.All;
         private void ListView_DoubleClick(object sender, SelectionChangedEventArgs e)
