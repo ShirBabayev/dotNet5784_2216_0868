@@ -23,11 +23,13 @@ internal class TaskImplementation : BlApi.ITask
     {
         if (boTask.Id < 0 || boTask.NickName == null || boTask.NickName == "")
             throw new BO.BlInvalidvalueException("one of the task's values is invalid");
+        if (boTask.LevelOfDifficulty==null)
+            throw new BO.BlInvalidvalueException("The value of LevelOfDifficulty is Null");
         DO.Task doTask = new DO.Task
            (Id: boTask.Id,
             NickName: boTask.NickName,
             Description: boTask.Description ?? "",
-            Deliverables: boTask.Deliverables,
+            Deliverables: boTask.Deliverables ?? "",
             LevelOfDifficulty: (DO.EngineerExperience)boTask.LevelOfDifficulty!,
             Remarks: boTask.Remarks,
             DurationOfTask: boTask.DurationOfTask,

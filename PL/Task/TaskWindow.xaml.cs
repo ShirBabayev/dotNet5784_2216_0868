@@ -132,14 +132,19 @@ public partial class TaskWindow : Window
                 MessageBox.Show($"New Task with Id: {_id} Created Successfully!", "Creation:");
                 Close();
             }
+            
             catch (BO.BlInvalidvalueException)
             {
+                if(CurrentTask.LevelOfDifficulty==null)
+                    MessageBox.Show("The task's level of difficulty is not defined,try again.", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
                 MessageBox.Show("One Of The New-Task's Values Is Invalid,this Task is not in the system", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlAlreadyExistsException)
             {
                 MessageBox.Show("Ho no! There is already a Task with the same Id, can not add this one again ", "Task Exists", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
         else
         {
@@ -159,8 +164,16 @@ public partial class TaskWindow : Window
             }
             catch (BO.BlCantSetValue)
             {
-                MessageBox.Show("This Task has a current task, so you can't change his details right now, this Task is not Updated.", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("This Task has a current Engineerr, so you can't change his details right now, this Task is not Updated.", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (BO.BlIncorrectDateOrder)
+            {
+                if (CurrentTask.PlanedDateOfstratJob==null)
+                    MessageBox.Show("The planed start date of this task is invalid", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
+                else 
+                    MessageBox.Show("The project has already started, can't update the task", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
+            } 
+
         }
     }
 

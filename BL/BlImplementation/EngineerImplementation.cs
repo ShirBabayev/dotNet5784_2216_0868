@@ -140,6 +140,8 @@ internal class EngineerImplementation : BlApi.IEngineer
     }
     public bool IsValidEmail(string email)
     {
+        if (email==null)
+            return false;
         // Regular expression pattern for validating email addresses
         string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
         Regex regex = new Regex(pattern);
@@ -149,7 +151,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         DO.Task doTask = _dal.Task.Read(taskId)!;
         DO.Engineer doEngineer = _dal.Engineer.Read(engineerId) ??
-                                            throw new BO.BlAlreadyExistsException($"Engineer with ID={engineerId} does Not exist"); 
+                                            throw new BO.BlDoesNotExistException($"Engineer with ID={engineerId} does Not exist"); 
 
         if (doTask.EngineerId is null//the task does not belong to another engineer
             //&& doTask.DateOfFinishing < DateTime.Now
