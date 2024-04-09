@@ -31,7 +31,7 @@ namespace PL
         DateTime clock { get; set; }
         public MainWindow()
         {
-            Clock = DateTime.Now;
+            Clock = s_bl.Clock;
             InitializeComponent();
             RunClock();
         }
@@ -89,6 +89,7 @@ namespace PL
                             break;
 
                     }
+                    s_bl.Clock = Clock;
                 }
             }
             catch { }   

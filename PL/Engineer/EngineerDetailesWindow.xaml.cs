@@ -54,14 +54,14 @@ namespace PL.Engineer
         private void TaskList_Click(object sender, RoutedEventArgs e)
         {
   
-            new TaskListWindow(false, CurrentEngineer.Level).Show();
+            new TaskListWindow(false, CurrentEngineer.Level,CurrentEngineer.Id).Show();
         }
 
         private void Task_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentEngineer.Task!=null)
             {
-                new TaskWindow(false, CurrentEngineer.Task.Id).Show();
+                new TaskWindow(false, CurrentEngineer.Task.Id,CurrentEngineer.Id).Show();
             }
             else
             {

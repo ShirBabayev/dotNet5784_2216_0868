@@ -130,7 +130,7 @@ public static class Initialization
         int i = 0;
         foreach (var _nickName in taskNicknames)
         {
-            DateTime _dateOfCreation = new DateTime(1999, 9, 9);
+            DateTime _dateOfCreation =s_dal.Clock;
             int range = (DateTime.Today - _dateOfCreation).Days;
             string _remarks = Remarks[i];
             //DateTime _PlanedDateOfstratJob = _dateOfCreation.AddDays(s_rand.Next(range) / 5);

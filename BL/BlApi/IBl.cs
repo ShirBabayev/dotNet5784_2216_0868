@@ -6,5 +6,7 @@ public interface IBl
     public void ResetDB();
     public IEngineer Engineer { get; }
     public ITask Task { get; }
+    public DateTime Clock { get; set; }
+
 
 }

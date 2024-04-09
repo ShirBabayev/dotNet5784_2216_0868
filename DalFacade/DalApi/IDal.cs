@@ -22,4 +22,6 @@ public interface IDal
     /// 
     /// </summary>
     IDependency Dependency { get; }
+    public DateTime Clock { get; set; }
+
 }

@@ -11,7 +11,7 @@ namespace BlImplementation;
 
 internal class TaskImplementation : BlApi.ITask
 {
-    private DalApi.IDal _dal = Factory.Get;
+    private DalApi.IDal _dal = DalApi.Factory.Get;
 
     public void StartProject(DateTime InitDate) => _dal.InitDate = InitDate;
 
@@ -33,7 +33,7 @@ internal class TaskImplementation : BlApi.ITask
             LevelOfDifficulty: (DO.EngineerExperience)boTask.LevelOfDifficulty!,
             Remarks: boTask.Remarks,
             DurationOfTask: boTask.DurationOfTask,
-            DateOfCreation: DateTime.Now);
+            DateOfCreation: _dal.Clock);
 
         try
         {
@@ -115,16 +115,22 @@ internal class TaskImplementation : BlApi.ITask
             IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(x => x.DependentTaskId == boTask.Id);//all the depending tasks
             if (boTask.DependencyList is null)
                 boTask.DependencyList = new List<TaskInList>();//initialize as an empty list
+                                                               //shouldn't be here else???
+            IEnumerable<BO.TaskInList> lst = boTask.DependencyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id));
+             lst.ToList().ForEach(dep => _dal.Dependency.Create(new DO.Dependency()
+             {
+                 DependentTaskId = boTask.Id,
+                 DependentOnTaskId = dep.Id//the dapending task
+             }));//doesn't enter to the the CREATE function
 
-            boTask.DependencyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id))
-                .ToList().ForEach(dep => _dal.Dependency.Create(new DO.Dependency()
-                {
-                    DependentTaskId = boTask.Id,
-                    DependentOnTaskId = dep.Id//the dapending task
-                }));
-
-            dependencies.Where(old => !boTask.DependencyList.Any(_new => _new.Id == old.DependentOnTaskId))
-               .ToList().ForEach(dep => _dal.Dependency.Delete(dep.DependentOnTaskId));
+            //boTask.DependencyList.Where(_new => !dependencies.Any(old => old.DependentOnTaskId == _new.Id))
+            //    .ToList().ForEach(dep => _dal.Dependency.Create(new DO.Dependency()
+            //    {
+            //        DependentTaskId = boTask.Id,
+            //        DependentOnTaskId = dep.Id//the dapending task
+            //    }));//doesn't enter to the the CREATE function
+            IEnumerable<DO.Dependency> lst1 = dependencies.Where(old => !boTask.DependencyList.Any(_new => _new.Id == old.DependentOnTaskId));
+                lst1.ToList().ForEach(dep => _dal.Dependency.Delete(dep.Id));//doesn't enter to the the DELETE function
 
         }
         catch (DO.DalDoesNotExistException ex)
@@ -220,7 +226,7 @@ internal class TaskImplementation : BlApi.ITask
             return BO.Status.Schedueled;
         if (doTask.DateOfstratJob != null && doTask.DateOfFinishing == null)//started to work and didn't finish
             return BO.Status.OnTrack;
-        if (doTask.DateOfFinishing < DateTime.Now)
+        if (doTask.DateOfFinishing < _dal.Clock)
             return BO.Status.Done;
         //doTask.PlanedDateOfstratJob==null
         return BO.Status.Unschedueled;

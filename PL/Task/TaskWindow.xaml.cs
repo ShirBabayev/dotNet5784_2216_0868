@@ -27,17 +27,6 @@ public partial class TaskWindow : Window
     public bool _isManager { get; set; }
     public bool _isEngineer { get; set; }
 
-    //public bool _isManager
-    //{
-    //    get { return (bool)GetValue(IsmanagerProp); }
-    //    set { SetValue(IsmanagerProp, value); }
-    //}
-
-
-    // Using a DependencyProperty as the backing store for IsManager.  This enables animation, styling, binding, etc...
-    //public static readonly DependencyProperty IsmanagerProp =
-    //    DependencyProperty.Register("_isManager", typeof(bool), typeof(TaskWindow));
-
 
     public bool AddMode
     {
@@ -60,12 +49,21 @@ public partial class TaskWindow : Window
     public static readonly DependencyProperty EnableDialogProp =
         DependencyProperty.Register("EnableDialog", typeof(bool), typeof(TaskWindow));
 
-    public IEnumerable<TaskInList> TasksList { set;get; }
+    public IEnumerable<TaskInList> TasksList { set; get; }
 
     public ObservableCollection<TaskInList> DependencyTask = new ObservableCollection<TaskInList>();
 
-    public TaskWindow(bool isManager, int TaskId = 0)
+
+    private BO.Engineer engineer { set; get; }
+    public TaskWindow(bool isManager, int TaskId = 0, int engineerid = 0)
     {
+        if (engineerid != 0)
+        {
+            engineer = s_bl.Engineer.Read(engineerid)!;
+            if (engineer.Task is null)
+                engineer.Task = new();
+        }
+
         TasksList = s_bl.Task.ReadAll().ToList().Select(t => new TaskInList()
         {
             Id = t.Id,
@@ -81,7 +79,7 @@ public partial class TaskWindow : Window
         try
         {
             if (AddMode)
-                CurrentTask = new();
+                CurrentTask = new() { DateOfCreation = s_bl.Clock };
             else
                 CurrentTask = s_bl?.Task.Read(TaskId)!;
         }
@@ -128,17 +126,17 @@ public partial class TaskWindow : Window
         {
             try
             {
-                 int _id=s_bl.Task.Create(CurrentTask);
+                int _id = s_bl.Task.Create(CurrentTask);
                 MessageBox.Show($"New Task with Id: {_id} Created Successfully!", "Creation:");
                 Close();
             }
-            
+
             catch (BO.BlInvalidvalueException)
             {
-                if(CurrentTask.LevelOfDifficulty==null)
+                if (CurrentTask.LevelOfDifficulty == null)
                     MessageBox.Show("The task's level of difficulty is not defined,try again.", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
-                MessageBox.Show("One Of The New-Task's Values Is Invalid,this Task is not in the system", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("One Of The New-Task's Values Is Invalid,this Task is not in the system", "Invalid Detales", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlAlreadyExistsException)
             {
@@ -168,11 +166,11 @@ public partial class TaskWindow : Window
             }
             catch (BO.BlIncorrectDateOrder)
             {
-                if (CurrentTask.PlanedDateOfstratJob==null)
+                if (CurrentTask.PlanedDateOfstratJob == null)
                     MessageBox.Show("The planed start date of this task is invalid", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
-                else 
+                else
                     MessageBox.Show("The project has already started, can't update the task", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            }
 
         }
     }
@@ -192,8 +190,10 @@ public partial class TaskWindow : Window
             if (label.Background == Brushes.LightGreen)
             {
                 TaskInList t = (TaskInList)label.Content;
-                CurrentTask.DependencyList!.ToList().Remove(t);
+                
+                t = DependencyTask.First(x=> x.Id == t.Id);
                 DependencyTask.Remove(t);
+                CurrentTask.DependencyList= DependencyTask;  
                 label.Background = Brushes.Transparent;
             }
             else
@@ -208,7 +208,14 @@ public partial class TaskWindow : Window
 
     private void Choose_Click(object sender, RoutedEventArgs e)
     {
-        //we don't need to do a double check if the mission is not occupide or fit because we already filtered it in the list
-
+        try
+        {
+            engineer.Task = new()
+            {
+                Id = CurrentTask.Id
+            };
+            s_bl.Engineer.Update(engineer);
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message); }
     }
 }

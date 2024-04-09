@@ -33,15 +33,17 @@ namespace PL.Task
             set { SetValue(TaskListProperty, value); }
         }
 
-        public bool _isManager {  get; set; }   
-        public TaskListWindow(bool isManager, BO.EngineerExperience engLevel=0)
+        private int _id { set; get; }
+        public bool _isManager { get; set; }
+        public TaskListWindow(bool isManager, BO.EngineerExperience engLevel = 0, int id = 0)
         {
+            _id = id;
             _isManager = isManager;
             InitializeComponent();
             if (_isManager)
                 TaskList = s_bl?.Task.ReadAll()!;
             else
-                TaskList = s_bl?.Task.ReadAll(tsk=>(BO.EngineerExperience)tsk.LevelOfDifficulty! <= engLevel)!;
+                TaskList = s_bl?.Task.ReadAll(tsk => (BO.EngineerExperience)tsk.LevelOfDifficulty! <= engLevel)!;
 
         }
         public BO.EngineerExperience Levels { get; set; } = BO.EngineerExperience.All;
@@ -50,7 +52,7 @@ namespace PL.Task
             if ((sender as ListView)?.SelectedItem is BO.Task tsk)
             {
                 //  MessageBox.Show(eng.EngineerId.ToString());
-                new TaskWindow(_isManager, tsk.Id).ShowDialog();
+                new TaskWindow(_isManager, tsk.Id,_id).ShowDialog();
                 TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll()!);//in order to show the updated list
             }
 

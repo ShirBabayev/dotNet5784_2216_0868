@@ -15,7 +15,7 @@ namespace BlImplementation;
 
 internal class EngineerImplementation : BlApi.IEngineer
 {
-    private DalApi.IDal _dal = Factory.Get;
+    private DalApi.IDal _dal = DalApi.Factory.Get;
 
     /********* CRUD functions **********/
 
@@ -66,9 +66,10 @@ internal class EngineerImplementation : BlApi.IEngineer
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
-        var task = (from t in _dal.Task.ReadAll()
-                        where IsCurrentTask(id, t.Id)
-                        select t).FirstOrDefault();
+        //var task = (from t in _dal.Task.ReadAll()
+        //                where IsCurrentTask(id, t.Id)
+        //                select t).FirstOrDefault();
+        DO.Task? task = _dal.Task.Read(t=> t.EngineerId == id && t.DateOfFinishing == null);
         return new BO.Engineer()
         {
             Id= id,
@@ -98,14 +99,20 @@ internal class EngineerImplementation : BlApi.IEngineer
              Cost: boEngineer.Cost);
         if (_dal.Task.ReadAll(tsk => tsk.EngineerId == boEngineer.Id).FirstOrDefault() != null)
                 throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task, can't update");//TODO: check if the task is a current task
-        
-        DO.Task task = (from DO.Task doTask in _dal.Task.ReadAll()
-                        let IsGoodForEng = CheckTaskForEngineer(boEngineer.Id, doTask.Id)
-                        where IsGoodForEng != null
-                        select doTask).FirstOrDefault()!;//returns a task that matches to the engineer
-        if (task != null)
-            if (task.EngineerId==0)//cheke that the task does'nt belong to another engineer
-                _dal.Task.Update(task with { EngineerId = boEngineer.Id });
+
+        //DO.Task task = (from DO.Task doTask in _dal.Task.ReadAll()
+        //                let IsGoodForEng = CheckTaskForEngineer(boEngineer.Id, doTask.Id)
+        //                where IsGoodForEng != null
+        //                select doTask).FirstOrDefault()!;//returns a task that matches to the engineer
+
+        if (boEngineer.Task is not null && boEngineer.Task.Id != 0)
+        {
+            DO.Task task = _dal.Task.Read(boEngineer.Task.Id)!;
+
+            if (task != null)
+                if (task.EngineerId is null)//cheke that the task does'nt belong to another engineer
+                    _dal.Task.Update(task with { EngineerId = boEngineer.Id });
+        }
         try
         {
             _dal.Engineer.Update(new_doEngineer);
