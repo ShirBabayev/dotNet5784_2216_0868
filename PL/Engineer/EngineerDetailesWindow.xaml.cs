@@ -53,7 +53,6 @@ namespace PL.Engineer
 
         private void TaskList_Click(object sender, RoutedEventArgs e)
         {
-  
             new TaskListWindow(false, CurrentEngineer.Level,CurrentEngineer.Id).Show();
         }
 

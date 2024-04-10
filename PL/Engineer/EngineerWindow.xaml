@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="EngineerWindow" Height="540" Width="800"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
-    <!--Extrnal Grid-->
     <Grid Margin="0,1,0,-1">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

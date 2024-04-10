@@ -8,12 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace PL.Task
 {
@@ -41,9 +36,9 @@ namespace PL.Task
             _isManager = isManager;
             InitializeComponent();
             if (_isManager)
-                TaskList = s_bl?.Task.ReadAll()!;
+                TaskList = s_bl?.Task.ReadAll().OrderBy(tsk => tsk.Id)!;
             else
-                TaskList = s_bl?.Task.ReadAll(tsk => (BO.EngineerExperience)tsk.LevelOfDifficulty! <= engLevel)!;
+                TaskList = s_bl?.Task.ReadAll(tsk => (BO.EngineerExperience)tsk.LevelOfDifficulty! <= engLevel).OrderBy(tsk => tsk.Id)!;
 
         }
         public BO.EngineerExperience Levels { get; set; } = BO.EngineerExperience.All;
@@ -51,9 +46,8 @@ namespace PL.Task
         {
             if ((sender as ListView)?.SelectedItem is BO.Task tsk)
             {
-                //  MessageBox.Show(eng.EngineerId.ToString());
                 new TaskWindow(_isManager, tsk.Id,_id).ShowDialog();
-                TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll()!);//in order to show the updated list
+                TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll().OrderBy(tsk => tsk.Id)!);//in order to show the updated list
             }
 
         }
@@ -61,7 +55,7 @@ namespace PL.Task
         private void btnAdd_Click(object sender, RoutedEventArgs e) 
         { 
             new TaskWindow(_isManager).Show();
-            TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll()!);//in order to show the updated list
+            TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll().OrderBy(tsk => tsk.Id)!);//in order to show the updated list
         }
 
         private void SelectionChange(object sender, SelectionChangedEventArgs e)

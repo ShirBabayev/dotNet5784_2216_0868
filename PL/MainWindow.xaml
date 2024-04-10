@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="530" Width="800">
-    <!--Extrnal Grid-->
     <Grid x:Name="___No_Name_">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

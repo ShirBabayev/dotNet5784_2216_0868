@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="IdentificationWindow" Height="410" Width="600">
-    <!--Extrnal Grid-->
+        Title="IdentificationWindow" Height="410" Width="600"
+    DataContext="{Binding RelativeSource={RelativeSource Mode = Self}}">
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -22,7 +23,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content="Id:" HorizontalAlignment="Left" Margin="147,124,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontFamily="Book Antiqua" Height="38" Width="37"/>
-        <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" KeyDown="InputTextBox_KeyDown" HorizontalAlignment="Left" Margin="189,128,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,3" />
+        <TextBox Text="{Binding Id}" KeyDown="InputTextBox_KeyDown" HorizontalAlignment="Left" Margin="189,128,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Height="30" FontSize="20" FontFamily="Book Antiqua" BorderBrush="#FF14A770" BorderThickness="0,0,0,3" />
         <Label Content="Enter your Id:" HorizontalAlignment="Left" Margin="140,57,0,0" VerticalAlignment="Top" Height="58" Width="460" FontSize="36" FontWeight="Bold" FontFamily="Book Antiqua" Grid.Row="1"/>
         <Button Content= "OK" HorizontalAlignment="Center" Margin="0,246,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="88" FontSize="24" Click="Confirmation_Click" FontFamily="Book Antiqua" Background="#FFB2FBC0" BorderBrush="#FF36AA8C" BorderThickness="2,2,2,2" Foreground="#DD000000"/>
     </Grid>

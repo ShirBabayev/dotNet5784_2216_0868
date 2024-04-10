@@ -11,15 +11,19 @@ namespace PL
     /// <summary>
     /// Interaction logic for IdentificationWindow.xaml
     /// </summary>
-    public partial class IdentificationWindow : Window, INotifyPropertyChanged
+    public partial class IdentificationWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        private string _id = "";
+        public string Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
         public IdentificationWindow()
         {
             InitializeComponent();
-            DataContext = this; // Set the DataContext to the current instance of IdentificationWindow
-
         }
 
         private void Confirmation_Click(object sender, RoutedEventArgs e)
@@ -49,29 +53,6 @@ namespace PL
             //{
             //    Confirmation_Click(sender, e);
             //}
-        }
-
-
-        private string _id = "";
-
-        public string Id
-        {
-            get { return _id; }
-            set
-            {
-                if (_id != value)
-                {
-                    _id = value;
-                    OnPropertyChanged(nameof(Id));
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
