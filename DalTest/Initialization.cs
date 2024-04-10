@@ -14,7 +14,7 @@ public static class Initialization
     private static IDal? s_dal;
     private static readonly Random s_rand = new();
 
-    public static void Reset()//TODO
+    public static void Reset()
     {
         s_dal = Factory.Get;
         XElement newIds = new XElement("config", 
@@ -26,12 +26,10 @@ public static class Initialization
         s_dal.Engineer.Reset();
         s_dal.Task.Reset();
         s_dal.Dependency.Reset(); 
-
     }
     static public void Do()
     {
         s_dal =Factory.Get;
-        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
         createEngineer();
         createTask();
         createDependency(s_dal.Task!.ReadAll().ToList());
@@ -130,18 +128,20 @@ public static class Initialization
         int i = 0;
         foreach (var _nickName in taskNicknames)
         {
-            DateTime _dateOfCreation =s_dal.Clock;
-            int range = (DateTime.Today - _dateOfCreation).Days;
+            DateTime _dateOfCreation =s_dal!.Clock;
             string _remarks = Remarks[i];
+            TimeSpan _durationOfTask = TimeSpan.FromDays(s_rand.Next(1, 13));
+            string _deliverables = " ";
+
+            //int range = (DateTime.Today - _dateOfCreation).Days+5;
             //DateTime _PlanedDateOfstratJob = _dateOfCreation.AddDays(s_rand.Next(range) / 5);
             //DateTime _dateOfstratJob = _PlanedDateOfstratJob.AddDays(s_rand.Next(10));
             ////DateTime _deadline = _PlanedDateOfstratJob.AddDays(s_rand.Next(10, 100));
             //DateTime _dateOfFinishing = _deadline.AddDays(s_rand.Next(-10, 0));
-            TimeSpan _durationOfTask = TimeSpan.FromDays(s_rand.Next(1, 11));
-            string _deliverables = " ";
             //int _engineerId = engineerList[s_rand.Next(engineerList.Count)].Id;
             //bool _mileStone = (_engineerId % 2) == 0 ? true : false;
-            EngineerExperience _levelOfDifficulty = (EngineerExperience)((int)(_durationOfTask.TotalDays) / 10);
+
+            EngineerExperience _levelOfDifficulty = (EngineerExperience)((int)(_durationOfTask.TotalDays) / 3);
             DO.Task newTask = new(Id: 0,
                                 NickName: _nickName,
                                 Description: taskDescriptions[i++],

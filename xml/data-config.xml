@@ -2,6 +2,6 @@
 <config>
   <startTaskId>1000</startTaskId>
   <startDependencyId>1000</startDependencyId>
-  <nextDependencyId>1045</nextDependencyId>
-  <nextTaskId>1021</nextTaskId>
+  <nextDependencyId>1046</nextDependencyId>
+  <nextTaskId>1022</nextTaskId>
 </config>

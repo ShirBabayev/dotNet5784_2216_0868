@@ -1,168 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>1001</Id>
-    <NickName>ProjectX</NickName>
-    <Description>Implement new features for ProjectX</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables />
-    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
-    <EngineerId xsi:nil="true" />
-    <Remarks>Incomplete - Needs additional work</Remarks>
-    <PlanedDateOfstratJob xsi:nil="true" />
-    <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P8D</DurationOfTask>
-    <DateOfFinishing xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>1002</Id>
-    <NickName>DataMigration</NickName>
-    <Description>Migrate data to the new database</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables />
-    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
-    <EngineerId xsi:nil="true" />
-    <Remarks>Requires expertise - Assign to a pro</Remarks>
-    <PlanedDateOfstratJob xsi:nil="true" />
-    <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P9D</DurationOfTask>
-    <DateOfFinishing xsi:nil="true" />
-  </Task>
-  <Task>
     <Id>1003</Id>
     <NickName>CodeRefactoring</NickName>
     <Description>Refactor and optimize existing codebase</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Critical - Consider deleting existing code</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P3D</DurationOfTask>
+    <DurationOfTask>P8D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1004</Id>
     <NickName>ClientMeeting</NickName>
     <Description>Conduct a meeting with the client to gather requirements</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
-    <LevelOfDifficulty>AdvancedBeginner</LevelOfDifficulty>
+    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>No specific remark at the moment</Remarks>
-    <PlanedDateOfstratJob xsi:nil="true" />
-    <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P10D</DurationOfTask>
-    <DateOfFinishing xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>1005</Id>
-    <NickName>BugFixing</NickName>
-    <Description>Fix reported bugs in the application</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables />
-    <LevelOfDifficulty>AdvancedBeginner</LevelOfDifficulty>
-    <EngineerId xsi:nil="true" />
-    <Remarks>Good enough for current requirements</Remarks>
-    <PlanedDateOfstratJob xsi:nil="true" />
-    <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P10D</DurationOfTask>
-    <DateOfFinishing xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>1006</Id>
-    <NickName>FeatureImplementation</NickName>
-    <Description>Implement a new feature requested by the client</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables />
-    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
-    <EngineerId xsi:nil="true" />
-    <Remarks>Revert to the previous program version</Remarks>
-    <PlanedDateOfstratJob xsi:nil="true" />
-    <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P9D</DurationOfTask>
-    <DateOfFinishing xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>1007</Id>
-    <NickName>TestingAutomation</NickName>
-    <Description>Automate testing for improved efficiency</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables />
-    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
-    <EngineerId xsi:nil="true" />
-    <Remarks>Requires immediate attention - Terrible state</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
     <DurationOfTask>P1D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
-    <Id>1008</Id>
-    <NickName>DatabaseOptimization</NickName>
-    <Description>Optimize the database for better performance</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <Id>1005</Id>
+    <NickName>BugFixing</NickName>
+    <Description>Fix reported bugs in the application</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
-    <Remarks>Underestimated complexity - Needs more resources</Remarks>
+    <Remarks>Good enough for current requirements</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P9D</DurationOfTask>
+    <DurationOfTask>P1D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
-    <Id>1009</Id>
-    <NickName>UIEnhancements</NickName>
-    <Description>Enhance the user interface of the application</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <Id>1007</Id>
+    <NickName>TestingAutomation</NickName>
+    <Description>Automate testing for improved efficiency</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
-    <Remarks>Unexpected issues - Investigate thoroughly</Remarks>
+    <Remarks>Requires immediate attention - Terrible state</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
     <DurationOfTask>P7D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
-    <Id>1010</Id>
-    <NickName>SecurityAudit</NickName>
-    <Description>Perform a security audit on the system</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <Id>1008</Id>
+    <NickName>DatabaseOptimization</NickName>
+    <Description>Optimize the database for better performance</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
-    <Remarks>Ready for deployment - Verify one last time</Remarks>
+    <Remarks>Underestimated complexity - Needs more resources</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask>P8D</DurationOfTask>
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1009</Id>
+    <NickName>UIEnhancements</NickName>
+    <Description>Enhance the user interface of the application</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
+    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
+    <EngineerId xsi:nil="true" />
+    <Remarks>Unexpected issues - Investigate thoroughly</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
     <DurationOfTask>P6D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
+    <Id>1010</Id>
+    <NickName>SecurityAudit</NickName>
+    <Description>Perform a security audit on the system</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
+    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
+    <EngineerId xsi:nil="true" />
+    <Remarks>Ready for deployment - Verify one last time</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask>P4D</DurationOfTask>
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
     <Id>1011</Id>
     <NickName>DocumentationUpdate</NickName>
     <Description>Update documentation for recent changes</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Unexpected challenges - Seek assistance</Remarks>
-    <PlanedDateOfstratJob xsi:nil="true" />
-    <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P9D</DurationOfTask>
-    <DateOfFinishing xsi:nil="true" />
-  </Task>
-  <Task>
-    <Id>1012</Id>
-    <NickName>ServerMaintenance</NickName>
-    <Description>Perform maintenance on the server infrastructure</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables />
-    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
-    <EngineerId xsi:nil="true" />
-    <Remarks>High priority - Address as soon as possible</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
     <DurationOfTask>P2D</DurationOfTask>
@@ -172,21 +116,21 @@
     <Id>1013</Id>
     <NickName>UserTraining</NickName>
     <Description>Conduct training sessions for end-users</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Revision needed - Check for logical errors</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P6D</DurationOfTask>
+    <DurationOfTask>P5D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1014</Id>
     <NickName>MobileAppIntegration</NickName>
     <Description>Integrate the mobile app with existing systems</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>AdvancedBeginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
@@ -200,84 +144,154 @@
     <Id>1015</Id>
     <NickName>CloudMigration</NickName>
     <Description>Migrate the application to the cloud</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
-    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
+    <LevelOfDifficulty>AdvancedBeginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Pending review - Await feedback from team</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P5D</DurationOfTask>
+    <DurationOfTask>P10D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1016</Id>
     <NickName>NetworkConfiguration</NickName>
     <Description>Configure network settings for improved connectivity</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Advanced skill required - Assign to senior developer</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P9D</DurationOfTask>
+    <DurationOfTask>P4D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1017</Id>
     <NickName>PerformanceAnalysis</NickName>
     <Description>Analyze and optimize system performance</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Potential for optimization - Evaluate for improvements</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P8D</DurationOfTask>
+    <DurationOfTask>P4D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1018</Id>
     <NickName>CodeReview</NickName>
     <Description>Review code changes submitted by team members</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>On hold - Wait for further instructions</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P3D</DurationOfTask>
+    <DurationOfTask>P5D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1019</Id>
     <NickName>SystemIntegration</NickName>
     <Description>Integrate multiple systems for seamless operation</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
     <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>User acceptance testing pending - Confirm with client</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
-    <DurationOfTask>P6D</DurationOfTask>
+    <DurationOfTask>P8D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
   <Task>
     <Id>1020</Id>
     <NickName>ReleaseManagement</NickName>
     <Description>Manage the release process for a new version</Description>
-    <DateOfCreation>2024-08-19T13:35:15.5694864+03:00</DateOfCreation>
-    <Deliverables> </Deliverables>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
     <LevelOfDifficulty>Beginner</LevelOfDifficulty>
     <EngineerId xsi:nil="true" />
     <Remarks>Stable - No immediate action required</Remarks>
     <PlanedDateOfstratJob xsi:nil="true" />
     <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask>P5D</DurationOfTask>
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1001</Id>
+    <NickName>ProjectX</NickName>
+    <Description>Implement new features for ProjectX</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
+    <LevelOfDifficulty>Advanced</LevelOfDifficulty>
+    <EngineerId xsi:nil="true" />
+    <Remarks>Incomplete - Needs additional work</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask>P5D</DurationOfTask>
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1021</Id>
+    <NickName>111</NickName>
+    <Description>222</Description>
+    <DateOfCreation>2024-04-09T14:37:08.662005+03:00</DateOfCreation>
+    <Deliverables>8565</Deliverables>
+    <LevelOfDifficulty>Expert</LevelOfDifficulty>
+    <EngineerId xsi:nil="true" />
+    <Remarks>211</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask xsi:nil="true" />
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1006</Id>
+    <NickName>FeatureImplementation</NickName>
+    <Description>Implement a new feature requested by the client</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
+    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
+    <EngineerId>326320868</EngineerId>
+    <Remarks>Revert to the previous program version</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
     <DurationOfTask>P9D</DurationOfTask>
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1012</Id>
+    <NickName>ServerMaintenance</NickName>
+    <Description>Perform maintenance on the server infrastructure</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
+    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
+    <EngineerId xsi:nil="true" />
+    <Remarks>High priority - Address as soon as possible</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask>P1D</DurationOfTask>
+    <DateOfFinishing xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>1002</Id>
+    <NickName>DataMigration</NickName>
+    <Description>Migrate data to the new database</Description>
+    <DateOfCreation>2024-04-09T14:26:52.6425817+03:00</DateOfCreation>
+    <Deliverables />
+    <LevelOfDifficulty>Beginner</LevelOfDifficulty>
+    <EngineerId xsi:nil="true" />
+    <Remarks>Requires expertise - Assign to a pro</Remarks>
+    <PlanedDateOfstratJob xsi:nil="true" />
+    <DateOfstratJob xsi:nil="true" />
+    <DurationOfTask>P8D</DurationOfTask>
     <DateOfFinishing xsi:nil="true" />
   </Task>
 </ArrayOfTask>

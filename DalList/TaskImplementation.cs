@@ -15,7 +15,7 @@ internal class TaskImplementation : ITask
 
     public void Delete(int id)
     {
-        Task item = DataSource.Tasks.Find(lk => lk.Id == id)
+        Task item = DataSource.Tasks.Find(tsk => tsk.Id == id)
           ?? throw new DalDoesNotExistException($"Task with ID={id} does not exists");
         DataSource.Tasks.Remove(item);
     }
@@ -37,7 +37,7 @@ internal class TaskImplementation : ITask
 
     public void Update(Task item)
     {
-        Task itemToUpdate = DataSource.Tasks.Find(lk => lk.Id == item.Id)
+        Task itemToUpdate = DataSource.Tasks.Find(tsk => tsk.Id == item.Id)
            ?? throw new DalDoesNotExistException($"Task with ID= {item.Id} does not exists");
         DataSource.Tasks.Remove(itemToUpdate);
         DataSource.Tasks.Add(item);

@@ -45,7 +45,6 @@ internal class DependencyImplementation : IDependency
         XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependency_xml);
         XElement dependencyItem = dependencies.Elements().FirstOrDefault(dependency => (int?)dependency.Element("Id") == id)!
             ?? throw new DalDoesNotExistException($"Dependency with ID={id} does not exists");
-        //souldn't i do something like dependencies.remove(dependencyItem)   ??
         dependencyItem.Remove();
         XMLTools.SaveListToXMLElement(dependencies, s_dependency_xml);
     }
@@ -84,7 +83,5 @@ internal class DependencyImplementation : IDependency
     {
         List<DO.Dependency> emptyList = new List<DO.Dependency>();
         XMLTools.SaveListToXMLSerializer(emptyList, s_dependency_xml);
-        //XElement root = new XElement("ArrayOfDependencies");
-        //XMLTools.SaveListToXMLElement(root, s_dependency_xml);
     }
 }

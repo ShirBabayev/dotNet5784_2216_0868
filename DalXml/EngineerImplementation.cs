@@ -13,7 +13,7 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
-        Engineer itemForChecking = engineers.Find(lk => lk.Id == item.Id)!;
+        Engineer itemForChecking = engineers.Find(eng => eng.Id == item.Id)!;
         if (itemForChecking != null) throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         engineers.Add(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
@@ -23,7 +23,7 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
-        Engineer item = engineers.Find(lk => lk.Id == id)
+        Engineer item = engineers.Find(eng => eng.Id == id)
             ?? throw new DalDoesNotExistException($"Engineer with ID={id} does not exists");
         engineers.Remove(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineer_xml);//Serialize
@@ -52,7 +52,7 @@ internal class EngineerImplementation : IEngineer
     public void Update(Engineer item)
     {
         List<DO.Engineer> engineers = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);//Deserialize
-        Engineer itemToUpdate = engineers.Find(lk => lk.Id == item.Id)
+        Engineer itemToUpdate = engineers.Find(eng => eng.Id == item.Id)
            ?? throw new DalDoesNotExistException($"Engineer with ID= {item.Id} does not exists");
         engineers.Remove(itemToUpdate);
         engineers.Add(item);
@@ -62,8 +62,6 @@ internal class EngineerImplementation : IEngineer
     {
         List<DO.Engineer> emptyList = new List<DO.Engineer>();
         XMLTools.SaveListToXMLSerializer(emptyList, s_engineer_xml);
-        //XElement root = new XElement("ArrayOfEngineers");
-        //XMLTools.SaveListToXMLElement(root, s_engineer_xml);
     }
 
 }

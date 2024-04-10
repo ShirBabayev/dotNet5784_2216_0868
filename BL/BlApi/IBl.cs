@@ -7,6 +7,6 @@ public interface IBl
     public IEngineer Engineer { get; }
     public ITask Task { get; }
     public DateTime Clock { get; set; }
-
-
+    public DateTime? InitDate { get; set; }
+    public DateTime? EndDate { get; set; }
 }

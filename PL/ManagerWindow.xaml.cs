@@ -50,8 +50,9 @@ namespace PL
 
         }
 
-        private void BtnTaskClick(object sender, RoutedEventArgs e)=>new TaskListWindow(true).Show();
+        private void BtnTaskClick(object sender, RoutedEventArgs e) => new TaskListWindow(true).Show();
 
+        private void OpenGantt(object sender, RoutedEventArgs e) => new GantWindow().Show();
     }
 }
 

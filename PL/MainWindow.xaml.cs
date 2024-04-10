@@ -60,7 +60,7 @@ namespace PL
             base.OnClosing(e);
         }
 
-        private void BtnEngineerDetailesWindow_Click(object sender, RoutedEventArgs e)
+        private void BtnIdentificationWindow_Click(object sender, RoutedEventArgs e)
         {
             new IdentificationWindow().Show();
         }

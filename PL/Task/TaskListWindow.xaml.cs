@@ -58,7 +58,11 @@ namespace PL.Task
 
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e) { new TaskWindow(_isManager).Show(); }
+        private void btnAdd_Click(object sender, RoutedEventArgs e) 
+        { 
+            new TaskWindow(_isManager).Show();
+            TaskList = new ObservableCollection<BO.Task>(s_bl?.Task.ReadAll()!);//in order to show the updated list
+        }
 
         private void SelectionChange(object sender, SelectionChangedEventArgs e)
         {

@@ -30,7 +30,7 @@
         </StackPanel>
         <!-- when clicking this button you will move to the Manager window-->
         <Button Content="MANAGER" HorizontalAlignment="Left" Margin="150,280,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnManagerWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
-        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,280,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineerDetailesWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
-        <Label Content="Please select your role: " HorizontalAlignment="Center" Margin="0,66,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="324" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
+        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="400,280,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnIdentificationWindow_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+        <Label Content="Please select your role: " HorizontalAlignment="Center" Margin="0,65,0,0" Grid.Row="1" VerticalAlignment="Top" Height="64" Width="440" FontSize="40" FontWeight="Bold" FontFamily="Book Antiqua"/>
     </Grid>
 </Window>

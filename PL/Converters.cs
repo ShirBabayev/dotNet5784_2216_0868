@@ -1,9 +1,11 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
 namespace PL;
+
 
 class ConvertIdToContent : IValueConverter
 {
@@ -34,10 +36,33 @@ class ConvertDependencyToColor : IMultiValueConverter
             return Brushes.Transparent;
         }
         catch { }
-        return Brushes.Transparent; 
+        return Brushes.Transparent;
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+class ConvertStartOffset : IValueConverter
+{
+    private readonly IBl s_bl = Factory.Get();
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        try
+        {
+            DateTime? initDate = s_bl.InitDate;
+            if (initDate is null)
+                return 0;
+            BO.Task task = (BO.Task)value;
+            return (int)(task.PlanedDateOfstratJob - s_bl.InitDate)!.Value.TotalHours;
+        }
+        catch { }
+        return 0;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

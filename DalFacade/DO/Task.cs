@@ -19,14 +19,13 @@
 /// <param name="DateOfFinishing"> When an engineer reports that he has finished working on the task </param>
 public record Task
 (
-    int Id,///running identifier add something
+    int Id,///running identifier
     string NickName,
     string Description,
-    //bool MileStone = false,
     DateTime DateOfCreation,
     string? Deliverables = null,//products
     EngineerExperience? LevelOfDifficulty = null,
-    int? EngineerId = null,
+    int? EngineerId = null,//the engineer who's set on this task
     string? Remarks = null,
     DateTime? PlanedDateOfstratJob = null,
     DateTime? DateOfstratJob = null,
@@ -35,5 +34,5 @@ public record Task
     DateTime? DateOfFinishing = null
 )
 {
-    public Task() : this(0, "", "", DateTime.Now) { } //empty ctor for stage 3
+    public Task() : this(0, "", "", DateTime.Now) { } //empty ctor
 }

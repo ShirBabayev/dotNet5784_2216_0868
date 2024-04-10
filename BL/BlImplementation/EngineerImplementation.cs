@@ -57,7 +57,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Engineer with ID={id} does Not exist", ex);
+            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist", ex);
         }
     }
 
@@ -66,9 +66,6 @@ internal class EngineerImplementation : BlApi.IEngineer
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
-        //var task = (from t in _dal.Task.ReadAll()
-        //                where IsCurrentTask(id, t.Id)
-        //                select t).FirstOrDefault();
         DO.Task? task = _dal.Task.Read(t=> t.EngineerId == id && t.DateOfFinishing == null);
         return new BO.Engineer()
         {
@@ -97,21 +94,15 @@ internal class EngineerImplementation : BlApi.IEngineer
              Email: boEngineer.Email,
              Level: (DO.EngineerExperience)boEngineer.Level,
              Cost: boEngineer.Cost);
-        if (_dal.Task.ReadAll(tsk => tsk.EngineerId == boEngineer.Id).FirstOrDefault() != null)
-                throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task, can't update");//TODO: check if the task is a current task
-
-        //DO.Task task = (from DO.Task doTask in _dal.Task.ReadAll()
-        //                let IsGoodForEng = CheckTaskForEngineer(boEngineer.Id, doTask.Id)
-        //                where IsGoodForEng != null
-        //                select doTask).FirstOrDefault()!;//returns a task that matches to the engineer
-
-        if (boEngineer.Task is not null && boEngineer.Task.Id != 0)
+        if (_dal.Task.ReadAll(tsk => tsk.EngineerId == boEngineer.Id&&tsk.DateOfFinishing==null&& tsk.EngineerId!=boEngineer.Task.Id).FirstOrDefault() != null)//find the task that this engineer is working on and it is not the new task 
+                throw new BlCantSetValue($"Engineer with id: {boEngineer.Id} already has a task, can't update");// check if the task is a current task
+        if (boEngineer.Task is not null && boEngineer.Task.Id != 0)//if the engineer has a new task
         {
-            DO.Task task = _dal.Task.Read(boEngineer.Task.Id)!;
+            DO.Task task = _dal.Task.Read(boEngineer.Task.Id)!;//read the engineer's task
 
-            if (task != null)
-                if (task.EngineerId is null)//cheke that the task does'nt belong to another engineer
-                    _dal.Task.Update(task with { EngineerId = boEngineer.Id });
+            if (task != null)//if the task is not null
+                if (task.EngineerId is null)//cheke if the task does'nt belong to another engineer
+                    _dal.Task.Update(task with { EngineerId = boEngineer.Id });//make this engineer to be the eng of this task
         }
         try
         {
@@ -133,7 +124,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         DO.Task task = _dal.Task.Read(taskId)!;
         if (task.EngineerId == engId
-            && task.DateOfstratJob != null
+           // && task.DateOfstratJob != null
             && task.DateOfFinishing == null)
             return true;
         return false;

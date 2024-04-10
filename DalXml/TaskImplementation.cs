@@ -49,7 +49,7 @@ internal class TaskImplementation: ITask
     public void Delete(int id)
     {
         List<DO.Task> tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task_xml);//Deserialize
-        Task item = tasks.Find(lk => lk.Id == id)
+        Task item = tasks.Find(tsk => tsk.Id == id)
           ?? throw new DalDoesNotExistException($"Task with ID={id} does not exists");
         tasks.Remove(item);
         XMLTools.SaveListToXMLSerializer(tasks, s_task_xml);//Serialize
@@ -77,7 +77,7 @@ internal class TaskImplementation: ITask
     public void Update(Task item)
     {
         List<DO.Task> tasks = XMLTools.LoadListFromXMLSerializer<DO.Task>(s_task_xml);//Deserialize
-        Task itemToUpdate = tasks.Find(lk => lk.Id == item.Id)
+        Task itemToUpdate = tasks.Find(tsk => tsk.Id == item.Id)
            ?? throw new DalDoesNotExistException($"Task with ID= {item.Id} does not exists");
         tasks.Remove(itemToUpdate);
         tasks.Add(item);

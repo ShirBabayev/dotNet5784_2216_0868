@@ -10,9 +10,10 @@ namespace Dal;
 
 sealed internal class DalXml : IDal
 {
-/////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////
 
-    public DateTime? InitDate { get => null; set => InitDate=value; }
+    public DateTime? InitDate { get; set;}
+
     public DateTime? EndDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     public DateTime Clock { get; set; } = DateTime.Now;
 

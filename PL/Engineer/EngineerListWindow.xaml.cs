@@ -53,14 +53,11 @@ namespace PL.Engineer
         }
         private void ListView_DoubleClick(object sender, SelectionChangedEventArgs e)
         {
-            
             if ((sender as ListView)?.SelectedItem is BO.EngineerInTask eng)
             {
-              //  MessageBox.Show(eng.EngineerId.ToString());
                 new EngineerWindow(eng.EngineerId).ShowDialog();
                 EngineerList = new ObservableCollection<BO.EngineerInTask>(s_bl?.Engineer.ReadAll()!);//in order to show the updated list
             }
-                //new EngineerWindow().Show();
         }
     }
 }

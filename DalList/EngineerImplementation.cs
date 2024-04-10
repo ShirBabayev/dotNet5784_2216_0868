@@ -8,7 +8,7 @@ internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
-        Engineer itemForChecking = DataSource.Engineers.Find(lk => lk.Id == item.Id)!;
+        Engineer itemForChecking = DataSource.Engineers.Find(eng => eng.Id == item.Id)!;
         if (itemForChecking != null) throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
@@ -16,7 +16,7 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        Engineer item = DataSource.Engineers.Find(lk => lk.Id == id)
+        Engineer item = DataSource.Engineers.Find(eng => eng.Id == id)
             ?? throw new DalDoesNotExistException($"Engineer with ID={id} does not exists");
              DataSource.Engineers.Remove(item);
     }
@@ -36,7 +36,7 @@ internal class EngineerImplementation : IEngineer
     }
     public void Update(Engineer item)
     {
-        Engineer itemToUpdate = DataSource.Engineers.Find(lk => lk.Id == item.Id)
+        Engineer itemToUpdate = DataSource.Engineers.Find(eng => eng.Id == item.Id)
             ?? throw new DalDoesNotExistException($"Engineer with ID= {item.Id} does not exists");
         DataSource.Engineers.Remove(itemToUpdate);
         DataSource.Engineers.Add(item);

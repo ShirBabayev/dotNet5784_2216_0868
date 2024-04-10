@@ -9,7 +9,7 @@ public class Engineer
     public string? Email { get; set; }
     public  EngineerExperience Level { get; set; }
     public double Cost { get; set; }
-    public TaskInEngineer? Task{ get; set; }  // public override string? ToString() => this.ToStringProperty();
+    public TaskInEngineer? Task{ get; set; } 
     public override string ToString()
     {
         string? tskString = null;
@@ -18,7 +18,9 @@ public class Engineer
             tskString = " Engineer's current task id= " + Task.Id;
             if (Task.Id == 0) { tskString = "No current task"; }
         }
-        
+        else tskString = "No current task";
+
+
         return "Engineer id= " + Id +
                             "\nEngineer name= " + Name +
                             "\nEngineer's level= " + Level +

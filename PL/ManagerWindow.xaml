@@ -23,10 +23,12 @@
         <Grid/>
 
         <!-- when clicking this button you will move to the engineer list window-->
-        <Button Content="Handle Tasks" HorizontalAlignment="Left" Margin="47,252,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnTaskClick" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
-        <Button Content="Handle Engineers" HorizontalAlignment="Left" Margin="47,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnEngineers_Click" Height="50" Width="230" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+        <Button Content=" Watch Gantt" HorizontalAlignment="Left" Margin="63,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="OpenGantt" Height="50" Width="209" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
+
+        <Button Content="Handle Tasks" HorizontalAlignment="Left" Margin="413,32,0,0" VerticalAlignment="Top" Click="BtnTaskClick" Height="50" Width="194" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000" Grid.RowSpan="2"/>
+        <Button Content="Handle Engineers" HorizontalAlignment="Left" Margin="168,32,0,0" VerticalAlignment="Top" Click="BtnEngineers_Click" Height="50" Width="230" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000" Grid.RowSpan="2"/>
         <Button Content="Initialize" HorizontalAlignment="Left" Margin="294,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="InitializeDatabase_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
         <Button Content="Reset" HorizontalAlignment="Right" Margin="0,322,41,0" Grid.Row="1" VerticalAlignment="Top" Click="ResetDatabase_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderThickness="3,3,3,3" BorderBrush="#FF36AA8C" Foreground="#DD000000"/>
-        <Label Content="Hello, let's start working on our project! &#xD;&#xA;     Choose the action you want to do" HorizontalAlignment="Center" Margin="0,66,0,0" Grid.Row="1" VerticalAlignment="Top" Height="149" Width="582" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
+        <Label Content="Hello, let's start working on our project! &#xD;&#xA;     Choose the action you want to do" HorizontalAlignment="Center" Margin="0,90,0,0" Grid.Row="1" VerticalAlignment="Top" Height="149" Width="582" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
     </Grid>
 </Window>

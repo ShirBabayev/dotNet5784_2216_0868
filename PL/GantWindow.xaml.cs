@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlApi;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+
+/// <summary>
+/// Interaction logic for GantWindow.xaml
+/// </summary>
+public partial class GantWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for GantWindow.xaml
-    /// </summary>
-    public partial class GantWindow : Window
+    private readonly IBl s_bl = Factory.Get();
+    public IEnumerable<BO.Task> Tasks { get; set; }
+    public GantWindow()
     {
-        public GantWindow()
-        {
-            InitializeComponent();
-        }
+        Tasks = s_bl.Task.ReadAll();
+        InitializeComponent();
     }
 }

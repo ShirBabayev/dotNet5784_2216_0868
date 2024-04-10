@@ -1,19 +1,6 @@
 ﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Engineer
 {
@@ -66,6 +53,10 @@ namespace PL.Engineer
                 {
                     MessageBox.Show("Ho no! There is already an Engineer with the same Id, can not add this one again ", "Engineer Exists", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
                 try
@@ -86,7 +77,10 @@ namespace PL.Engineer
                 {
                     MessageBox.Show("This Engineer has a current task, so you can't change his details right now, this Engineer is not Updated.", "Engineer Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
         }
-    
     }
 }

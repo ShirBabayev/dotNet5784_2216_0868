@@ -164,12 +164,14 @@ public partial class TaskWindow : Window
             {
                 MessageBox.Show("This Task has a current Engineerr, so you can't change his details right now, this Task is not Updated.", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (BO.BlIncorrectDateOrder)
+            catch (BO.BlIncorrectDateOrder ex)
             {
-                if (CurrentTask.PlanedDateOfstratJob == null)
-                    MessageBox.Show("The planed start date of this task is invalid", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
-                else
-                    MessageBox.Show("The project has already started, can't update the task", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                //if (CurrentTask.PlanedDateOfstratJob == null)
+                //    MessageBox.Show("The planed start date of this task is invalid", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
+                //else
+                //    MessageBox.Show("The project has already started, can't update the task", "Task Can't be Updated", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -199,8 +201,8 @@ public partial class TaskWindow : Window
             else
             {
                 TaskInList t = (TaskInList)label.Content;
-                CurrentTask.DependencyList!.ToList().Add(t);
                 DependencyTask.Add(t);
+                CurrentTask.DependencyList = DependencyTask;
                 label.Background = Brushes.LightGreen;
             }
         }

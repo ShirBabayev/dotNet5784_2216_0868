@@ -12,4 +12,16 @@ internal class Bl : IBl
         get => dal.Clock;
         set => dal.Clock = value;
     }
+
+    public DateTime? InitDate
+    {
+        get => dal.InitDate;
+        set => dal.InitDate = value;
+    }
+    public DateTime? EndDate
+    {
+        get => dal.EndDate;
+        set => dal.EndDate = value;
+    }
+
 }

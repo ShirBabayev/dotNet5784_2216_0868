@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDependency xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <dependency>
-    <Id>1001</Id>
-    <DependentTaskId>1001</DependentTaskId>
-    <DependentOnTaskId>1003</DependentOnTaskId>
-  </dependency>
-  <dependency>
     <Id>1002</Id>
     <DependentTaskId>1002</DependentTaskId>
     <DependentOnTaskId>1003</DependentOnTaskId>
@@ -146,21 +141,6 @@
     <DependentOnTaskId>1014</DependentOnTaskId>
   </dependency>
   <dependency>
-    <Id>1030</Id>
-    <DependentTaskId>1012</DependentTaskId>
-    <DependentOnTaskId>1013</DependentOnTaskId>
-  </dependency>
-  <dependency>
-    <Id>1031</Id>
-    <DependentTaskId>1012</DependentTaskId>
-    <DependentOnTaskId>1014</DependentOnTaskId>
-  </dependency>
-  <dependency>
-    <Id>1032</Id>
-    <DependentTaskId>1012</DependentTaskId>
-    <DependentOnTaskId>1015</DependentOnTaskId>
-  </dependency>
-  <dependency>
     <Id>1033</Id>
     <DependentTaskId>1013</DependentTaskId>
     <DependentOnTaskId>1014</DependentOnTaskId>
@@ -219,5 +199,10 @@
     <Id>1044</Id>
     <DependentTaskId>1016</DependentTaskId>
     <DependentOnTaskId>1019</DependentOnTaskId>
+  </dependency>
+  <dependency>
+    <Id>1045</Id>
+    <DependentTaskId>1002</DependentTaskId>
+    <DependentOnTaskId>1004</DependentOnTaskId>
   </dependency>
 </ArrayOfDependency>
