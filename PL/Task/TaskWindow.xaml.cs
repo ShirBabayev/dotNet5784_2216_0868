@@ -54,7 +54,7 @@ public partial class TaskWindow : Window
     public ObservableCollection<TaskInList> DependencyTask = new ObservableCollection<TaskInList>();
 
 
-    private BO.Engineer engineer { set; get; }
+    private BO.Engineer? engineer { set; get; }
     public TaskWindow(bool isManager, int TaskId = 0, int engineerid = 0)
     {
         if (engineerid != 0)
@@ -212,7 +212,7 @@ public partial class TaskWindow : Window
     {
         try
         {
-            engineer.Task = new()
+            engineer!.Task = new()
             {
                 Id = CurrentTask.Id
             };

@@ -29,5 +29,6 @@
         <Button Content="Initialize" HorizontalAlignment="Left" Margin="294,322,0,0" Grid.Row="1" VerticalAlignment="Top" Click="InitializeDatabase_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
         <Button Content="Reset" HorizontalAlignment="Right" Margin="0,322,41,0" Grid.Row="1" VerticalAlignment="Top" Click="ResetDatabase_Click" Height="50" Width="220" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderThickness="3,3,3,3" BorderBrush="#FF36AA8C" Foreground="#DD000000"/>
         <Label Content="Hello, let's start working on our project! &#xD;&#xA;     Choose the action you want to do" HorizontalAlignment="Center" Margin="0,90,0,0" Grid.Row="1" VerticalAlignment="Top" Height="149" Width="582" FontSize="30" FontWeight="Bold" FontFamily="Book Antiqua"/>
+        <Button Content="Start Project" HorizontalAlignment="Center" Margin="0,201,0,0" Grid.Row="1" VerticalAlignment="Top" Click="StartProject_click" Height="50" Width="208" FontSize="25" FontFamily="Book Antiqua" Background="#FF90FFA5" BorderBrush="#FF36AA8C" BorderThickness="3,3,3,3" Foreground="#DD000000"/>
     </Grid>
 </Window>

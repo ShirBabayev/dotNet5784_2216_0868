@@ -53,6 +53,11 @@ namespace PL
         private void BtnTaskClick(object sender, RoutedEventArgs e) => new TaskListWindow(true).Show();
 
         private void OpenGantt(object sender, RoutedEventArgs e) => new GantWindow().Show();
+        private void StartProject_click(object sender, RoutedEventArgs e)
+        {
+            BlApi.Factory.Get().InitDate = BlApi.Factory.Get().Clock;
+            MessageBox.Show("The Project has started", "Init Date", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }
 
